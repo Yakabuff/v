@@ -149,7 +149,7 @@ public class ModuleSpam extends ModuleBase {
   		  
   		  if (index >= messages.size()) {
   			  index = 0;
-  			  System.out.println("INDEX HAS BEEN RESET NIGGA!!!!!");
+  			  System.out.println("The Index has been reset.");
   		  }
   		  
   		  if(messages.get(index).length() <= 100) {
