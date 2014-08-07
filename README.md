@@ -7,4 +7,15 @@ The name is derived from it's initial name, Vapid. However, that name was unfitt
 
 building
 =======
-Vapid is currently using [MCP 903](http://vclient.org/mcp/903.zip). This repository should be pulled into the `src` directory of your MCP 903 installation. 
+
+Vapid is currently using [MCP 903](http://vclient.org/mcp/903.zip). This repository should be pulled into the `src/minecraft` directory of your MCP 903 installation. 
+
+You can generate the class files with MCPs `./recompile.sh` and `./reobfuscate.sh`, or you can export the JAR with Eclipse:
+
+1. File > Export...
+2. Select _Runnable JAR File_ under Java
+3. Select _Client - Client_ under Launch Configuration
+4. Choose destination JAR file
+5. Select _Copy required libraries into sub-folder..._
+6. Finish
+
