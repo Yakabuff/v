@@ -1,11 +1,9 @@
 package net.minecraft.client.network;
 
 import com.google.common.base.Charsets;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.util.concurrent.GenericFutureListener;
-
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -16,11 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Map.Entry;
-
-import me.pyr0byte.vapid.StaticVapid;
-import me.pyr0byte.vapid.events.ChatReceivedEvent;
-import me.pyr0byte.vapid.events.PlayerLogOffEvent;
-import me.pyr0byte.vapid.events.PlayerLogOnEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
@@ -195,9 +188,12 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.MapStorage;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+/* WDL >>> */
+import net.minecraft.wdl.WDL;
+/* <<< WDL */
 
 public class NetHandlerPlayClient implements INetHandlerPlayClient
 {
@@ -283,8 +279,6 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
     public void handleJoinGame(S01PacketJoinGame p_147282_1_)
     {
         this.gameController.playerController = new PlayerControllerMP(this.gameController, this);
-        this.gameController.botController = new PlayerControllerMP(this.gameController, this);
-      
         this.clientWorldController = new WorldClient(this, new WorldSettings(0L, p_147282_1_.func_149198_e(), false, p_147282_1_.func_149195_d(), p_147282_1_.func_149196_i()), p_147282_1_.func_149194_f(), p_147282_1_.func_149192_g(), this.gameController.mcProfiler);
         this.clientWorldController.isClient = true;
         this.gameController.loadWorld(this.clientWorldController);
@@ -742,6 +736,22 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
      */
     public void handleDisconnect(S40PacketDisconnect p_147253_1_)
     {
+        /* WDL >>> */
+        if (WDL.downloading)
+        {
+            WDL.stop();
+
+            try
+            {
+                Thread.sleep(2000L);
+            }
+            catch (Exception var3)
+            {
+                ;
+            }
+        }
+        /* <<< WDL */
+        
         this.netManager.closeChannel(p_147253_1_.func_149165_c());
     }
 
@@ -750,6 +760,21 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
      */
     public void onDisconnect(IChatComponent p_147231_1_)
     {
+        /* WDL >>> */
+        if (WDL.downloading)
+        {
+            WDL.stop();
+
+            try
+            {
+                Thread.sleep(2000L);
+            }
+            catch (Exception var3)
+            {
+                ;
+            }
+        }
+        /* <<< WDL */
         this.gameController.loadWorld((WorldClient)null);
 
         if (this.guiScreenServer != null)
@@ -798,11 +823,11 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
      */
     public void handleChat(S02PacketChat p_147251_1_)
     {
-    	//VAPID
-    	String str = p_147251_1_.func_148915_c().getUnformattedText();
-	   	if(StaticVapid.vapid.events.onEvent(new ChatReceivedEvent(str)))
-			return;
-    	
+        /* WDL >>> */
+        String var2 = p_147251_1_.func_148915_c().getFormattedText();
+        WDL.handleServerSeedMessage(var2);
+        /* <<< WDL */
+
         this.gameController.ingameGUI.getChatGUI().func_146227_a(p_147251_1_.func_148915_c());
     }
 
@@ -1535,17 +1560,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             var2 = new GuiPlayerInfo(p_147256_1_.func_149122_c());
             this.playerInfoMap.put(p_147256_1_.func_149122_c(), var2);
             this.playerInfoList.add(var2);
-            
-            //VAPID
-            StaticVapid.vapid.events.onEvent(new PlayerLogOnEvent(p_147256_1_.func_149122_c()));
         }
 
         if (var2 != null && !p_147256_1_.func_149121_d())
         {
-        	
-        	//VAPID
-        	StaticVapid.vapid.events.onEvent(new PlayerLogOffEvent(p_147256_1_.func_149122_c()));
-        	
             this.playerInfoMap.remove(p_147256_1_.func_149122_c());
             this.playerInfoList.remove(var2);
         }

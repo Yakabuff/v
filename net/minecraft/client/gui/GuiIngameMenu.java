@@ -5,6 +5,11 @@ import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.resources.I18n;
 
+/* WDL >>> */
+import net.minecraft.wdl.GuiWDL;
+import net.minecraft.wdl.WDL;
+/* <<< WDL */
+
 public class GuiIngameMenu extends GuiScreen
 {
     private int field_146445_a;
@@ -34,6 +39,26 @@ public class GuiIngameMenu extends GuiScreen
         this.buttonList.add(new GuiButton(5, this.width / 2 - 100, this.height / 4 + 48 + var1, 98, 20, I18n.format("gui.achievements", new Object[0])));
         this.buttonList.add(new GuiButton(6, this.width / 2 + 2, this.height / 4 + 48 + var1, 98, 20, I18n.format("gui.stats", new Object[0])));
         var3.enabled = this.mc.isSingleplayer() && !this.mc.getIntegratedServer().getPublic();
+
+        /* WDL >>> */
+        // This code adds the start, stop and options buttons to the menu:
+        if (!this.mc.isIntegratedServerRunning()) // If connected to a real server
+        {
+            GuiButton wdlDownload = new GuiButton(50, this.width / 2 - 100, this.height / 4 + 72 + var1, 170, 20, "WDL bug!");
+            wdlDownload.displayString = (WDL.downloading ? (WDL.saving ? "Still saving..." : "Stop download") : "Download this world");
+            this.buttonList.add(wdlDownload);
+            wdlDownload.enabled = (!WDL.downloading || (WDL.downloading && !WDL.saving));
+            GuiButton wdlOptions = new GuiButton(51, this.width / 2 + 71, this.height / 4 + 72 + var1, 28, 20, "...");
+            this.buttonList.add(wdlOptions);
+            wdlOptions.enabled = (!WDL.downloading || (WDL.downloading && !WDL.saving));
+            ((GuiButton)this.buttonList.get(0)).field_146129_i = this.height / 4 + 144 + var1;
+            ((GuiButton)this.buttonList.get(2)).field_146129_i = this.height / 4 + 120 + var1;
+            ((GuiButton)this.buttonList.get(3)).field_146129_i = this.height / 4 + 120 + var1;
+        }
+        /* <<< WDL */
+
+
+
     }
 
     protected void actionPerformed(GuiButton p_146284_1_)
@@ -46,6 +71,11 @@ public class GuiIngameMenu extends GuiScreen
 
             case 1:
                 p_146284_1_.enabled = false;
+                
+                /* WDL >>> */
+                WDL.stop();
+                /* <<< WDL */
+                
                 this.mc.theWorld.sendQuittingDisconnectingPacket();
                 this.mc.loadWorld((WorldClient)null);
                 this.mc.displayGuiScreen(new GuiMainMenu());
@@ -70,6 +100,30 @@ public class GuiIngameMenu extends GuiScreen
 
             case 7:
                 this.mc.displayGuiScreen(new GuiShareToLan(this));
+
+
+            /* WDL >>> */
+                break;
+                
+            case 50:
+                if (WDL.downloading)
+                {
+                    WDL.stop();
+                }
+                else
+                {
+                    WDL.start();
+                }
+
+                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.setIngameFocus();
+                break;
+
+            case 51:
+                this.mc.displayGuiScreen(new GuiWDL(this));
+                break;
+            /* <<< WDL */
+
         }
     }
 

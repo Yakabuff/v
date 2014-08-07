@@ -5,10 +5,6 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Callable;
-
-import me.pyr0byte.vapid.StaticVapid;
-import me.pyr0byte.vapid.events.PlayerEnterVisualRangeEvent;
-import me.pyr0byte.vapid.events.PlayerLeaveVisualRangeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -21,7 +17,6 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.scoreboard.Scoreboard;
@@ -36,6 +31,28 @@ import net.minecraft.world.WorldSettings;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.storage.SaveHandlerMP;
+
+/* WDL >>> */
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.item.EntityBoat;
+import net.minecraft.entity.item.EntityEnderEye;
+import net.minecraft.entity.item.EntityEnderPearl;
+import net.minecraft.entity.item.EntityExpBottle;
+import net.minecraft.entity.item.EntityFallingBlock;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityPainting;
+import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.entity.passive.EntitySquid;
+import net.minecraft.entity.passive.IAnimals;
+import net.minecraft.entity.projectile.EntityEgg;
+import net.minecraft.entity.projectile.EntityFishHook;
+import net.minecraft.entity.projectile.EntityPotion;
+import net.minecraft.wdl.WDL;
+import net.minecraft.world.IWorldAccess;
+/* <<< WDL */
+
 
 public class WorldClient extends World
 {
@@ -104,6 +121,25 @@ public class WorldClient extends World
         this.theProfiler.endStartSection("blocks");
         this.func_147456_g();
         this.theProfiler.endSection();
+        
+        /* WDL >>> */
+        if( WDL.guiToShowAsync != null )
+        {
+            WDL.mc.displayGuiScreen( WDL.guiToShowAsync );
+            WDL.guiToShowAsync = null;
+        }
+        if( WDL.downloading )
+        {
+            if( WDL.tp.openContainer != WDL.windowContainer )
+            {
+                if( WDL.tp.openContainer == WDL.tp.inventoryContainer )
+                    WDL.onItemGuiClosed();
+                else
+                    WDL.onItemGuiOpened();
+                WDL.windowContainer = WDL.tp.openContainer;
+            }
+        }
+        /* <<< WDL */
     }
 
     /**
@@ -161,10 +197,20 @@ public class WorldClient extends World
     {
         if (par3)
         {
+            /* WDL >>> */
+            if( this != WDL.wc )
+                WDL.onWorldLoad();
+            /* <<< WDL */
+            
             this.clientChunkProvider.loadChunk(par1, par2);
         }
         else
         {
+            /* WDL >>> */
+            if( WDL.downloading )
+                WDL.onChunkNoLongerNeeded( chunkProvider.provideChunk(par1, par2) );
+            /* <<< WDL */
+            
             this.clientChunkProvider.unloadChunk(par1, par2);
         }
 
@@ -200,19 +246,12 @@ public class WorldClient extends World
     public void removeEntity(Entity par1Entity)
     {
         super.removeEntity(par1Entity);
-        
-        if(par1Entity instanceof EntityPlayer)
-          	StaticVapid.vapid.events.onEvent(new PlayerLeaveVisualRangeEvent((EntityPlayer)par1Entity));
-        
         this.entityList.remove(par1Entity);
     }
 
     protected void onEntityAdded(Entity par1Entity)
     {
         super.onEntityAdded(par1Entity);
-        
-        if(par1Entity instanceof EntityPlayer)
-            StaticVapid.vapid.events.onEvent(new PlayerEnterVisualRangeEvent((EntityPlayer)par1Entity));
 
         if (this.entitySpawnQueue.contains(par1Entity))
         {
@@ -282,6 +321,54 @@ public class WorldClient extends World
 
     public Entity removeEntityFromWorld(int par1)
     {
+        /* WDL >>> */
+        // If the entity is being removed and it's outside the default tracking range,
+        // go ahead and remember it until the chunk is saved.
+        if(WDL.downloading)
+        {
+            Entity entity = (Entity)this.getEntityByID(par1);
+            if(entity != null)
+            {
+                int threshold = 0;
+                if ((entity instanceof EntityFishHook) ||
+                    //(entity instanceof EntityArrow) ||
+                    //(entity instanceof EntitySmallFireball) ||
+                    //(entity instanceof EntitySnowball) ||
+                    (entity instanceof EntityEnderPearl) ||
+                    (entity instanceof EntityEnderEye) ||
+                    (entity instanceof EntityEgg) ||
+                    (entity instanceof EntityPotion) ||
+                    (entity instanceof EntityExpBottle) ||
+                    (entity instanceof EntityItem) ||
+                    (entity instanceof EntitySquid))
+                {
+                    threshold = 64;
+                }
+                else if ((entity instanceof EntityMinecart) ||
+                         (entity instanceof EntityBoat) ||
+                         (entity instanceof IAnimals))
+                {
+                    threshold = 80;
+                }
+                else if ((entity instanceof EntityDragon) ||
+                         (entity instanceof EntityTNTPrimed) ||
+                         (entity instanceof EntityFallingBlock) ||
+                         (entity instanceof EntityPainting) ||
+                         (entity instanceof EntityXPOrb))
+                {
+                    threshold = 160;
+                }
+                double distance = entity.getDistance(WDL.tp.posX, entity.posY, WDL.tp.posZ);
+                if( distance > (double)threshold)
+                {
+                    WDL.chatDebug("removeEntityFromWorld: Refusing to remove " + EntityList.getEntityString(entity) + " at distance " + distance);
+                    return null;
+                }
+                WDL.chatDebug("removeEntityFromWorld: Removing " + EntityList.getEntityString(entity) + " at distance " + distance);
+            }
+        }
+        /* <<< WDL */
+        
         Entity var2 = (Entity)this.entityHashSet.removeObject(par1);
 
         if (var2 != null)
@@ -492,4 +579,24 @@ public class WorldClient extends World
 
         super.setWorldTime(par1);
     }
+    
+    /* WDL >>> */
+    @Override
+    public void removeWorldAccess(IWorldAccess par1iWorldAccess)
+    {
+        super.removeWorldAccess(par1iWorldAccess);
+        // the old world: this (!= null)
+        // the new world: mc.theWorld (!= null)
+        //if( WDL.downloading )
+        // WDL.onWorldUnload();
+    }
+
+    @Override
+    public void func_147452_c(int par1, int par2, int par3, Block par4, int par5, int par6)
+    {
+        super.func_147452_c(par1, par2, par3, par4, par5, par6);
+        if( WDL.downloading )
+            WDL.onBlockEvent( par1, par2, par3, par4, par5, par6 );
+    }
+    /* <<< WDL */
 }

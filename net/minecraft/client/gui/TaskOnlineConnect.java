@@ -23,6 +23,10 @@ import net.minecraft.util.Session;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/* WDL >>> */
+import net.minecraft.wdl.WDL;
+/* <<< WDL */
+
 public class TaskOnlineConnect extends TaskLongRunning
 {
     private static final AtomicInteger field_148439_a = new AtomicInteger(0);
@@ -126,6 +130,10 @@ public class TaskOnlineConnect extends TaskLongRunning
 
     private void func_148432_a(final String p_148432_1_, final int p_148432_2_)
     {
+        /* WDL >>> */
+        WDL.mcos = this.field_148437_e;
+        /* <<< WDL */
+
         (new Thread("MCO Connector #" + field_148439_a.incrementAndGet())
         {
             private static final String __OBFID = "CL_00000791";
