@@ -5,6 +5,10 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Callable;
+
+import me.pyr0byte.vapid.StaticVapid;
+import me.pyr0byte.vapid.events.PlayerEnterVisualRangeEvent;
+import me.pyr0byte.vapid.events.PlayerLeaveVisualRangeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -16,23 +20,6 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.profiler.Profiler;
-import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IntHashMap;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.ChunkCoordIntPair;
-import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldProvider;
-import net.minecraft.world.WorldSettings;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.storage.SaveHandlerMP;
-
-/* WDL >>> */
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.item.EntityBoat;
@@ -41,16 +28,33 @@ import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.item.EntityExpBottle;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.IAnimals;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.entity.projectile.EntityPotion;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.profiler.Profiler;
+import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IntHashMap;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.wdl.WDL;
+import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IWorldAccess;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldProvider;
+import net.minecraft.world.WorldSettings;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.storage.SaveHandlerMP;
+/* WDL >>> */
 /* <<< WDL */
 
 
@@ -246,6 +250,10 @@ public class WorldClient extends World
     public void removeEntity(Entity par1Entity)
     {
         super.removeEntity(par1Entity);
+        
+        if(par1Entity instanceof EntityPlayer)
+        	StaticVapid.vapid.events.onEvent(new PlayerLeaveVisualRangeEvent((EntityPlayer)par1Entity));
+              
         this.entityList.remove(par1Entity);
     }
 
@@ -253,6 +261,9 @@ public class WorldClient extends World
     {
         super.onEntityAdded(par1Entity);
 
+        if(par1Entity instanceof EntityPlayer)
+        	StaticVapid.vapid.events.onEvent(new PlayerEnterVisualRangeEvent((EntityPlayer)par1Entity));
+        
         if (this.entitySpawnQueue.contains(par1Entity))
         {
             this.entitySpawnQueue.remove(par1Entity);

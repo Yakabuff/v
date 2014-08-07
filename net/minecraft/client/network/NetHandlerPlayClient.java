@@ -1,9 +1,9 @@
 package net.minecraft.client.network;
 
-import com.google.common.base.Charsets;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.util.concurrent.GenericFutureListener;
+
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -12,8 +12,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Map.Entry;
+import java.util.Random;
+
+import me.pyr0byte.vapid.StaticVapid;
+import me.pyr0byte.vapid.events.ChatReceivedEvent;
+import me.pyr0byte.vapid.events.PlayerLogOffEvent;
+import me.pyr0byte.vapid.events.PlayerLogOnEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
@@ -181,6 +186,7 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.village.MerchantRecipeList;
+import net.minecraft.wdl.WDL;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.WorldProviderSurface;
 import net.minecraft.world.WorldSettings;
@@ -188,11 +194,12 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.MapStorage;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.common.base.Charsets;
 /* WDL >>> */
-import net.minecraft.wdl.WDL;
 /* <<< WDL */
 
 public class NetHandlerPlayClient implements INetHandlerPlayClient
@@ -823,6 +830,12 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
      */
     public void handleChat(S02PacketChat p_147251_1_)
     {
+    	
+    	//VAPID
+    	String str = p_147251_1_.func_148915_c().getUnformattedText();
+    	if(StaticVapid.vapid.events.onEvent(new ChatReceivedEvent(str)))
+    		return;
+    	
         /* WDL >>> */
         String var2 = p_147251_1_.func_148915_c().getFormattedText();
         WDL.handleServerSeedMessage(var2);
@@ -1560,12 +1573,18 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             var2 = new GuiPlayerInfo(p_147256_1_.func_149122_c());
             this.playerInfoMap.put(p_147256_1_.func_149122_c(), var2);
             this.playerInfoList.add(var2);
+            
+            //VAPID
+            StaticVapid.vapid.events.onEvent(new PlayerLogOnEvent(p_147256_1_.func_149122_c()));
         }
 
         if (var2 != null && !p_147256_1_.func_149121_d())
         {
             this.playerInfoMap.remove(p_147256_1_.func_149122_c());
             this.playerInfoList.remove(var2);
+            
+            //VAPID
+            StaticVapid.vapid.events.onEvent(new PlayerLogOffEvent(p_147256_1_.func_149122_c()));
         }
 
         if (var2 != null && p_147256_1_.func_149121_d())
