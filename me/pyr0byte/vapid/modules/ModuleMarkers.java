@@ -33,7 +33,7 @@ public class ModuleMarkers extends ModuleBase
 {
 
 	/*
-	 * Built with performance in mindÂ§ I think.
+	 * Built with performance in mind¤ I think.
 	 * Beware convoluted bitwise operations which were used in place of classes for data storage
 	 */
 	

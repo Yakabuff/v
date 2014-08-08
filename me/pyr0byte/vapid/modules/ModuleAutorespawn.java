@@ -23,7 +23,7 @@ public class ModuleAutorespawn extends ModuleBase
 	@Override
 	public void onTick()
 	{
-		if(this.isEnabled && mc.thePlayer.getHealth <= 0)
+		if(this.isEnabled && mc.thePlayer.getHealth() <= 0)
 			mc.thePlayer.respawnPlayer();
 	}
 

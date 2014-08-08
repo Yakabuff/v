@@ -121,7 +121,7 @@ public class ModuleInfo extends ModuleBase
 		
 		if(this.getPlayerByName(player) != null) 
 		{
-			this.vapid.message("Â§l" + p.getCommandSenderName() + "\'s Armor");
+			this.vapid.message("¤l" + p.getCommandSenderName() + "\'s Armor");
 			String durability = "";
 			
 			ItemStack[] armor = p.inventory.armorInventory.clone();
@@ -134,7 +134,7 @@ public class ModuleInfo extends ModuleBase
 		    	
 			}
 			
-			this.vapid.message("Â§l" + durability.substring(0, durability.length() - 1));
+			this.vapid.message("¤l" + durability.substring(0, durability.length() - 1));
 			
 		}
 		else

@@ -55,7 +55,7 @@ public class Command {
 		
 		if(args.size() == 0 && argv.length > 0)
 		{
-			vapid.errorMessage("This command has no arguments (clichÂ§ sad face)");
+			vapid.errorMessage("This command has no arguments (clich¤ sad face)");
 			return false;
 		}
 		

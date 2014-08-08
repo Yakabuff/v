@@ -91,7 +91,7 @@ public class ModuleRegexIgnore extends ModuleBase
 		{
 			String msg = e.getMessage();
 			
-			msg.replaceAll("ยง", "[clr]");
+			msg.replaceAll("ค", "[clr]");
 			
 			for(String key : this.regex.keySet())
 			{

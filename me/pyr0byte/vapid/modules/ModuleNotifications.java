@@ -81,7 +81,7 @@ public class ModuleNotifications extends ModuleBase
 		if(this.isEnabled && this.visualRange)
 		{
 			if(!e.getPlayer().getCommandSenderName().equals(mc.thePlayer.getCommandSenderName()))
-				vapid.notificationMessage("Â§4Â§l!!!Â§r " + e.getPlayer().getCommandSenderName() + " entered visual range", this.useHud);
+				vapid.notificationMessage("¤4¤l!!!¤r " + e.getPlayer().getCommandSenderName() + " entered visual range", this.useHud);
 		}
 	}
 	
@@ -91,7 +91,7 @@ public class ModuleNotifications extends ModuleBase
 		if(this.isEnabled && this.visualRange)
 		{
 			if(!e.getPlayer().getCommandSenderName().equals(mc.thePlayer.getCommandSenderName()))
-				vapid.notificationMessage("Â§bÂ§l...Â§r " + e.getPlayer().getCommandSenderName() + " left visual range", this.useHud);
+				vapid.notificationMessage("¤b¤l...¤r " + e.getPlayer().getCommandSenderName() + " left visual range", this.useHud);
 		}
 	}
 	

@@ -98,7 +98,7 @@ public class ModuleGui extends ModuleBase {
 			if(Sys.getTime() * 1000L / Sys.getTimerResolution() >= mc.debugUpdateTime + 1000L)
 				fps = Integer.toString(this.mc.fpsCounter);
 			
-			String info = this.infoFormat.replaceAll("&", "ยง").replaceAll("\\{x\\}", x).replaceAll("\\{z\\}", z).replaceAll("\\{y\\}", y).replaceAll("\\{v\\}", v).replaceAll("\\{d\\}", d).replaceAll("\\{D\\}", D).replaceAll("\\{fps\\}", fps);
+			String info = this.infoFormat.replaceAll("&", "ค").replaceAll("\\{x\\}", x).replaceAll("\\{z\\}", z).replaceAll("\\{y\\}", y).replaceAll("\\{v\\}", v).replaceAll("\\{d\\}", d).replaceAll("\\{D\\}", D).replaceAll("\\{fps\\}", fps);
 					
 			
 			fr.drawStringWithShadow(info, 2, 2, this.guiColor);
@@ -164,10 +164,10 @@ public class ModuleGui extends ModuleBase {
     		toDraw = name + " " + duration;
     		
     		if( (p.getDuration() / 20) <= 5)
-    			toDraw = "ยง4" + toDraw;
+    			toDraw = "ค4" + toDraw;
     		
     		if( (p.getDuration() / 20) <= 10)
-    			toDraw = "ยงc" + toDraw;
+    			toDraw = "คc" + toDraw;
     		
     		
         	fr.drawStringWithShadow(toDraw, width - fr.getStringWidth(toDraw) - 2, position, this.guiColor);

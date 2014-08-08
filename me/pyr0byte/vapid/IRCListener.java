@@ -117,20 +117,20 @@ public class IRCListener implements Runnable {
 						String recv = line.split(" ")[2];
 						String msg = line.split(" ", 4)[3].substring(1);
 						if(recv.equals(this.channel))	
-							vapid.message("Â§eÂ§l<" + username + ">Â§rÂ§e " + msg);
+							vapid.message("¤e¤l<" + username + ">¤r¤e " + msg);
 						else
 						{
-							vapid.message("Â§eÂ§l" + username + " whispersÂ§rÂ§e: " + msg);
+							vapid.message("¤e¤l" + username + " whispers¤r¤e: " + msg);
 							vapid.getModule(ModuleIRC.class).lastWhisper = username;
 						}
 					}
 					else if(line.split(" ")[1].equals("353"))
 					{
-						vapid.message("Â§lOnline:Â§r " + line.split(":")[2]);
+						vapid.message("¤lOnline:¤r " + line.split(":")[2]);
 					}
 					else if(line.split(" ")[1].equals("332"))
 					{
-						vapid.message(line.split(":")[2].replaceAll("1", "Â§"));	
+						vapid.message(line.split(":")[2].replaceAll("1", "¤"));	
 					}
 					else if(line.split(" ")[1].equals("432"))
 					{
@@ -147,14 +147,14 @@ public class IRCListener implements Runnable {
 						String message2 = line;
 						int index = message2.indexOf("!");
 						String username = line.substring(1, index);
-						vapid.message("Â§eÂ§o" + username + " joined the channel");
+						vapid.message("¤e¤o" + username + " joined the channel");
 					}
 					else if((line.split(" ")[1]).equals("PART"))
 					{
 						String message2 = line;
 						int index = message2.indexOf("!");
 						String username = line.substring(1, index);
-						vapid.message("Â§eÂ§o" + username + " left the channel");
+						vapid.message("¤e¤o" + username + " left the channel");
 					}
 					else if((line.split(" ")[1]).equals("NICK"))
 					{
@@ -168,10 +168,10 @@ public class IRCListener implements Runnable {
 						{
 							this.nick = new_name;
 							vapid.getModule(ModuleIRC.class).nick = nick;
-							vapid.message("Â§eYOU are now known as " + new_name);
+							vapid.message("¤eYOU are now known as " + new_name);
 						}
 						else
-							vapid.message("Â§e" + username + " is now known as " + new_name);
+							vapid.message("¤e" + username + " is now known as " + new_name);
 					}
 					else if((line.split(" ")[1]).equals("NOTICE"))
 					{

@@ -33,7 +33,7 @@ public class ModuleHelp extends ModuleBase
 			if(argv == null || !this.vapid.moduleNameCache.values().contains(argv[0]))
 			{
 
-				this.vapid.message("An insipid and banal client by Pyrobyte; simple and reliable and Â§mprobablyÂ§r definitely has no backdoors.");
+				this.vapid.message("An insipid and banal client by Pyrobyte; simple and reliable and ¤mprobably¤r definitely has no backdoors.");
 				this.vapid.message("help (module); all modules:");
 				
 				String modules = "";
@@ -52,7 +52,7 @@ public class ModuleHelp extends ModuleBase
 				ModuleBase m = this.vapid.moduleCache.get(argv[0]);
 				Command c = m.command;
 				int i = 0;
-				String aliases = "Â§nÂ§l";
+				String aliases = "¤n¤l";
 				
 				for(String s : c.aliases)
 				{
@@ -66,7 +66,7 @@ public class ModuleHelp extends ModuleBase
 						aliases += s + ", ";
 				}
 				
-			   aliases += ":Â§r " + c.getDescription();
+			   aliases += ":¤r " + c.getDescription();
 			   
 			   this.vapid.message(aliases);
 				
@@ -77,7 +77,7 @@ public class ModuleHelp extends ModuleBase
 			   for(Argument a : c.args.values())
 			   {
 				   arg = a.getId();
-				   argument = "Â§l" + (m.defaultArg.equals(arg) ? ("Â§lÂ§d" + arg) : arg) + ":Â§r ";
+				   argument = "¤l" + (m.defaultArg.equals(arg) ? ("¤l¤d" + arg) : arg) + ":¤r ";
 				   
 				   usage = a.getUsage().split("\n");
 				   

@@ -94,10 +94,10 @@ public class VapidGui {
     		toDraw = name + " " + duration;
     		
     		if( (p.getDuration() / 20) <= 5)
-    			toDraw = "ยง4" + toDraw;
+    			toDraw = "ค4" + toDraw;
     		
     		if( (p.getDuration() / 20) <= 10)
-    			toDraw = "ยงc" + toDraw;
+    			toDraw = "คc" + toDraw;
     		
     		
         	fr.drawStringWithShadow(toDraw, width - fr.getStringWidth(toDraw) - 2, position, this.guiColor);

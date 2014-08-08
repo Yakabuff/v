@@ -27,14 +27,14 @@ public class Util {
 	{
     	percent = Math.ceil(percent);
     	boolean red = percent < 10.0D;
-    	String color = red ? "Â§c" : "";
+    	String color = red ? "¤c" : "";
     	if(percent == 100)
-    		return color + Integer.toString((int)percent) + "Â§r";
+    		return color + Integer.toString((int)percent) + "¤r";
     	
     	if(percent >= 10)
-    		return color + "0" + Integer.toString((int)percent) + "Â§r";
+    		return color + "0" + Integer.toString((int)percent) + "¤r";
     	
-    	return color + "00" + Integer.toString((int)percent) + "Â§r";	    
+    	return color + "00" + Integer.toString((int)percent) + "¤r";	    
 	}
 	
     public static void writeFile(String data, String name) 

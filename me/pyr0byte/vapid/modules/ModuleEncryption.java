@@ -311,7 +311,7 @@ public class ModuleEncryption extends ModuleBase
 	      try
 	      {
 	        String str3 = DecryptData(DecodeBase64(str1));
-	        str3 = "Â§l" + username + ": Â§r" + str3 + "Â§r";
+	        str3 = "¤l" + username + ": ¤r" + str3 + "¤r";
 	        a.put(username, "");
 	        
 	        vapid.message(str3);

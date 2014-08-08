@@ -18,14 +18,14 @@ public class Argument {
 		this.sets = sets;
 		this.errors = new ArrayList<String>();
 		
-		this.usage = "of format: Â§o";
+		this.usage = "of format: ¤o";
 		
 		for(Class clazz : sets)
 		{
 			this.usage += clazz.getSimpleName() + " ";
 		}
 		
-		this.usage += "Â§r";
+		this.usage += "¤r";
 	}
 	public Argument(Command c, String id, Class sets[], String use)
 	{
@@ -34,14 +34,14 @@ public class Argument {
 		this.sets = sets;
 		this.errors = new ArrayList<String>();
 		
-		this.usage = "of format: Â§o";
+		this.usage = "of format: ¤o";
 		
 		for(Class clazz : sets)
 		{
 			this.usage += clazz.getSimpleName() + " ";
 		}
 		
-		this.usage += "Â§r\n" + use;
+		this.usage += "¤r\n" + use;
 	}
 	
 	public boolean matches(String argv[]) 

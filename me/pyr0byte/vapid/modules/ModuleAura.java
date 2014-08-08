@@ -22,7 +22,7 @@ public class ModuleAura extends ModuleBase
 	List sortedEntities, entities;
 	Iterator es;
 	EntityClientPlayerMP player;
-	Entity e;
+	EntityLiving e;
 	boolean mobs, players, animals;
 	
 	double reachDistance = 4.2D;
@@ -154,7 +154,7 @@ public class ModuleAura extends ModuleBase
 				  			
 				    		  this.currentMs = System.nanoTime() / 1000000;
 	 
-				    		  e = (Entity)es.next();
+				    		  e = (EntityLiving)es.next();
 				    		  
 				    		  if(e != null && !e.equals(player) && !e.isDead && !e.isDead && e.getHealth() > 0  && this.isEntityWatched(e) && player.getDistanceToEntity(e) <= this.reachDistance && player.canEntityBeSeen(e)) {
 				    			  

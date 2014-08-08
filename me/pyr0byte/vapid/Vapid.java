@@ -212,7 +212,7 @@ public class Vapid {
 	
 	public void confirmMessage(String msg)
 	{
-		this.message("Â§l[V]Â§r " + msg);
+		this.message("¤l[V]¤r " + msg);
 	}
 	
 	public void notificationMessage(String msg)
@@ -224,14 +224,14 @@ public class Vapid {
 	public void notificationMessage(String msg, boolean hud)
 	{
 		if(!hud)
-			this.message("Â§l>>Â§r " + msg);
+			this.message("¤l>>¤r " + msg);
 		else
 			getModule(ModuleGui.class).addToQueue(msg);
 	}
 	
 	public void errorMessage(String msg)
 	{
-		this.message("Â§lÂ§m[V]Â§r " + msg);
+		this.message("¤l¤m[V]¤r " + msg);
 	}
 	
 	public void message(String msg) {
@@ -239,11 +239,11 @@ public class Vapid {
 	}
 	
 	public void yellowMessage(String msg) {
-		this.message("Â§e" + msg);
+		this.message("¤e" + msg);
 	}
 	
 	public void italicMessage(String msg) {
-		this.message("Â§o" + msg);
+		this.message("¤o" + msg);
 	}
 
 	public ModuleBase getModule(String name)
