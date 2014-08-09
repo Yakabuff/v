@@ -1375,7 +1375,7 @@ public class Minecraft implements IPlayerUsage
                 this.mouseHelper.grabMouseCursor();
                 this.displayGuiScreen((GuiScreen)null);
                 // VAPID
-                this.leftClickCounter = 10000;
+                //this.leftClickCounter = 10000;
             }
         }
     }
@@ -1388,7 +1388,7 @@ public class Minecraft implements IPlayerUsage
         if (this.inGameHasFocus)
         {
             //VAPID
-        	KeyBinding.unPressAllKeys();
+        	//KeyBinding.unPressAllKeys();
             this.inGameHasFocus = false;
            
             this.mouseHelper.ungrabMouseCursor();
@@ -1477,7 +1477,7 @@ public class Minecraft implements IPlayerUsage
                         {
                             if (this.playerController.isNotCreative())
                             {
-                                this.leftClickCounter = 10;
+                            // VAPID    this.leftClickCounter = 10;
                             }
                         }
                         else
@@ -1703,7 +1703,7 @@ public class Minecraft implements IPlayerUsage
         if (this.currentScreen != null)
         {
             // VAPID
-        	this.leftClickCounter = 10000;
+        	//this.leftClickCounter = 10000;
         }
 
         CrashReport var2;
