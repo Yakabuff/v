@@ -138,7 +138,7 @@ public class ModuleIRC extends ModuleBase
 			
 			
 			this.command("PRIVMSG " + to + " :" + msg);	
-			vapid.message("¤e¤lto " + to + "¤r¤e: " + msg);
+			vapid.message("\247e\247lto " + to + "\247r\247e: " + msg);
 			return false;
 				
 		}
@@ -154,13 +154,13 @@ public class ModuleIRC extends ModuleBase
 			String msg = m.substring(4);
 			
 			this.command("PRIVMSG " + to + " :" + msg);	
-			vapid.message("¤e¤lto " + to + "¤r¤e: " + msg);
+			vapid.message("\247e\247lto " + to + "\247r\247e: " + msg);
 			return false;
 		}
 		else if(m.startsWith("/s ") || (this.isEnabled && !m.startsWith("/")))
 		{
 			this.send(this.isEnabled ? m : m.substring(3));
-			vapid.message("¤e¤l<" + this.nick + ">¤r¤e " + (this.isEnabled ? m : m.substring(3)));
+			vapid.message("\247e\247l<" + this.nick + ">\247r\247e " + (this.isEnabled ? m : m.substring(3)));
 			return false;
 
 		}

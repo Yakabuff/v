@@ -32,7 +32,7 @@ public class MarkovBot {
 		
 		String message;
 		
-		message = str.replaceAll("(¤.)|(\\n+)|(\\r+)", "");
+		message = str.replaceAll("(\247.)|(\\n+)|(\\r+)", "");
 		//message = message.replaceAll("\\d+", "666");
 		
 		for(char c : message.toCharArray()) {
