@@ -31,7 +31,7 @@ public class ModuleAutomine extends ModuleBase
 	@Override
 	public void onTick()
 	{
-		if(this.isEnabled) {
+		if(this.isEnabled && mc.leftClickCounter == 0) {
 			mc.gameSettings.keyBindAttack.pressed = true;
 
 		}

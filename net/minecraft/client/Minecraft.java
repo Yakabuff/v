@@ -214,7 +214,7 @@ public class Minecraft implements IPlayerUsage
     public EntityRenderer entityRenderer;
 
     /** Mouse left click counter */
-    private int leftClickCounter;
+    public int leftClickCounter;
 
     /** Display width */
     private int tempDisplayWidth;
@@ -1477,7 +1477,7 @@ public class Minecraft implements IPlayerUsage
                         {
                             if (this.playerController.isNotCreative())
                             {
-                            // VAPID    this.leftClickCounter = 10;
+                            	this.leftClickCounter = 10;
                             }
                         }
                         else
@@ -1753,7 +1753,7 @@ public class Minecraft implements IPlayerUsage
             }
         }
 
-        if (this.currentScreen == null || this.currentScreen.field_146291_p)
+        if (this.currentScreen == null || this.currentScreen.field_146291_p || /* VAPID */ this.currentScreen instanceof GuiChat)
         {
             this.mcProfiler.endStartSection("mouse");
             int var1;
