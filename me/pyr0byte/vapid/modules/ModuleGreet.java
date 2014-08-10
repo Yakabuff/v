@@ -218,7 +218,7 @@ public class ModuleGreet extends ModuleBase
 		int i = rand.nextInt(goodbyes.size());
 		String period = rand.nextInt(2) > 1 ? "." : "!";
 		
-		String msg = this.greetingFormat.replaceAll("\\{player\\}", user)
+		String msg = this.goodbyeFormat.replaceAll("\\{player\\}", user)
 				.replaceAll("\\{msg\\}", goodbyes.get(i))
 				.replaceAll("\\{.\\}", period);
 		
