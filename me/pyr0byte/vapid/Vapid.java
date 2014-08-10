@@ -303,6 +303,11 @@ public class Vapid {
 		return null;
 	}
 	
+	public String readOrFallback(String filename, String fallback) {
+		String out = this.read(filename);
+		return out == "" ? fallback : out;
+	}
+	
 	public ArrayList<String> readLines(String filename) 
 	{
 	    
@@ -340,6 +345,11 @@ public class Vapid {
 	    }
 		
 		return null;
+	}
+	
+	public ArrayList<String> readLinesOrFallback(String filename, ArrayList<String> fallback) {
+		ArrayList<String> out = this.readLines(filename);
+		return out.size() == 0 ? fallback : out;
 	}
 	
 	public ArrayList<String> readUTF8Lines(String filename) 
@@ -458,4 +468,15 @@ public class Vapid {
         mc.ingameGUI.getChatGUI().func_146227_a(ScreenShotHelper.saveScreenshot(mc.mcDataDir, mc.displayWidth, mc.displayHeight, mc.mcFramebuffer));
 	}
 
+	public String join(ArrayList<String> strs, String glue) {
+		String ret = "";
+		for(int i = 0; i < strs.size(); i++) {
+			if(i > strs.size() - 2) {
+				ret += strs.get(i);
+			} else {
+				ret += strs.get(i) + glue;
+			}
+		}
+		return ret;
+	}
 }

@@ -2,6 +2,7 @@ package me.pyr0byte.vapid.modules;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
 
@@ -23,6 +24,18 @@ public class ModuleGreet extends ModuleBase
 	String syncWith;
 	boolean syncing;
 	
+	String defaultGreetings[] = {"Hey", "Welcome", "Hello", "Hi", "Greetings", "Salutations", "Good to see you", "{time}"};
+	String defaultGoodbyes[] = {"Later", "So long", "See you later", "Good bye", "Bye", "Farewell"};
+	
+	ArrayList<String> greetings;
+	ArrayList<String> goodbyes;
+	
+	String defaultGreetingFormat = "> !!! {msg}, {player}{.}";
+	String defaultGoodbyeFormat = "> ... {msg}, {player}{.}";
+	
+	String greetingFormat;
+	String goodbyeFormat;
+	
 	public ModuleGreet(Vapid vapid, Minecraft mc) 
 	{
 		super(vapid, mc);
@@ -37,7 +50,14 @@ public class ModuleGreet extends ModuleBase
 		this.command.registerArg("unignoreall", new Class[] {}, "Removes all ignored players");
 	//	this.command.registerArg("syncing", new Class[] {}, "Experimental; Synchronize messages with another player");
 	//	this.command.registerArg("syncwith", new Class[] {String.class}, "Experimental; Synchronize messages with another player");
-
+		this.command.registerArg("greetadd", new Class[] {String.class}, "Add a welcome");
+		this.command.registerArg("greetdel", new Class[] {String.class}, "Delete a welcome");
+		this.command.registerArg("byeadd", new Class[] {String.class}, "Add a good bye");
+		this.command.registerArg("byedel", new Class[] {String.class}, "Delete a good bye");
+		this.command.registerArg("greetlist", new Class[] {}, "Lists greetings");
+		this.command.registerArg("byelist", new Class[] {}, "Lists goodbyes");
+		this.command.registerArg("byeformat", new Class[] {String.class}, "Change greeting format; {player} {msg} {.}");
+		this.command.registerArg("greetformat", new Class[] {String.class}, "Change goodbye format; {player} {msg} {.}");
 
 		this.ignoredPlayers = new ArrayList<String>();
 		
@@ -53,11 +73,32 @@ public class ModuleGreet extends ModuleBase
 		this.syncing = false;
 		this.onJoin = true;
 		this.onLeave = true;
+		
+		
+		File greetingsFile = new File("greeter_greetings.vpd");
+		
+		if(greetingsFile.exists())
+		{
+			this.greetings = this.vapid.readLines("greeter_greetings.vpd");
+		} else {
+			this.greetings = new ArrayList<String>(Arrays.asList(this.defaultGreetings));
+		}
+
+		File goodbyesFile = new File("greeter_goodbyes.vpd");
+		
+		if(goodbyesFile.exists())
+		{
+			this.goodbyes = this.vapid.readLines("greeter_goodbyes.vpd");
+		} else {
+			this.goodbyes = new ArrayList<String>(Arrays.asList(this.defaultGoodbyes));
+		}
+		
+		this.goodbyeFormat = this.vapid.readOrFallback("greet_format_goodbye.vpd", defaultGoodbyeFormat);
+		this.greetingFormat = this.vapid.readOrFallback("greet_format_greeting.vpd", defaultGreetingFormat);
+
 	}
 	
-	String greetings[] = {"Hey", "Welcome", "Hello", "Hi", "Greetings", "Salutations", "Good to see you", "%"};
-	String goodbyes[] = {"Later", "So long", "See you later", "Good bye", "Bye", "Farewell"};
-
+	
 	public void writeIgnoredPlayers()
 	{
 		String filename = "greeter_ignored.vpd";
@@ -137,11 +178,11 @@ public class ModuleGreet extends ModuleBase
 			return;
 		
 		Random rand = new Random();
-		int i = rand.nextInt(greetings.length);
+		int i = rand.nextInt(greetings.size());
 		String period = rand.nextInt(2) > 1 ? "." : "!";
-		String greet = greetings[i];
+		String greet = greetings.get(i);
 		
-		if(greet.equals("%"))
+		if(greet.equals("{time}"))
 		{
 			Date d = new Date();
 			int t = d.getHours();
@@ -160,7 +201,11 @@ public class ModuleGreet extends ModuleBase
 			}
 		}
 		
-		mc.thePlayer.sendChatMessage("> !!! " + greet + ", " + user + period);
+		String msg = this.greetingFormat.replaceAll("\\{player\\}", user)
+						.replaceAll("\\{msg\\}", greet)
+						.replaceAll("\\{.\\}", period);
+		
+		mc.thePlayer.sendChatMessage(msg);
 	}
 	
 	public void farewell(String user)
@@ -170,10 +215,14 @@ public class ModuleGreet extends ModuleBase
 			return;
 		
 		Random rand = new Random();
-		int i = rand.nextInt(goodbyes.length);
+		int i = rand.nextInt(goodbyes.size());
 		String period = rand.nextInt(2) > 1 ? "." : "!";
 		
-		mc.thePlayer.sendChatMessage("> ... " + goodbyes[i] + ", " + user + period);	
+		String msg = this.greetingFormat.replaceAll("\\{player\\}", user)
+				.replaceAll("\\{msg\\}", goodbyes.get(i))
+				.replaceAll("\\{.\\}", period);
+		
+		mc.thePlayer.sendChatMessage(msg);	
 	}
 	
 	@EventHandler
@@ -266,6 +315,51 @@ public class ModuleGreet extends ModuleBase
 			this.ignoredPlayers.clear();
 			this.writeIgnoredPlayers();
 			this.vapid.confirmMessage("Deleted all players from ignore list");
+		}
+		else if(name.equals("greetadd")) {
+			this.greetings.add(argv[0]);
+			this.vapid.writeLines("greeter_greetings.vpd", this.greetings);
+			this.vapid.confirmMessage("Added greeting");
+		}
+		else if(name.equals("greetdel")) {
+			if(this.greetings.contains(argv[0])) {
+				this.greetings.remove(argv[0]);
+				this.vapid.writeLines("greeter_greetings.vpd", this.greetings);
+				this.vapid.confirmMessage("Removed greeting");
+			} else {
+				this.vapid.errorMessage("Could not remove greeting");
+			}
+		}
+		else if(name.equals("byeadd")) {
+			this.goodbyes.add(argv[0]);
+			this.vapid.writeLines("greeter_goodbyes.vpd", this.goodbyes);
+			this.vapid.confirmMessage("Added goodbye");
+		}
+		else if(name.equals("byedel")) {
+			if(this.goodbyes.contains(argv[0])) {
+				this.goodbyes.remove(argv[0]);
+				this.vapid.writeLines("greeter_goodbyes.vpd", this.goodbyes);
+				this.vapid.confirmMessage("Removed goodbye");
+			} else {
+				this.vapid.errorMessage("Could not remove goodbye");
+			}
+		}
+		else if(name.endsWith("list")) {
+			if(name.startsWith("bye")) {
+				this.vapid.message(this.vapid.join(this.goodbyes, ", "));
+			} else {
+				this.vapid.message(this.vapid.join(this.greetings, ", "));
+			}
+		}
+		else if(name.equals("greetformat")) {
+			this.vapid.confirmMessage("Changed greeting format");
+			this.greetingFormat = argv[0];
+			this.vapid.write("greeter_format_greeting.vpd", this.greetingFormat);
+		}
+		else if(name.equals("byeformat")) {
+			this.vapid.confirmMessage("Changed goodbye format");
+			this.goodbyeFormat = argv[0];
+			this.vapid.write("greeter_format_goodbye.vpd", this.goodbyeFormat);
 		}
 	}
 	
