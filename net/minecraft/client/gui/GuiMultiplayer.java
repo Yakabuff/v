@@ -2,17 +2,13 @@ package net.minecraft.client.gui;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-
 import java.util.List;
-
-import me.pyr0byte.vapid.altmanager.GuiDirectLogin;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
 import net.minecraft.client.network.LanServerDetector;
 import net.minecraft.client.network.OldServerPinger;
 import net.minecraft.client.resources.I18n;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
@@ -88,7 +84,6 @@ public class GuiMultiplayer extends GuiScreen
         this.buttonList.add(new GuiButton(3, this.width / 2 + 4 + 50, this.height - 52, 100, 20, I18n.format("selectServer.add", new Object[0])));
         this.buttonList.add(new GuiButton(8, this.width / 2 + 4, this.height - 28, 70, 20, I18n.format("selectServer.refresh", new Object[0])));
         this.buttonList.add(new GuiButton(0, this.width / 2 + 4 + 76, this.height - 28, 75, 20, I18n.format("gui.cancel", new Object[0])));
-        this.buttonList.add(new GuiButton(9, this.width / 2 + 4 + 56, 10, 75, 20, I18n.format("Direct Login", new Object[0])));
         this.func_146790_a(this.field_146803_h.func_148193_k());
     }
 
@@ -175,11 +170,6 @@ public class GuiMultiplayer extends GuiScreen
             else if (p_146284_1_.id == 8)
             {
                 this.func_146792_q();
-            }
-            else if (p_146284_1_.id == 9)
-            {
-            	GuiDirectLogin gdl = new GuiDirectLogin(this);
-    			this.mc.displayGuiScreen(new GuiDirectLogin(this));
             }
         }
     }
