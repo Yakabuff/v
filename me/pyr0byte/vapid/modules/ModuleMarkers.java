@@ -533,16 +533,24 @@ public class ModuleMarkers extends ModuleBase
     	}
     	else if(name.equals("list"))
     	{
+    		String itemName = "";
+    		
     		for(int key : this.blockDescriptors.keySet())
     		{
     			int desc = this.blockDescriptors.get(key);
     			
-    			this.vapid.notificationMessage(Integer.toString(this.getBlockId(key)) + ":" + Integer.toString(this.getBlockMetadata(key))
-    					+ " " + (new ItemStack(Item.getItemById(this.getBlockId(key)), 1, this.getBlockMetadata(key))).getDisplayName()
+    			try {
+    				itemName = (new ItemStack(Item.getItemById(this.getBlockId(key)), 1, this.getBlockMetadata(key))).getDisplayName();
+    			} catch(Exception e) {
+    				itemName = "Unknown";
+    			}
+    			
+    			this.vapid.message(Integer.toString(this.getBlockId(key)) + ":" + Integer.toString(this.getBlockMetadata(key))
+    					+ " " + itemName
     					+ " rgb(" + Integer.toString((desc >> 24) & 255)
     					+ ", " + Integer.toString((desc >> 16) & 255)
     					+ ", " + Integer.toString((desc >> 8) & 255)
-    					+ ") Type: " + Integer.toString(desc & 255), false);
+    					+ ") Type: " + Integer.toString(desc & 255));
     		}
     		
     		flag = true;
