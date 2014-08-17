@@ -26,8 +26,6 @@ public class GuiDirectLogin extends GuiScreen
 	public GuiTextField usernameBox;
 	public GuiPasswordField passwordBox;
 	
-	private String loggedInUser;
-	
 	public GuiDirectLogin(GuiScreen paramScreen)
 	{
 		this.parent = paramScreen;
@@ -68,7 +66,6 @@ public class GuiDirectLogin extends GuiScreen
         	YggdrasilAuthenticator auth = new YggdrasilAuthenticator(usernameBox.getText(), passwordBox.getText());
             if (auth.login()) {
                 Minecraft.getMinecraft().session = auth.getSession();
-                loggedInUser = usernameBox.getText();
             }
 
         } else if (button.id == 2) {
@@ -156,7 +153,6 @@ public class GuiDirectLogin extends GuiScreen
 	public void drawScreen(int x, int y, float f)
 	{
 		drawDefaultBackground();
-		drawString(this.fontRendererObj, "Username: " + loggedInUser, 2, 2, 0xFFFFFF);
 		drawString(this.fontRendererObj, "Username", width / 2 - 100, 63 - 25, 0xA0A0A0);
 		drawString(this.fontRendererObj, "\2474*", width / 2 - 106, 63 - 25, 0xA0A0A0);
 		drawString(this.fontRendererObj, "Password", width / 2 - 100, 104 - 25, 0xA0A0A0);

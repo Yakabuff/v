@@ -67,6 +67,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ScreenShotHelper;
+import net.minecraft.util.Util.EnumOS;
 
 public class Vapid {
 
@@ -479,4 +480,57 @@ public class Vapid {
 		}
 		return ret;
 	}
+	
+    /**
+     * gets the working dir (OS specific) for the specific application (which is always minecraft)
+     */
+    public static File getAppDir(String par0Str)
+    {
+        String var1 = System.getProperty("user.home", ".");
+        File var2;
+
+        switch (EnumOSHelper.field_90049_a[getOs().ordinal()])
+        {
+            case 1:
+            case 2:
+                var2 = new File(var1, '.' + par0Str + '/');
+                break;
+
+            case 3:
+                String var3 = System.getenv("APPDATA");
+
+                if (var3 != null)
+                {
+                    var2 = new File(var3, "." + par0Str + '/');
+                }
+                else
+                {
+                    var2 = new File(var1, '.' + par0Str + '/');
+                }
+
+                break;
+
+            case 4:
+                var2 = new File(var1, "Library/Application Support/" + par0Str);
+                break;
+
+            default:
+                var2 = new File(var1, par0Str + '/');
+        }
+
+        if (!var2.exists() && !var2.mkdirs())
+        {
+            throw new RuntimeException("The working directory could not be created: " + var2);
+        }
+        else
+        {
+            return var2;
+        }
+    }
+
+    public static EnumOS getOs()
+    {
+        String var0 = System.getProperty("os.name").toLowerCase();
+        return var0.contains("win") ? EnumOS.WINDOWS : (var0.contains("mac") ? EnumOS.MACOS : (var0.contains("solaris") ? EnumOS.SOLARIS : (var0.contains("sunos") ? EnumOS.SOLARIS : (var0.contains("linux") ? EnumOS.LINUX : (var0.contains("unix") ? EnumOS.LINUX : EnumOS.UNKNOWN)))));
+    }
 }

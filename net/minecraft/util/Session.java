@@ -4,7 +4,7 @@ import com.mojang.authlib.GameProfile;
 
 public class Session
 {
-    private final String username;
+    public final String username;
     private final String playerID;
     private final String token;
     private static final String __OBFID = "CL_00000659";
