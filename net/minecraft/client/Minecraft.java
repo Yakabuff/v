@@ -7,7 +7,9 @@ import io.netty.util.concurrent.GenericFutureListener;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.net.Proxy;
 import java.net.SocketAddress;
@@ -25,6 +27,7 @@ import java.util.concurrent.Callable;
 import javax.imageio.ImageIO;
 
 import me.pyr0byte.vapid.Vapid;
+import me.pyr0byte.vapid.altmanager.Alt;
 import me.pyr0byte.vapid.events.ItemUsedEvent;
 import me.pyr0byte.vapid.modules.ModuleFastPlace;
 import net.minecraft.block.Block;
@@ -930,6 +933,17 @@ public class Minecraft implements IPlayerUsage
                         {
                         	//VAPID
                         	this.vapid.events.hookRunTick();
+                        	File vDir = new File(Vapid.getAppDir("minecraft") + File.separator + "V");
+                    		try
+                    		{
+                    			if(!vDir.exists())
+                    			{
+                    				vDir.mkdirs();
+                    			}
+                    		}catch(Exception error)
+                    		{
+                    			error.printStackTrace();
+                    		}
                             this.runGameLoop();
                             
                         }

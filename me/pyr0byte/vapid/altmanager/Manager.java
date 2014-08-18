@@ -60,7 +60,6 @@ public class Manager
 				vDir.mkdirs();
 			}
 			File file = new File(vDir.getAbsolutePath(), "alts.txt");
-			//File file = new File(AdolfWrapper.getMinecraftDir().toString().concat(File.separator).concat("V").concat(File.separator).concat("alts.txt"));
 			PrintWriter writer = new PrintWriter(new FileWriter(file));
 			for(Alt alt: altList)
 			{
