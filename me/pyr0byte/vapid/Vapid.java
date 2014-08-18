@@ -44,6 +44,7 @@ import me.pyr0byte.vapid.modules.ModuleInfo;
 import me.pyr0byte.vapid.modules.ModuleIntervalThrow;
 import me.pyr0byte.vapid.modules.ModuleMarkers;
 import me.pyr0byte.vapid.modules.ModuleMarkov;
+import me.pyr0byte.vapid.modules.ModuleNightVision;
 import me.pyr0byte.vapid.modules.ModuleNoFall;
 import me.pyr0byte.vapid.modules.ModuleNoKnockback;
 import me.pyr0byte.vapid.modules.ModuleNoSlow;
@@ -156,6 +157,7 @@ public class Vapid {
 		modules.add(new ModuleHit(this, this.mc));
 		modules.add(new ModuleMarkov(this, this.mc));
 		modules.add(new ModuleImp(this, this.mc));
+		modules.add(new ModuleNightVision(this, this.mc));
 
 		// Troublesome 
 		

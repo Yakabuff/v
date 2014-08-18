@@ -173,7 +173,7 @@ public class GuiMultiplayer extends GuiScreen
             }
             else if (p_146284_1_.id == 0)
             {
-                this.mc.displayGuiScreen(this.field_146798_g);
+                this.mc.displayGuiScreen(new GuiMainMenu());
             }
             else if (p_146284_1_.id == 8)
             {
