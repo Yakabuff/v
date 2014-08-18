@@ -15,7 +15,8 @@ public class ModuleNoSlow extends ModuleBase
 		// TODO Auto-generated constructor stub
 		aliases.add("ns");
 
-		this.name = "No Slow";
+		this.needsTick = true;
+		this.name = "NoSlow";
 		
 		this.command = new Command(this.vapid, this, aliases, "Prevents you from slowing down while eating, shooting a bow, walking in soul sand, etc.");
 	}
@@ -24,8 +25,9 @@ public class ModuleNoSlow extends ModuleBase
 	public void onTick()
 	{
 		if(this.isEnabled)
+		{
 			fastLadder();
-			skipLadder();
+		}
 	}
 	
 	@Override
@@ -52,15 +54,6 @@ public class ModuleNoSlow extends ModuleBase
 					mc.thePlayer.motionZ = 0.15D * ladderSpeed;
 				}
 			}
-		}
-	}
-
-	private void skipLadder() {
-		if (!mc.thePlayer.isOnLadder()
-				&& mc.gameSettings.keyBindForward.pressed
-				&& ((mc.theWorld.getBlock((int) mc.thePlayer.posX, (int) mc.thePlayer.boundingBox.minY + 1, (int) mc.thePlayer.posZ) == Blocks.ladder || (mc.theWorld.getBlock((int) mc.thePlayer.posX, (int) mc.thePlayer.boundingBox.minY + 1, (int) mc.thePlayer.posZ) == Blocks.vine)))) {
-			mc.thePlayer.setSprinting(false);
-			mc.thePlayer.motionY = 0.26F;
 		}
 	}
 
