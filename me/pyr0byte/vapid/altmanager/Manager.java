@@ -55,10 +55,6 @@ public class Manager
 	{
 		try
 		{
-			if(!vDir.exists())
-			{
-				vDir.mkdirs();
-			}
 			File file = new File(vDir.getAbsolutePath(), "alts.txt");
 			PrintWriter writer = new PrintWriter(new FileWriter(file));
 			for(Alt alt: altList)
