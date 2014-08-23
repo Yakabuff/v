@@ -2,8 +2,6 @@ package net.minecraft.client.renderer.entity;
 
 import java.util.Random;
 
-import me.pyr0byte.vapid.StaticVapid;
-import me.pyr0byte.vapid.events.EntityLabelRenderedEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBase;
@@ -24,6 +22,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import org.vclient.v.StaticVapid;
+import org.vclient.v.events.EntityLabelRenderedEvent;
 
 public abstract class RendererLivingEntity extends Render
 {

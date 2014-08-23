@@ -1,7 +1,8 @@
 package net.minecraft.client.entity;
 
-import me.pyr0byte.vapid.StaticVapid;
-import me.pyr0byte.vapid.events.ChatSentEvent;
+import org.vclient.v.StaticVapid;
+import org.vclient.v.events.ChatSentEvent;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.network.NetHandlerPlayClient;

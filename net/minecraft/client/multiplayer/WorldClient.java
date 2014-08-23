@@ -6,9 +6,10 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-import me.pyr0byte.vapid.StaticVapid;
-import me.pyr0byte.vapid.events.PlayerEnterVisualRangeEvent;
-import me.pyr0byte.vapid.events.PlayerLeaveVisualRangeEvent;
+import org.vclient.v.StaticVapid;
+import org.vclient.v.events.PlayerEnterVisualRangeEvent;
+import org.vclient.v.events.PlayerLeaveVisualRangeEvent;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;

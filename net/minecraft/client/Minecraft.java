@@ -26,10 +26,6 @@ import java.util.concurrent.Callable;
 
 import javax.imageio.ImageIO;
 
-import me.pyr0byte.vapid.Vapid;
-import me.pyr0byte.vapid.altmanager.Alt;
-import me.pyr0byte.vapid.events.ItemUsedEvent;
-import me.pyr0byte.vapid.modules.ModuleFastPlace;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.audio.MusicTicker;
@@ -154,6 +150,10 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
+import org.vclient.v.Vapid;
+import org.vclient.v.altmanager.Alt;
+import org.vclient.v.events.ItemUsedEvent;
+import org.vclient.v.modules.ModuleFastPlace;
 
 public class Minecraft implements IPlayerUsage
 {

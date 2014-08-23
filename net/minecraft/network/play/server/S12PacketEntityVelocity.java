@@ -2,8 +2,9 @@ package net.minecraft.network.play.server;
 
 import java.io.IOException;
 
-import me.pyr0byte.vapid.StaticVapid;
-import me.pyr0byte.vapid.modules.ModuleNoKnockback;
+import org.vclient.v.StaticVapid;
+import org.vclient.v.modules.ModuleNoKnockback;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.Packet;

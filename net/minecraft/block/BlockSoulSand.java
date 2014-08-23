@@ -1,6 +1,7 @@
 package net.minecraft.block;
 
-import me.pyr0byte.vapid.StaticVapid;
+import org.vclient.v.StaticVapid;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;

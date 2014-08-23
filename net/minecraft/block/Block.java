@@ -4,7 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import me.pyr0byte.vapid.StaticVapid;
+import org.vclient.v.StaticVapid;
+
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

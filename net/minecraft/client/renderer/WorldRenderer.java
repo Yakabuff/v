@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import me.pyr0byte.vapid.StaticVapid;
-import me.pyr0byte.vapid.events.BlockRenderedEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -23,6 +21,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 
 import org.lwjgl.opengl.GL11;
+import org.vclient.v.StaticVapid;
+import org.vclient.v.events.BlockRenderedEvent;
 
 public class WorldRenderer
 {

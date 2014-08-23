@@ -1,8 +1,9 @@
 package net.minecraft.client.multiplayer;
 
-import me.pyr0byte.vapid.StaticVapid;
-import me.pyr0byte.vapid.modules.ModuleBreakMask;
-import me.pyr0byte.vapid.modules.ModuleFastBreak;
+import org.vclient.v.StaticVapid;
+import org.vclient.v.modules.ModuleBreakMask;
+import org.vclient.v.modules.ModuleFastBreak;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;

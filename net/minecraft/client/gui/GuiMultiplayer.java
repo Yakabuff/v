@@ -5,9 +5,6 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
-import me.pyr0byte.vapid.altmanager.GuiAltList;
-import me.pyr0byte.vapid.altmanager.GuiDirectLogin;
-import me.pyr0byte.vapid.altmanager.Manager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.multiplayer.ServerData;
@@ -19,6 +16,9 @@ import net.minecraft.client.resources.I18n;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
+import org.vclient.v.altmanager.GuiAltList;
+import org.vclient.v.altmanager.GuiDirectLogin;
+import org.vclient.v.altmanager.Manager;
 
 public class GuiMultiplayer extends GuiScreen
 {

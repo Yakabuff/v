@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import me.pyr0byte.vapid.StaticVapid;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
@@ -42,6 +41,7 @@ import net.minecraft.world.chunk.Chunk;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import org.vclient.v.StaticVapid;
 
 public class GuiIngame extends Gui
 {

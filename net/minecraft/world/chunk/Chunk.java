@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Callable;
 
-import me.pyr0byte.vapid.StaticVapid;
-import me.pyr0byte.vapid.events.BlockChangedEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -33,6 +31,8 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.vclient.v.StaticVapid;
+import org.vclient.v.events.BlockChangedEvent;
 
 public class Chunk
 {

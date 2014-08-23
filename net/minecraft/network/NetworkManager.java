@@ -25,8 +25,6 @@ import java.util.Queue;
 
 import javax.crypto.SecretKey;
 
-import me.pyr0byte.vapid.StaticVapid;
-import me.pyr0byte.vapid.events.PacketReceivedEvent;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.CryptManager;
 import net.minecraft.util.IChatComponent;
@@ -40,6 +38,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import org.vclient.v.StaticVapid;
+import org.vclient.v.events.PacketReceivedEvent;
 
 public class NetworkManager extends SimpleChannelInboundHandler
 {

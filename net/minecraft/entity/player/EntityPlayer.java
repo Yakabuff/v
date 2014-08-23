@@ -8,7 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-import me.pyr0byte.vapid.StaticVapid;
+import org.vclient.v.StaticVapid;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.material.Material;

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import me.pyr0byte.vapid.StaticVapid;
-import me.pyr0byte.vapid.events.ChunkLoadedEvent;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.LongHashMap;
@@ -18,6 +16,8 @@ import net.minecraft.world.chunk.IChunkProvider;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.vclient.v.StaticVapid;
+import org.vclient.v.events.ChunkLoadedEvent;
 
 public class ChunkProviderClient implements IChunkProvider
 {

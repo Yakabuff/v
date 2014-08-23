@@ -15,10 +15,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import me.pyr0byte.vapid.StaticVapid;
-import me.pyr0byte.vapid.events.ChatReceivedEvent;
-import me.pyr0byte.vapid.events.PlayerLogOffEvent;
-import me.pyr0byte.vapid.events.PlayerLogOnEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
@@ -197,6 +193,10 @@ import net.minecraft.world.storage.MapStorage;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.vclient.v.StaticVapid;
+import org.vclient.v.events.ChatReceivedEvent;
+import org.vclient.v.events.PlayerLogOffEvent;
+import org.vclient.v.events.PlayerLogOnEvent;
 
 import com.google.common.base.Charsets;
 /* WDL >>> */

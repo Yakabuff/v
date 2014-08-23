@@ -1,6 +1,7 @@
 package net.minecraft.client.entity;
 
-import me.pyr0byte.vapid.StaticVapid;
+import org.vclient.v.StaticVapid;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiCommandBlock;
