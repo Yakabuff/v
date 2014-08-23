@@ -8,9 +8,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import me.pyr0byte.vapid.modules.ModuleAura;
 import me.pyr0byte.vapid.modules.ModuleAutoarmor;
@@ -70,6 +75,13 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ScreenShotHelper;
 import net.minecraft.util.Util.EnumOS;
 
+import org.reflections.Reflections;
+import org.reflections.scanners.ResourcesScanner;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
+import org.reflections.util.FilterBuilder;
+
 public class Vapid {
 
 	Minecraft mc;
@@ -92,73 +104,23 @@ public class Vapid {
 		
 		moduleCache = new HashMap<String, ModuleBase>();
 		moduleNameCache = new HashMap<String, String>();
+
+		Reflections reflections = new Reflections("me.pyr0byte.vapid.modules");
+
+		Set<Class<? extends ModuleBase>> classes = reflections.getSubTypesOf(ModuleBase.class);
+
+		Iterator i = classes.iterator();
+		Class clazz;
 		
-		// Sorted by supposed priority
-		modules.add(new ModuleAura(this, this.mc));
-		modules.add(new ModuleAutoarmor(this, this.mc));
-		modules.add(new ModuleDump(this, this.mc));
-		modules.add(new ModuleBot(this, this.mc));
-
+		while(i.hasNext()) {
+			clazz = (Class<? extends ModuleBase>)i.next();
+			try {
+				modules.add((ModuleBase)clazz.getConstructor(Vapid.class, Minecraft.class).newInstance(this, this.mc));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
-		modules.add(new ModuleNoFall(this, this.mc));
-		modules.add(new ModuleBindEditor(this, this.mc));
-		//modules.add(new ModuleRefill(this, this.mc));
-		// crashes
-		
-		modules.add(new ModuleTrajectories(this, this.mc));
-		modules.add(new ModuleMarkers(this, this.mc));
-
-		modules.add(new ModuleESP(this, this.mc));
-
-		
-		modules.add(new ModuleFly(this, this.mc));
-		modules.add(new ModuleFreecam(this, this.mc));
-		modules.add(new ModuleGlide(this, this.mc));
-		modules.add(new ModuleAutowalk(this, this.mc));
-		modules.add(new ModuleYaw(this, this.mc));
-		modules.add(new ModuleIntervalThrow(this, this.mc));
-
-		modules.add(new ModuleSprint(this, this.mc));
-		modules.add(new ModuleStep(this, this.mc));
-
-		modules.add(new ModuleTimer(this, this.mc));
-		modules.add(new ModuleNoSlow(this, this.mc));
-		modules.add(new ModuleBrightness(this, this.mc));
-		modules.add(new ModuleGui(this, this.mc));
-		modules.add(new ModuleNotifications(this, this.mc));
-		modules.add(new ModuleFriends(this, this.mc));
-		modules.add(new ModuleNoKnockback(this, this.mc));
-		modules.add(new ModuleFastBreak(this, this.mc));
-		modules.add(new ModuleBreakMask(this, this.mc));
-		modules.add(new ModuleFastbow(this, this.mc));
-		modules.add(new ModuleFastbowTristan(this, this.mc));
-
-		modules.add(new ModuleRegexIgnore(this, this.mc));
-
-		modules.add(new ModuleSpawn(this, this.mc));
-		modules.add(new ModuleUtil(this, this.mc));
-		modules.add(new ModuleEncryption(this, this.mc));
-		modules.add(new ModuleFastPlace(this, this.mc));
-		modules.add(new ModuleAutobridge(this, this.mc));
-
-		modules.add(new ModuleHelp(this, this.mc));
-		modules.add(new ModuleInfo(this, this.mc));
-		modules.add(new ModuleGreet(this, this.mc));
-		modules.add(new ModuleTextWidth(this, this.mc));
-		modules.add(new ModuleAutomine(this, this.mc));
-		modules.add(new ModuleWaypoints(this, this.mc));
-		modules.add(new ModuleXray(this, this.mc));
-		modules.add(new ModuleTracers(this, this.mc));
-		modules.add(new ModuleSpam(this, this.mc));
-		modules.add(new ModuleAutorespawn(this, this.mc));
-		modules.add(new ModuleTeleport(this, this.mc));
-		modules.add(new ModuleSounder(this, this.mc));
-		modules.add(new ModuleIRC(this, this.mc));
-		modules.add(new ModuleHit(this, this.mc));
-		modules.add(new ModuleMarkov(this, this.mc));
-		modules.add(new ModuleImp(this, this.mc));
-		modules.add(new ModuleNightVision(this, this.mc));
-
 		// Troublesome 
 		
 		for(ModuleBase m : modules)
