@@ -11,6 +11,7 @@ import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -22,7 +23,7 @@ public class ModuleAura extends ModuleBase
 	List sortedEntities, entities;
 	Iterator es;
 	EntityClientPlayerMP player;
-	EntityLiving e;
+	EntityLivingBase e;
 	boolean mobs, players, animals;
 	
 	double reachDistance = 4.2D;
@@ -154,7 +155,7 @@ public class ModuleAura extends ModuleBase
 				  			
 				    		  this.currentMs = System.nanoTime() / 1000000;
 	 
-				    		  e = (EntityLiving)es.next();
+				    		  e = (EntityLivingBase)es.next();
 				    		  
 				    		  if(e != null && !e.equals(player) && !e.isDead && !e.isDead && e.getHealth() > 0  && this.isEntityWatched(e) && player.getDistanceToEntity(e) <= this.reachDistance && player.canEntityBeSeen(e)) {
 				    			  
