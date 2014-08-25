@@ -81,6 +81,7 @@ public class ModuleFriends extends ModuleBase
 			{
 				this.friends.remove(friend);
 				this.saveFriendData(this.filename);
+				vapid.confirmMessage("Removed " + argv[0] + " from friends list");
 			}
 			else
 			{

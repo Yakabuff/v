@@ -158,7 +158,7 @@ public class ModuleAura extends ModuleBase
 	 
 				    		  e = (EntityLivingBase)es.next();
 				    		  
-				    		  if(e != null && !e.equals(player) && !e.isDead && !e.isDead && e.getHealth() > 0  && this.isEntityWatched(e) && player.getDistanceToEntity(e) <= this.reachDistance && player.canEntityBeSeen(e)) {
+				    		  if(e != null && !e.equals(player) && !e.isDead && e.getHealth() > 0  && this.isEntityWatched(e) && player.getDistanceToEntity(e) <= this.reachDistance && player.canEntityBeSeen(e)) {
 				    			  
 				    				  this.faceEntity(e, 100F, 100F);
 					    			  			    				  
