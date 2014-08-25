@@ -25,6 +25,8 @@ public class ModuleJesus extends ModuleBase
 					
 		this.needsTick = true;
 		this.aliases.add("jesus");
+		
+		this.command = new Command(this.vapid, this, aliases, "Allows the player to walk on water.");
 	}
 	
 	@Override
