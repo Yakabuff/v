@@ -50,11 +50,7 @@ public class ModuleJesus extends ModuleBase
 			}
 			
 			if (isInLiquid()) {
-				
-				if (mc.thePlayer.isInsideOfMaterial(Material.air)) 
-				{
-					mc.thePlayer.motionY = 0.085;
-				}
+				mc.thePlayer.motionY = 0.085;
 			}else{
 				if ((isOnLiquid(mc.thePlayer.boundingBox)) && (!mc.thePlayer.isInWater())) {
 					mc.thePlayer.onGround = true;
