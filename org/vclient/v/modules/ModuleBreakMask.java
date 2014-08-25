@@ -14,7 +14,7 @@ public class ModuleBreakMask extends ModuleBase
 	{
 		super(vapid, mc);
 		// TODO Auto-generated constructor stub
-							
+		this.name = "BreakMask";
 		this.command = new Command(this.vapid, this, aliases, "Only allows you to break blocks of the given type.");
 		this.command.registerArg("id", new Class[] { Integer.class }, "The only ID you want to break.");
 		this.defaultArg = "id";

@@ -15,7 +15,7 @@ public class ModuleFastPlace extends ModuleBase
 	{
 		super(vapid, mc);
 		// TODO Auto-generated constructor stub
-							
+		this.name = "FastPlace";	
 		this.command = new Command(this.vapid, this, aliases, "Speeds up block placing. It can slow it down too, if you're so inclined.");
 		this.command.registerArg("tolerance", new Class[] { Integer.class }, "Ticks to wait between placing blocks");
 		this.defaultArg = "tolerance";

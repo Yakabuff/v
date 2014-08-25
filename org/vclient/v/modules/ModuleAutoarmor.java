@@ -15,7 +15,7 @@ public class ModuleAutoarmor extends ModuleBase
 		super(vapid, mc);
 		// TODO Auto-generated constructor stub
 		aliases.add("aa");
-		
+		this.name = "AutoArmor";
 		this.needsTick = true;
 		this.command = new Command(this.vapid, this, aliases, "Equips armor if an armor slot is available and armor is found. Checks the 27 main inventory slots from top left to bottom right. Tells you when a piece is replaced.");
 	}

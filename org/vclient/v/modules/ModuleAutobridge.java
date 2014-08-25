@@ -15,7 +15,7 @@ public class ModuleAutobridge extends ModuleBase
 					
 		this.needsTick = true;
 		this.aliases.add("bridge");
-		
+		this.name = "AutoBridge";
 		this.command = new Command(this.vapid, this, aliases, "as if you were holding S, Shift, and Right Click");
 
 	}

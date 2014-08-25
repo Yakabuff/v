@@ -15,7 +15,7 @@ public class ModuleAutorespawn extends ModuleBase
 					
 		this.needsTick = true;
 		this.aliases.add("respawn");
-		
+		this.name = "AutoRespawn";
 		this.command = new Command(this.vapid, this, aliases, "Automatically respawns upon death");
 
 	}

@@ -19,7 +19,7 @@ public class ModuleTextWidth extends ModuleBase
 		
 		aliases.add("width");
 		this.add = 0xFFEE0;
-		
+		this.name = "TextWidth";
 		this.command = new Command(this.vapid, this, aliases, "Converts chats to full-width unicode");
 		this.command.registerArg("val", new Class[] {Integer.class});
 		this.defaultArg = "val";

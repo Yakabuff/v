@@ -15,7 +15,7 @@ public class ModuleNoKnockback extends ModuleBase
 		this.aliases.add("nk");	
 		this.aliases.add("knock");		
 
-		this.name = "No Knockback";
+		this.name = "NoKnockback";
 		
 		this.command = new Command(this.vapid, this, aliases, "Prevents knockback from swords, bows, etc.");
 	}

@@ -17,7 +17,7 @@ public class ModuleNoFall extends ModuleBase
 					
 		this.needsTick = true;
 		
-		this.name = "No Fall";
+		this.name = "NoFall";
 		this.command = new Command(this.vapid, this, aliases, "Catches you after you've fallen a certain distance by turning on fly");
 		this.command.registerArg("tolerance", new Class[] { Float.class }, "How far you can fall, in meters, before fly gets turned on");
 		this.defaultArg = "tolerance";

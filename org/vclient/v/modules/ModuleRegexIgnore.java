@@ -27,7 +27,7 @@ public class ModuleRegexIgnore extends ModuleBase
 		this.command.registerArg("list", new Class[] {});
 
 		this.defaultArg = "add";
-		this.name = "Regex Ignore";
+		this.name = "RegexIgnore";
 		this.aliases.add("regex");
 		this.aliases.add("ignore");
 

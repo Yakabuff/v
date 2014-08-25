@@ -14,7 +14,7 @@ public class ModuleFastBreak extends ModuleBase
 	{
 		super(vapid, mc);
 		// TODO Auto-generated constructor stub
-							
+		this.name = "FastBreak";
 		this.command = new Command(this.vapid, this, aliases, "Speeds up block breaking. Only works well with Efficiency V on soft blocks like stone.");
 		this.command.registerArg("tolerance", new Class[] { Float.class }, "percent of original break speed, default 0.5 (0 through 1)");
 		this.defaultArg = "tolerance";

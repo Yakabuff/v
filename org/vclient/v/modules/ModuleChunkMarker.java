@@ -18,7 +18,7 @@ public class ModuleChunkMarker extends ModuleBase
 		this.needsTick = true;
 		this.aliases.add("yaw");
 		this.yaw = 0F;
-		
+		this.name = "ChunkMarker";
 		this.command = new Command(this.vapid, this, aliases);
 		
 

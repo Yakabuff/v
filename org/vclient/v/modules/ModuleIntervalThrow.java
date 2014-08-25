@@ -22,7 +22,7 @@ public class ModuleIntervalThrow extends ModuleBase
 					
 		this.needsTick = true;
 		this.aliases.add("intt");
-		
+		this.name = "IntervalThrow";
 		this.command = new Command(this.vapid, this, aliases, "Throws the item in your hotbar every nth millisecond.");
 		this.command.registerArg("int", new Class[] {Long.class}, "period in milliseconds (ex. 100)");
 		this.command.registerArg("slot", new Class[] {Long.class}, "hotbar slot to change to before throwing; -1 means no change");

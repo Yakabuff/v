@@ -15,7 +15,7 @@ public class ModuleAutomine extends ModuleBase
 					
 		this.needsTick = true;
 		this.aliases.add("mine");
-		
+		this.name = "AutoMine";
 		this.command = new Command(this.vapid, this, aliases, "You mine");
 
 	}

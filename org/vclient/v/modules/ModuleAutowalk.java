@@ -15,7 +15,7 @@ public class ModuleAutowalk extends ModuleBase
 					
 		this.needsTick = true;
 		this.aliases.add("walk");
-		
+		this.name = "AutoWalk";
 		this.command = new Command(this.vapid, this, aliases, "as if you were holding \"W\"");
 
 	}
