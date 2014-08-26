@@ -20,6 +20,12 @@ public class ModuleSprint extends ModuleBase
 	}
 	
 	@Override
+	public void onDisable()
+	{
+		this.isEnabled = false;
+	}
+	
+	@Override
 	public void onTick()
 	{
 		if(this.isEnabled) 
