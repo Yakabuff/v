@@ -14,7 +14,6 @@ public class ModuleHorseJump extends ModuleBase
 		// TODO Auto-generated constructor stub
 					
 		this.needsTick = true;
-		this.aliases.add("horsejump");
 		this.aliases.add("horse");
 		this.aliases.add("hj");
 		this.name = "HorseJump";	

@@ -17,7 +17,6 @@ public class ModuleRecover extends ModuleBase
 		// TODO Auto-generated constructor stub
 					
 		this.needsTick = true;
-		this.aliases.add("recover");
 		
 		this.command = new Command(this.vapid, this, aliases, "Puts out fire on your player and takes away all negative potion effects.");
 	}

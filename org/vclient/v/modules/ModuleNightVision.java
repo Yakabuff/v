@@ -15,7 +15,6 @@ public class ModuleNightVision extends ModuleBase
 		
 		this.needsTick = true;
 		aliases.add("nv");
-		aliases.add("nightvision");
 		this.name = "NightVision";
 		this.command = new Command(this.vapid, this, aliases, "(Alternative to Brightness) Activate NightVision potion effect.");
 	}

@@ -24,7 +24,6 @@ public class ModuleJesus extends ModuleBase
 		// TODO Auto-generated constructor stub
 					
 		this.needsTick = true;
-		this.aliases.add("jesus");
 		
 		this.command = new Command(this.vapid, this, aliases, "Allows the player to walk on water.");
 	}
