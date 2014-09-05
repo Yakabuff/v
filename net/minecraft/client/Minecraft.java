@@ -151,6 +151,7 @@ import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
 import org.vclient.v.FileHelper;
+import org.vclient.v.StaticVapid;
 import org.vclient.v.Vapid;
 import org.vclient.v.altmanager.Alt;
 import org.vclient.v.events.ItemUsedEvent;
@@ -1391,7 +1392,10 @@ public class Minecraft implements IPlayerUsage
                 this.mouseHelper.grabMouseCursor();
                 this.displayGuiScreen((GuiScreen)null);
                 // VAPID
-                //this.leftClickCounter = 10000;
+                if(!StaticVapid.vapid.getModule("automine").isEnabled)
+            	{
+                	this.leftClickCounter = 10000;
+            	}
             }
         }
     }
@@ -1404,7 +1408,10 @@ public class Minecraft implements IPlayerUsage
         if (this.inGameHasFocus)
         {
             //VAPID
-        	//KeyBinding.unPressAllKeys();
+        	if(!StaticVapid.vapid.getModule("automine").isEnabled)
+        	{
+        		KeyBinding.unPressAllKeys();
+        	}
             this.inGameHasFocus = false;
            
             this.mouseHelper.ungrabMouseCursor();
@@ -1719,7 +1726,10 @@ public class Minecraft implements IPlayerUsage
         if (this.currentScreen != null)
         {
             // VAPID
-        	//this.leftClickCounter = 10000;
+        	if(!StaticVapid.vapid.getModule("automine").isEnabled)
+        	{
+        		this.leftClickCounter = 10000;
+        	}
         }
 
         CrashReport var2;
