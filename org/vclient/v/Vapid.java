@@ -2,6 +2,7 @@ package org.vclient.v;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -91,6 +92,11 @@ public class Vapid {
 	public Map<String, String> moduleNameCache;
 	boolean hudNotifications;
 	public final String delimeter;
+	
+	/**
+	 * VClient file directory ".minecraft/V/"
+	 */
+	public static File vDir = new File(getAppDir("minecraft") + File.separator + "V");
 	
 	public Vapid(Minecraft mc) 
 	{
@@ -495,4 +501,53 @@ public class Vapid {
         String var0 = System.getProperty("os.name").toLowerCase();
         return var0.contains("win") ? EnumOS.WINDOWS : (var0.contains("mac") ? EnumOS.MACOS : (var0.contains("solaris") ? EnumOS.SOLARIS : (var0.contains("sunos") ? EnumOS.SOLARIS : (var0.contains("linux") ? EnumOS.LINUX : (var0.contains("unix") ? EnumOS.LINUX : EnumOS.UNKNOWN)))));
     }
+    
+    
+    public void saveHacks()
+	{
+		try
+		{
+			File file = new File(vDir.getAbsolutePath(), "hacks.vpd");
+			BufferedWriter out = new BufferedWriter(new FileWriter(file));
+			for(ModuleBase mod : this.modules)
+			{
+				if(!mod.getName().equals("Freecam"))
+				{
+					out.write(mod.getName().toLowerCase().replace(" ", "") + ":" + mod.isEnabled);
+					out.write("\r\n");
+				}
+			}
+			out.close();
+		}catch(Exception e) {}
+	}
+    
+	public void loadHacks()
+	{
+		try
+		{
+			File file = new File(vDir.getAbsolutePath(), "hacks.vpd");
+			FileInputStream fstream = new FileInputStream(file.getAbsolutePath());
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String line;
+			while((line = br.readLine()) != null)
+			{
+				String curLine = line.toLowerCase().trim();
+				String name = curLine.split(":")[0];
+				boolean isOn = Boolean.parseBoolean(curLine.split(":")[1]);
+				for(ModuleBase mod : this.modules)
+				{
+					if(mod.getName().toLowerCase().replace(" ", "").equals(name))
+					{
+						mod.isEnabled = isOn;
+					}
+				}
+			}
+			br.close();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			saveHacks();
+		}
+	}
 }

@@ -150,6 +150,7 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
+import org.vclient.v.FileHelper;
 import org.vclient.v.Vapid;
 import org.vclient.v.altmanager.Alt;
 import org.vclient.v.events.ItemUsedEvent;
@@ -940,6 +941,7 @@ public class Minecraft implements IPlayerUsage
                     			{
                     				vDir.mkdirs();
                     			}
+                    			vapid.loadHacks();
                     		}catch(Exception error)
                     		{
                     			error.printStackTrace();

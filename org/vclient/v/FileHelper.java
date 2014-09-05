@@ -22,6 +22,8 @@ import java.io.*;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import java.util.Locale;
+
+import org.vclient.v.modules.ModuleBase;
  
 /**
  * Utilities for File manipulation.
@@ -31,9 +33,9 @@ import java.util.Locale;
  * @author Stephen Ostermiller http://ostermiller.org/contact.pl?regarding=Java+Utilities
  * @since ostermillerutils 1.00.00
  */
-public class FileHelper {
- 
-    /**
+public class FileHelper 
+{
+	/**
      * Locale specific strings displayed to the user.
      *
      * @since ostermillerutils 1.00.00

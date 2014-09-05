@@ -118,8 +118,10 @@ public class Command {
 			
 		} else if(!foundFlag) {
 			if(this.module.isToggleable)
+			{
 				this.module.toggleState();
-			else {
+				vapid.saveHacks();
+			} else {
 				vapid.errorMessage("You have to provide arguments for this command");
 				return false;
 			}
