@@ -56,7 +56,7 @@ public class Manager
 	{
 		try
 		{
-			File file = new File(vDir.getAbsolutePath(), "alts.txt");
+			File file = new File(vDir.getAbsolutePath(), "alts.vpd");
 			PrintWriter writer = new PrintWriter(new FileWriter(file));
 			for(Alt alt: altList)
 			{
@@ -126,7 +126,7 @@ public class Manager
 	{
 		try
 		{
-			File file = new File(Vapid.getAppDir("minecraft").toString().concat(File.separator).concat("V").concat(File.separator).concat("alts.txt"));
+			File file = new File(Vapid.getAppDir("minecraft").toString().concat(File.separator).concat("V").concat(File.separator).concat("alts.vpd"));
 			if(file.exists() && file.canRead())
 			{
 				BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
