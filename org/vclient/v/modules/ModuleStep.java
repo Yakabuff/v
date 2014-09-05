@@ -24,13 +24,9 @@ public class ModuleStep extends ModuleBase
 		if(this.isEnabled)
 		{
 			if(mc.theWorld != null && mc.thePlayer != null) {
-				mc.thePlayer.stepHeight = 0.6F;
-				boolean check = !mc.thePlayer.isOnLadder() && !mc.thePlayer.isInWater()
-						&& mc.thePlayer.isCollidedHorizontally && this.isAir() 
-						&& mc.thePlayer.onGround && !Keyboard.isKeyDown(Keyboard.KEY_SPACE);
-				if(check) {
+				if(mc.thePlayer.onGround && mc.thePlayer.isCollidedHorizontally && !mc.thePlayer.isInWater()) {
 					mc.thePlayer.boundingBox.offset(0.0D, 1.0628, 0.0D);
-					mc.thePlayer.motionY = -420;
+					mc.thePlayer.motionY = -1.067;
 					mc.thePlayer.isCollidedHorizontally = false;
 				}
 			}
