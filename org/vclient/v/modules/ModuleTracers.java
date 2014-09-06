@@ -6,6 +6,7 @@ import java.util.Map;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
@@ -302,20 +303,20 @@ public class ModuleTracers extends ModuleBase {
       double ytSize = 0.35;
 
       GL11.glPushMatrix();
-
+      
+      GL11.glEnable(GL11.GL_LINE_SMOOTH);
+      
+      GL11.glDisable(GL11.GL_DEPTH_TEST);
+      
+      GL11.glDisable(GL11.GL_TEXTURE_2D);
+      
+      GL11.glDepthMask(false);
+      
+      GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+      
+      GL11.glEnable(GL11.GL_BLEND);
+      
       GL11.glLineWidth(1.5F);
-
-      GL11.glDisable(3553);
-
-      GL11.glDisable(2896);
-
-      GL11.glEnable(3042);
-
-      GL11.glBlendFunc(770, 771);
-
-      GL11.glDisable(2929);
-
-      GL11.glBegin(3);
       
       
 	  for(int x = 0; x < mc.theWorld.getLoadedEntityList().size(); x ++) 
@@ -327,42 +328,32 @@ public class ModuleTracers extends ModuleBase {
 			  int color = this.traced.get(entity.getClass());
 			  GL11.glColor3d(((color >> 16) & 255) / 255.0D, ((color >> 8) & 255) / 255.0D, ((color) & 255) / 255.0D);
 
-			  double X = entity.posX;
-			  double Y = entity.posY;
-			  double Z = entity.posZ;
-			  double mX = mc.thePlayer.posX;
-			  double mY = mc.thePlayer.posY;
-			  double mZ = mc.thePlayer.posZ;
-			  double dX = (mX - X);
-			  double dY = (mY - Y);
-			  double dZ = (mZ - Z);
+			  float distance = mc.renderViewEntity.getDistanceToEntity(entity);
+			  double posX = ((entity.lastTickPosX + (entity.posX - entity.lastTickPosX) - RenderManager.instance.renderPosX));
+			  double posY = ((entity.lastTickPosY + (entity.posY - entity.lastTickPosY) - RenderManager.instance.renderPosY));
+			  double posZ = ((entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) - RenderManager.instance.renderPosZ));
 			  
 
-		      if(X != mX && Y != mY && Z != mZ) 
-		      {        
-		    	 if(!this.lineMode)
-		    	 {
-		    		 GL11.glVertex3d(0, 0, 0);
-		         	GL11.glVertex3d((-dX + size) - 0.5, (ytSize - dY) + 1.0, (-dZ - size) + 0.5);
-		    	 }
-		    	 else
-		    	 {
-
-		    	 }
-		      }
+			  if(!this.lineMode)
+			  {
+				  GL11.glBegin(GL11.GL_LINE_LOOP);
+				  GL11.glVertex3d(0, 0, 0);
+				  GL11.glVertex3d(posX, posY, posZ);
+				  GL11.glEnd();
+			  }else{}
 		  }
        }
 
-      GL11.glEnd();
-
-      GL11.glEnable(2929);
-
-      GL11.glDisable(3042);
-
-      GL11.glEnable(3553);
-
-      GL11.glEnable(2896);
-
+      GL11.glDisable(GL11.GL_BLEND);
+      
+      GL11.glDepthMask(true);
+      
+      GL11.glEnable(GL11.GL_TEXTURE_2D);
+      
+      GL11.glEnable(GL11.GL_DEPTH_TEST);
+      
+      GL11.glDisable(GL11.GL_LINE_SMOOTH);
+      
       GL11.glPopMatrix();
     }
 }
