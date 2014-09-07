@@ -32,7 +32,10 @@ public class ModuleBot extends ModuleBase
 				mc.thePlayer.respawnPlayer();
 			} else if(!hasKilled) {
 				mc.thePlayer.rotationPitch = 90;
-				mc.botController.onPlayerDamageBlock(mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ, mc.objectMouseOver.sideHit);
+				try
+				{
+					mc.botController.onPlayerDamageBlock(mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ, mc.objectMouseOver.sideHit);
+				}catch(Exception ex){}
 				
 				if(mc.thePlayer.posY <= 6) {
 					mc.thePlayer.sendChatMessage("/kill");

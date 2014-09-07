@@ -28,6 +28,7 @@ public class ModuleNoSlow extends ModuleBase
 		if(this.isEnabled)
 		{
 			fastLadder();
+			fastIce();
 		}
 	}
 	
@@ -35,7 +36,6 @@ public class ModuleNoSlow extends ModuleBase
 	public void onEnable()
 	{
 		this.isEnabled = true;
-		fastIce();
 	}
 	
 	@Override
