@@ -171,5 +171,9 @@ public class Events {
 		
 	}
 	
+	public void onPacketSend(String str)
+	{
+		
+	}
 }
 

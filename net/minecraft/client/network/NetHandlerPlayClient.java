@@ -195,6 +195,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.vclient.v.StaticVapid;
 import org.vclient.v.events.ChatReceivedEvent;
+import org.vclient.v.events.PacketReceivedEvent;
+import org.vclient.v.events.PacketSendEvent;
 import org.vclient.v.events.PlayerLogOffEvent;
 import org.vclient.v.events.PlayerLogOnEvent;
 
@@ -796,6 +798,12 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
     public void addToSendQueue(Packet p_147297_1_)
     {
+    	final PacketSendEvent eps = new PacketSendEvent(p_147297_1_);
+    	StaticVapid.vapid.events.onEvent(eps);
+    		if (eps.getCancelled()) {
+    			return;
+    		}
+        p_147297_1_ = eps.getPacket();
         this.netManager.scheduleOutboundPacket(p_147297_1_, new GenericFutureListener[0]);
     }
 

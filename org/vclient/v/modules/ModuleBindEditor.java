@@ -51,6 +51,7 @@ public class ModuleBindEditor extends ModuleBase
 	{
 		binds.put(Keyboard.KEY_F, "fly");
 		binds.put(Keyboard.KEY_G, "sprint");
+		binds.put(Keyboard.KEY_R, "blink");
 	}
 	
 	public void loadKeybinds()
