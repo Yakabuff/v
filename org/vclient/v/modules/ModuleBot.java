@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -12,14 +12,14 @@ public class ModuleBot extends ModuleBase
 	
 	boolean hasKilled;
 	
-	public ModuleBot(Vapid vapid, Minecraft mc) 
+	public ModuleBot(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		this.needsTick = true;
 		
-		this.command = new Command(this.vapid, this, aliases, "A minimal bot for botting things");
+		this.command = new Command(this.V, this, aliases, "A minimal bot for botting things");
 
 	}
 	

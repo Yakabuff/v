@@ -2,7 +2,7 @@ package net.minecraft.network.play.server;
 
 import java.io.IOException;
 
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 import org.vclient.v.modules.ModuleNoKnockback;
 
 import net.minecraft.entity.Entity;
@@ -91,11 +91,11 @@ public class S12PacketEntityVelocity extends Packet
     public void processPacket(INetHandlerPlayClient p_149413_1_)
     {
     	
-    	// VAPID
+    	// V
   	    // Right vars? Who knows.
-         if(this.field_149417_a == StaticVapid.mc.thePlayer.getEntityId())
+         if(this.field_149417_a == StaticV.mc.thePlayer.getEntityId())
          {
-  	    	if(StaticVapid.vapid.getModule(ModuleNoKnockback.class).isEnabled)
+  	    	if(StaticV.V.getModule(ModuleNoKnockback.class).isEnabled)
   	    		return;
          }
     	

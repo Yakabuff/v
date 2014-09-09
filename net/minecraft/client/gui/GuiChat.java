@@ -30,7 +30,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 
 public class GuiChat extends GuiScreen
 {
@@ -92,10 +92,10 @@ public class GuiChat extends GuiScreen
     {
         this.field_146414_r = false;
 
-        //VAPID
+        //V
         if(par2 == 60)
         {
-        	StaticVapid.vapid.takeScreenshot();
+        	StaticV.V.takeScreenshot();
         }
         
         if (par2 == 15)

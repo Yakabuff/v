@@ -5,7 +5,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
@@ -13,16 +13,16 @@ public class ModuleGlide extends ModuleBase
 {
 	double speed;
 	
-	public ModuleGlide(Vapid vapid, Minecraft mc) 
+	public ModuleGlide(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 			
 		this.speed = -0.17D;
 		
 		this.needsTick = true;
 		
-		this.command = new Command(this.vapid, this, aliases, "Slows fall speed; NCP patched");
+		this.command = new Command(this.V, this, aliases, "Slows fall speed; NCP patched");
 		this.command.registerArg("speed", new Class[] { Double.class });
 		this.defaultArg = "speed";
 

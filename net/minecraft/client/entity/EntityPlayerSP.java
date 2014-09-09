@@ -1,6 +1,6 @@
 package net.minecraft.client.entity;
 
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -138,7 +138,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
             if (this.inPortal)
             {
             	
-            	/* VAPIDN
+            	/* VN
                 if (this.mc.currentScreen != null)
                 {
                     this.mc.displayGuiScreen((GuiScreen)null);
@@ -191,8 +191,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
             boolean var3 = this.movementInput.moveForward >= var2;
             this.movementInput.updatePlayerMoveState();
             
-            // VAPID
-            if(this.isUsingItem() && !this.isRiding() && !this.mc.vapid.getModule("noslow").isEnabled) {
+            // V
+            if(this.isUsingItem() && !this.isRiding() && !this.mc.V.getModule("noslow").isEnabled) {
                this.movementInput.moveStrafe *= 0.2F;
                this.movementInput.moveForward *= 0.2F;
                this.sprintToggleTimer = 0;

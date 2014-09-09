@@ -20,7 +20,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.vclient.v.Base64;
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 import org.vclient.v.annotations.EventHandler;
 import org.vclient.v.events.ChatReceivedEvent;
 import org.vclient.v.events.ChatSentEvent;
@@ -45,9 +45,9 @@ public class ModuleEncryption extends ModuleBase
 	public int c = 0;
 
 	  
-	public ModuleEncryption(Vapid vapid, Minecraft mc) 
+	public ModuleEncryption(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		
@@ -55,7 +55,7 @@ public class ModuleEncryption extends ModuleBase
 		this.needsTick = true;
 		this.isToggleable = true;
 		
-		this.command = new Command(this.vapid, this, aliases, "encrypts chats");
+		this.command = new Command(this.V, this, aliases, "encrypts chats");
 		this.command.registerArg("delimeter", new Class[] { String.class }, "what to start a chat with to encrypt it, ex. %");
 
 		this.defaultArg = "delimeter";
@@ -205,7 +205,7 @@ public class ModuleEncryption extends ModuleBase
 		if(name.equals("delimeter"))
 		{
 			this.delimeter = argv[0];
-			this.vapid.confirmMessage("Delimeter changed to: " + argv[0]);
+			this.V.confirmMessage("Delimeter changed to: " + argv[0]);
 		}
 		else if(name.equals("party"))
 		{
@@ -315,7 +315,7 @@ public class ModuleEncryption extends ModuleBase
 	        str3 = "\247l" + username + ": \247r" + str3 + "\247r";
 	        a.put(username, "");
 	        
-	        vapid.message(str3);
+	        V.message(str3);
 	        
 	        return false;
 	      }

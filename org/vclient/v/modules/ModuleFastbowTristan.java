@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemBow;
@@ -12,14 +12,14 @@ import net.minecraft.network.play.client.C09PacketHeldItemChange;
 public class ModuleFastbowTristan extends ModuleBase 
 {
 	
-	public ModuleFastbowTristan(Vapid vapid, Minecraft mc) 
+	public ModuleFastbowTristan(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub		
 		this.needsTick = true;
 		this.name = "Fastbow (v.t)";
 		
-		this.command = new Command(this.vapid, this, aliases, "Turns your bow into a chain gun!");
+		this.command = new Command(this.V, this, aliases, "Turns your bow into a chain gun!");
 	}
 	
 	@Override

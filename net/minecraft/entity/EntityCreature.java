@@ -20,7 +20,7 @@ public abstract class EntityCreature extends EntityLiving
     private PathEntity pathToEntity;
 
     /** The Entity this EntityCreature is set to attack. */
-    // VAPID | public
+    // V | public
     public Entity entityToAttack;
 
     /**

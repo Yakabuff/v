@@ -1,6 +1,6 @@
 package net.minecraft.client.entity;
 
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 import org.vclient.v.events.ChatSentEvent;
 
 import net.minecraft.client.Minecraft;
@@ -117,8 +117,8 @@ public class EntityClientPlayerMP extends EntityPlayerSP
     public void sendMotionUpdates()
     {
     	
-    	// VAPID
-       	if(StaticVapid.vapid.getModule("freecam").isEnabled)
+    	// V
+       	if(StaticV.V.getModule("freecam").isEnabled)
        		return;
        	
     	
@@ -224,14 +224,14 @@ public class EntityClientPlayerMP extends EntityPlayerSP
     public void sendChatMessage(String par1Str)
     {
     	
-    	if(par1Str.startsWith(StaticVapid.vapid.delimeter))
+    	if(par1Str.startsWith(StaticV.V.delimeter))
     	{
-    		StaticVapid.vapid.events.onCommand(par1Str.substring(1));
+    		StaticV.V.events.onCommand(par1Str.substring(1));
     		
     		return;
     	}
     	
-       	if(StaticVapid.vapid.events.onEvent(new ChatSentEvent(par1Str)))
+       	if(StaticV.V.events.onEvent(new ChatSentEvent(par1Str)))
     		return;
     	
         this.sendQueue.addToSendQueue(new C01PacketChatMessage(par1Str));

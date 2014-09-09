@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 import org.vclient.v.annotations.EventHandler;
 import org.vclient.v.events.PacketSendEvent;
 
@@ -25,13 +25,13 @@ public class ModuleBlink extends ModuleBase
     private EntityOtherPlayerMP blinkEntity;
     private double timer;
 	
-	public ModuleBlink(Vapid vapid, Minecraft mc) 
+	public ModuleBlink(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		this.needsTick = true;
-		this.command = new Command(this.vapid, this, aliases, "Synthetic lagswitch.");
+		this.command = new Command(this.V, this, aliases, "Synthetic lagswitch.");
 		this.delayedPackets = new ArrayList();
 	}
 

@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
@@ -1386,8 +1386,8 @@ public abstract class EntityPlayer extends EntityLivingBase implements ICommandS
     public boolean isEntityInsideOpaqueBlock()
     {
     	
-    	// VAPID
-       	if(StaticVapid.vapid.getModule("freecam").isEnabled)
+    	// V
+       	if(StaticV.V.getModule("freecam").isEnabled)
        		return false;
     	
         return !this.sleeping && super.isEntityInsideOpaqueBlock();

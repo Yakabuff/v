@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
@@ -9,16 +9,16 @@ public class ModuleFly extends ModuleBase
 {
 	float speed;
 	
-	public ModuleFly(Vapid vapid, Minecraft mc) 
+	public ModuleFly(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 			
 		this.speed = 0.05F;
 		
 		this.needsTick = true;
 		
-		this.command = new Command(this.vapid, this, aliases, "flies");
+		this.command = new Command(this.V, this, aliases, "flies");
 		this.command.registerArg("speed", new Class[] { Float.class }, "how fast, default 0.05F, highest speed on ice is 0.065, with speed II is 0.09");
 		this.defaultArg = "speed";
 

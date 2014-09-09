@@ -31,7 +31,7 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 import org.vclient.v.events.BlockChangedEvent;
 
 public class Chunk
@@ -668,8 +668,8 @@ public class Chunk
             int var12 = this.xPosition * 16 + p_150807_1_;
             int var13 = this.zPosition * 16 + p_150807_3_;
             
-            //VAPID
-            StaticVapid.vapid.events.onEvent(new BlockChangedEvent(StaticVapid.vapid.getBlockId(p_150807_4_) , p_150807_5_, StaticVapid.vapid.getBlockId(var8), var9, var12, p_150807_2_, var13));
+            //V
+            StaticV.V.events.onEvent(new BlockChangedEvent(StaticV.V.getBlockId(p_150807_4_) , p_150807_5_, StaticV.V.getBlockId(var8), var9, var12, p_150807_2_, var13));
 
 
             if (!this.worldObj.isClient)

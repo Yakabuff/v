@@ -20,7 +20,7 @@ public class KeyBinding implements Comparable
 
     /** because _303 wanted me to call it that(Caironater) */
     
-    /** VAPID | public because **/
+    /** V | public because **/
     
     public boolean pressed;
     private int presses;

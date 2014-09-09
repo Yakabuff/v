@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
@@ -10,9 +10,9 @@ public class ModuleBrightness extends ModuleBase
 	float brightness;
 	float defaultBrightness;
 	
-	public ModuleBrightness(Vapid vapid, Minecraft mc) 
+	public ModuleBrightness(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 			
 		this.brightness = 10024F;
@@ -22,7 +22,7 @@ public class ModuleBrightness extends ModuleBase
 		aliases.add("bright");
 		aliases.add("fullbright");
 		
-		this.command = new Command(this.vapid, this, aliases, "Changes brightness");
+		this.command = new Command(this.V, this, aliases, "Changes brightness");
 		this.command.registerArg("int", new Class[] { Float.class }, "how bright");
 		this.defaultArg = "int";
 

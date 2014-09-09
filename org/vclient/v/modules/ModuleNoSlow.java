@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
@@ -10,16 +10,16 @@ public class ModuleNoSlow extends ModuleBase
 {
 	public double ladderSpeed = 2.89D;
 	
-	public ModuleNoSlow(Vapid vapid, Minecraft mc) 
+	public ModuleNoSlow(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 		aliases.add("ns");
 
 		this.needsTick = true;
 		this.name = "NoSlow";
 		
-		this.command = new Command(this.vapid, this, aliases, "Prevents you from slowing down while eating, shooting a bow, walking in soul sand, etc.");
+		this.command = new Command(this.V, this, aliases, "Prevents you from slowing down while eating, shooting a bow, walking in soul sand, etc.");
 	}
 	
 	@Override

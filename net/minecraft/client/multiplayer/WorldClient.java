@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 import org.vclient.v.events.PlayerEnterVisualRangeEvent;
 import org.vclient.v.events.PlayerLeaveVisualRangeEvent;
 
@@ -253,7 +253,7 @@ public class WorldClient extends World
         super.removeEntity(par1Entity);
         
         if(par1Entity instanceof EntityPlayer)
-        	StaticVapid.vapid.events.onEvent(new PlayerLeaveVisualRangeEvent((EntityPlayer)par1Entity));
+        	StaticV.V.events.onEvent(new PlayerLeaveVisualRangeEvent((EntityPlayer)par1Entity));
               
         this.entityList.remove(par1Entity);
     }
@@ -263,7 +263,7 @@ public class WorldClient extends World
         super.onEntityAdded(par1Entity);
 
         if(par1Entity instanceof EntityPlayer)
-        	StaticVapid.vapid.events.onEvent(new PlayerEnterVisualRangeEvent((EntityPlayer)par1Entity));
+        	StaticV.V.events.onEvent(new PlayerEnterVisualRangeEvent((EntityPlayer)par1Entity));
         
         if (this.entitySpawnQueue.contains(par1Entity))
         {

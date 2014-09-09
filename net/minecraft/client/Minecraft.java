@@ -151,8 +151,8 @@ import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
 import org.vclient.v.FileHelper;
-import org.vclient.v.StaticVapid;
-import org.vclient.v.Vapid;
+import org.vclient.v.StaticV;
+import org.vclient.v.V;
 import org.vclient.v.altmanager.Alt;
 import org.vclient.v.events.ItemUsedEvent;
 import org.vclient.v.modules.ModuleFastPlace;
@@ -187,7 +187,7 @@ public class Minecraft implements IPlayerUsage
     public int displayWidth;
     public int displayHeight;
     
-    /** VAPID | public'd 4 kino **/
+    /** V | public'd 4 kino **/
     
     public Timer timer = new Timer(20.0F);
 
@@ -296,7 +296,7 @@ public class Minecraft implements IPlayerUsage
     private DefaultResourcePack mcDefaultResourcePack;
     private ResourcePackRepository mcResourcePackRepository;
     private LanguageManager mcLanguageManager;
-    //VAPID | public
+    //V | public
     public Framebuffer mcFramebuffer;
     private TextureMap textureMapBlocks;
     private SoundHandler mcSoundHandler;
@@ -311,19 +311,19 @@ public class Minecraft implements IPlayerUsage
     public String debug = "";
 
     /** Approximate time (in ms) of last update to debug string */
-    //VAPID | public
+    //V | public
     public long debugUpdateTime = getSystemTime();
 
     /** holds the current fps */
-    //VAPID | public
+    //V | public
     public int fpsCounter;
     long prevFrameTime = -1L;
 
     /** Profiler currently displayed in the debug screen pie chart */
     private String debugProfilerName = "root";
     private static final String __OBFID = "CL_00000631";
-    //VAPID
-    public Vapid vapid;
+    //V
+    public V V;
 
     public Minecraft(Session par1Session, int par2, int par3, boolean par4, boolean par5, File par6File, File par7File, File par8File, Proxy par9Proxy, String par10Str)
     {
@@ -614,8 +614,8 @@ public class Minecraft implements IPlayerUsage
         this.effectRenderer = new EffectRenderer(this.theWorld, this.renderEngine);
         this.checkGLError("Post startup");
         this.ingameGUI = new GuiIngame(this);
-        //VAPID
-        this.vapid = new Vapid(this);
+        //V
+        this.V = new V(this);
 
         if (this.serverName != null)
         {
@@ -933,16 +933,16 @@ public class Minecraft implements IPlayerUsage
                     {
                         try
                         {
-                        	//VAPID
-                        	this.vapid.events.hookRunTick();
-                        	File vDir = new File(Vapid.getAppDir("minecraft") + File.separator + "V");
+                        	//V
+                        	this.V.events.hookRunTick();
+                        	File vDir = new File(V.getAppDir("minecraft") + File.separator + "V");
                     		try
                     		{
                     			if(!vDir.exists())
                     			{
                     				vDir.mkdirs();
                     			}
-                    			vapid.loadHacks();
+                    			V.loadHacks();
                     		}catch(Exception error)
                     		{
                     			error.printStackTrace();
@@ -1391,8 +1391,8 @@ public class Minecraft implements IPlayerUsage
                 this.inGameHasFocus = true;
                 this.mouseHelper.grabMouseCursor();
                 this.displayGuiScreen((GuiScreen)null);
-                // VAPID
-                if(!StaticVapid.vapid.getModule("automine").isEnabled)
+                // V
+                if(!StaticV.V.getModule("automine").isEnabled)
             	{
                 	this.leftClickCounter = 10000;
             	}
@@ -1407,8 +1407,8 @@ public class Minecraft implements IPlayerUsage
     {
         if (this.inGameHasFocus)
         {
-            //VAPID
-        	if(!StaticVapid.vapid.getModule("automine").isEnabled)
+            //V
+        	if(!StaticV.V.getModule("automine").isEnabled)
         	{
         		KeyBinding.unPressAllKeys();
         	}
@@ -1514,8 +1514,8 @@ public class Minecraft implements IPlayerUsage
 
     private void func_147121_ag()
     {
-    	//VAPID
-    	this.rightClickDelayTimer = this.vapid.getModule(ModuleFastPlace.class).isEnabled ? this.vapid.getModule(ModuleFastPlace.class).tolerance : 4;
+    	//V
+    	this.rightClickDelayTimer = this.V.getModule(ModuleFastPlace.class).isEnabled ? this.V.getModule(ModuleFastPlace.class).tolerance : 4;
         boolean var1 = true;
         ItemStack var2 = this.thePlayer.inventory.getCurrentItem();
 
@@ -1529,8 +1529,8 @@ public class Minecraft implements IPlayerUsage
             {
                 case 1:
                 	
-                	//VAPID - right place?
-                 	this.vapid.events.onEvent(new ItemUsedEvent(this.thePlayer.inventory.currentItem, this.thePlayer.inventory.getCurrentItem()));
+                	//V - right place?
+                 	this.V.events.onEvent(new ItemUsedEvent(this.thePlayer.inventory.currentItem, this.thePlayer.inventory.getCurrentItem()));
 
                     if (this.playerController.interactWithEntitySendPacket(this.thePlayer, this.objectMouseOver.entityHit))
                     {
@@ -1725,8 +1725,8 @@ public class Minecraft implements IPlayerUsage
 
         if (this.currentScreen != null)
         {
-            // VAPID
-        	if(!StaticVapid.vapid.getModule("automine").isEnabled)
+            // V
+        	if(!StaticV.V.getModule("automine").isEnabled)
         	{
         		this.leftClickCounter = 10000;
         	}
@@ -1779,7 +1779,7 @@ public class Minecraft implements IPlayerUsage
             }
         }
 
-        if (this.currentScreen == null || this.currentScreen.field_146291_p || /* VAPID */ this.currentScreen instanceof GuiChat)
+        if (this.currentScreen == null || this.currentScreen.field_146291_p || /* V */ this.currentScreen instanceof GuiChat)
         {
             this.mcProfiler.endStartSection("mouse");
             int var1;
@@ -2073,7 +2073,7 @@ public class Minecraft implements IPlayerUsage
                 this.func_147121_ag();
             }
 
-            // VAPID
+            // V
             this.func_147115_a(this.gameSettings.keyBindAttack.getIsKeyPressed());
         }
 

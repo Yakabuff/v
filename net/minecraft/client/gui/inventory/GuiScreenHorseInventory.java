@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-//HEAVILY MODIFIED BY VAPID!
+//HEAVILY MODIFIED BY V!
 public class GuiScreenHorseInventory extends GuiContainer
 {
     private static final ResourceLocation field_147031_u = new ResourceLocation("textures/gui/container/horse.png");

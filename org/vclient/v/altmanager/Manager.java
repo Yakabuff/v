@@ -16,7 +16,7 @@ import java.util.UUID;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import com.mojang.authlib.Agent;
 import com.mojang.authlib.exceptions.AuthenticationException;
@@ -30,7 +30,7 @@ public class Manager
 	public static ArrayList<Alt> altList = new ArrayList<Alt>();
 	public static GuiAltList altScreen = new GuiAltList();
 	public static final int slotHeight = 25;
-	public static File vDir = new File(Vapid.getAppDir("minecraft") + File.separator + "V");
+	public static File vDir = new File(V.getAppDir("minecraft") + File.separator + "V");
 
 	public static void addAlt(Alt paramAlt)
 	{
@@ -126,7 +126,7 @@ public class Manager
 	{
 		try
 		{
-			File file = new File(Vapid.getAppDir("minecraft").toString().concat(File.separator).concat("V").concat(File.separator).concat("alts.vpd"));
+			File file = new File(V.getAppDir("minecraft").toString().concat(File.separator).concat("V").concat(File.separator).concat("alts.vpd"));
 			if(file.exists() && file.canRead())
 			{
 				BufferedReader bufferedReader = new BufferedReader(new FileReader(file));

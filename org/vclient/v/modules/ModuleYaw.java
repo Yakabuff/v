@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
@@ -10,16 +10,16 @@ public class ModuleYaw extends ModuleBase
 	
 	public float yaw;
 	
-	public ModuleYaw(Vapid vapid, Minecraft mc) 
+	public ModuleYaw(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		this.needsTick = true;
 		this.aliases.add("yaw");
 		this.yaw = 0F;
 		
-		this.command = new Command(this.vapid, this, aliases, "Broken, but not functionally. Locks your yaw to the closest 45 degrees.");
+		this.command = new Command(this.V, this, aliases, "Broken, but not functionally. Locks your yaw to the closest 45 degrees.");
 		this.command.registerArg("deg", new Class[] {Float.class}, "This is the part that doesn't work. Ignore it.");
 		
 		this.defaultArg = "deg";

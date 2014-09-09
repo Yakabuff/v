@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 import org.vclient.v.annotations.EventHandler;
 import org.vclient.v.events.PlayerEnterVisualRangeEvent;
 import org.vclient.v.events.PlayerLeaveVisualRangeEvent;
@@ -13,15 +13,15 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class ModuleNotifications extends ModuleBase 
 {
-	// True is chat box, false is Vapid GUI
+	// True is chat box, false is V GUI
 	boolean useHud;
 	boolean visualRange;
 	boolean onLog;
 	boolean logOffLoc;
 	
-	public ModuleNotifications(Vapid vapid, Minecraft mc) 
+	public ModuleNotifications(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		this.needsTick = false;
@@ -31,7 +31,7 @@ public class ModuleNotifications extends ModuleBase
 		
 		this.name = "Notifications";
 		
-		this.command = new Command(this.vapid, this, aliases, "Notifies you of server events");
+		this.command = new Command(this.V, this, aliases, "Notifies you of server events");
 		this.command.registerArg("see", new Class[] {}, "Toggles if you get a notification when a player enters or leaves your visual range");
 		this.command.registerArg("log", new Class[] {}, "Toggles if you see a notification when a player logs in or out");
 		this.command.registerArg("hud", new Class[] {}, "Toggles if the notifications for \"see\" are displayed on the HUD/GUI");
@@ -51,7 +51,7 @@ public class ModuleNotifications extends ModuleBase
 		if(this.isEnabled && this.onLog)
 		{
 			if(!e.getUsername().equals(mc.thePlayer.getCommandSenderName()))
-				vapid.yellowMessage(e.getUsername() + " joined the game");
+				V.yellowMessage(e.getUsername() + " joined the game");
 		}
 	}
 	
@@ -63,14 +63,14 @@ public class ModuleNotifications extends ModuleBase
 			if(!e.getUsername().equals(mc.thePlayer.getCommandSenderName()))
 			{
 				if(this.onLog)
-					vapid.yellowMessage(e.getUsername() + " left the game");
+					V.yellowMessage(e.getUsername() + " left the game");
 
 				
 				if(this.logOffLoc)
 				{
 					EntityPlayer p = this.mc.theWorld.getPlayerEntityByName(e.getUsername());
 					if(p != null)
-						this.vapid.message(p.getCommandSenderName() + " logged off at (" + p.posX + ", " + p.posY + ", " + p.posZ + ")");
+						this.V.message(p.getCommandSenderName() + " logged off at (" + p.posX + ", " + p.posY + ", " + p.posZ + ")");
 				}
 			}
 		}
@@ -82,7 +82,7 @@ public class ModuleNotifications extends ModuleBase
 		if(this.isEnabled && this.visualRange)
 		{
 			if(!e.getPlayer().getCommandSenderName().equals(mc.thePlayer.getCommandSenderName()))
-				vapid.notificationMessage("\2474\247l!!!\247r " + e.getPlayer().getCommandSenderName() + " entered visual range", this.useHud);
+				V.notificationMessage("\2474\247l!!!\247r " + e.getPlayer().getCommandSenderName() + " entered visual range", this.useHud);
 		}
 	}
 	
@@ -92,7 +92,7 @@ public class ModuleNotifications extends ModuleBase
 		if(this.isEnabled && this.visualRange)
 		{
 			if(!e.getPlayer().getCommandSenderName().equals(mc.thePlayer.getCommandSenderName()))
-				vapid.notificationMessage("\247b\247l...\247r " + e.getPlayer().getCommandSenderName() + " left visual range", this.useHud);
+				V.notificationMessage("\247b\247l...\247r " + e.getPlayer().getCommandSenderName() + " left visual range", this.useHud);
 		}
 	}
 	
@@ -102,23 +102,23 @@ public class ModuleNotifications extends ModuleBase
 		if(name.equals("see"))
 		{
 			this.visualRange = !this.visualRange;
-			this.vapid.confirmMessage("Visual range notifications " + (this.visualRange ? "enabled" : "disabled"));
+			this.V.confirmMessage("Visual range notifications " + (this.visualRange ? "enabled" : "disabled"));
 		}
 		else if(name.equals("log"))
 		{
 			this.onLog = !this.onLog;
-			this.vapid.confirmMessage("Log on/off notifications " + (this.visualRange ? "enabled" : "disabled"));
+			this.V.confirmMessage("Log on/off notifications " + (this.visualRange ? "enabled" : "disabled"));
 
 		}
 		else if(name.equals("hud"))
 		{
 			this.useHud = !this.useHud;
-			this.vapid.confirmMessage("HUD notifcations " + (this.useHud ? "enabled" : "disabled"));
+			this.V.confirmMessage("HUD notifcations " + (this.useHud ? "enabled" : "disabled"));
 		}
 		else if(name.equals("loc"))
 		{
 			this.logOffLoc = !this.logOffLoc;
-			this.vapid.confirmMessage("Log off locations " + (this.logOffLoc ? "enabled" : "disabled"));
+			this.V.confirmMessage("Log off locations " + (this.logOffLoc ? "enabled" : "disabled"));
 		}
 	}
 

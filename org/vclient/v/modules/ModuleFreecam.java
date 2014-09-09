@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -12,12 +12,12 @@ public class ModuleFreecam extends ModuleBase
 	double x, y, z;
 	float yaw, pitch;
 	
-	public ModuleFreecam(Vapid vapid, Minecraft mc) 
+	public ModuleFreecam(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 		
-		this.command = new Command(this.vapid, this, aliases, "frees your camera");
+		this.command = new Command(this.V, this, aliases, "frees your camera");
 		this.command.registerArg("noclip", new Class[] {}, "pass through blocks?");
 	}
 
@@ -38,7 +38,7 @@ public class ModuleFreecam extends ModuleBase
 		//cam.setPositionAndRotation(mc.thePlayer.posX, mc.thePlayer.posY - 1.5D, mc.thePlayer.posZ, 180, 0);
 		
 		//mc.theWorld.addEntityToWorld(13337, cam);
-		vapid.getModule("fly").onEnable();
+		V.getModule("fly").onEnable();
 		
 		this.isEnabled = true;
 	}
@@ -51,7 +51,7 @@ public class ModuleFreecam extends ModuleBase
 		mc.thePlayer.rotationYaw = yaw;
 		
 		//mc.theWorld.removeEntityFromWorld(13337);
-		vapid.getModule("fly").onDisable();
+		V.getModule("fly").onDisable();
 
 		this.isEnabled = false;
 	}

@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Random;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 import org.vclient.v.annotations.EventHandler;
 import org.vclient.v.events.ChatReceivedEvent;
 import org.vclient.v.events.PlayerLogOffEvent;
@@ -37,12 +37,12 @@ public class ModuleGreet extends ModuleBase
 	String greetingFormat;
 	String goodbyeFormat;
 	
-	public ModuleGreet(Vapid vapid, Minecraft mc) 
+	public ModuleGreet(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 							
-		this.command = new Command(this.vapid, this, aliases, "Greets");
+		this.command = new Command(this.V, this, aliases, "Greets");
 		this.command.registerArg("join", new Class[] {}, "Welcome");
 		this.command.registerArg("leave", new Class[] {}, "Good bye");
 		this.command.registerArg("ignore", new Class[] {String.class}, "Adds a player to the ignore list");
@@ -66,7 +66,7 @@ public class ModuleGreet extends ModuleBase
 		
 		if(ignored.exists())
 		{
-			this.ignoredPlayers = this.vapid.readLines("greeter_ignored.vpd");
+			this.ignoredPlayers = this.V.readLines("greeter_ignored.vpd");
 		}
 		
 		this.syncWith = null;
@@ -80,7 +80,7 @@ public class ModuleGreet extends ModuleBase
 		
 		if(greetingsFile.exists())
 		{
-			this.greetings = this.vapid.readLines("greeter_greetings.vpd");
+			this.greetings = this.V.readLines("greeter_greetings.vpd");
 		} else {
 			this.greetings = new ArrayList<String>(Arrays.asList(this.defaultGreetings));
 		}
@@ -89,13 +89,13 @@ public class ModuleGreet extends ModuleBase
 		
 		if(goodbyesFile.exists())
 		{
-			this.goodbyes = this.vapid.readLines("greeter_goodbyes.vpd");
+			this.goodbyes = this.V.readLines("greeter_goodbyes.vpd");
 		} else {
 			this.goodbyes = new ArrayList<String>(Arrays.asList(this.defaultGoodbyes));
 		}
 		
-		this.goodbyeFormat = this.vapid.readOrFallback("greet_format_goodbye.vpd", defaultGoodbyeFormat);
-		this.greetingFormat = this.vapid.readOrFallback("greet_format_greeting.vpd", defaultGreetingFormat);
+		this.goodbyeFormat = this.V.readOrFallback("greet_format_goodbye.vpd", defaultGoodbyeFormat);
+		this.greetingFormat = this.V.readOrFallback("greet_format_greeting.vpd", defaultGreetingFormat);
 
 	}
 	
@@ -105,7 +105,7 @@ public class ModuleGreet extends ModuleBase
 		String filename = "greeter_ignored.vpd";
 		File ignored = new File(filename);
 		
-		this.vapid.writeLines(filename, this.ignoredPlayers);
+		this.V.writeLines(filename, this.ignoredPlayers);
 	}
 	
 
@@ -259,12 +259,12 @@ public class ModuleGreet extends ModuleBase
 			if(!this.ignoredPlayers.contains(player))
 			{
 				this.ignoredPlayers.add(player);
-				this.vapid.confirmMessage("Ignored " + player);
+				this.V.confirmMessage("Ignored " + player);
 				this.writeIgnoredPlayers();
 
 			}
 			else
-				this.vapid.errorMessage("As much as you hate " + argv[0] + ", you can only ignore him once");
+				this.V.errorMessage("As much as you hate " + argv[0] + ", you can only ignore him once");
 
 		}
 		else if(name.equals("unignore"))
@@ -273,12 +273,12 @@ public class ModuleGreet extends ModuleBase
 			if(this.ignoredPlayers.contains(player))
 			{
 				this.ignoredPlayers.remove(player);
-				this.vapid.confirmMessage("Unignored " + player);
+				this.V.confirmMessage("Unignored " + player);
 
 				this.writeIgnoredPlayers();
 			}
 			else
-				this.vapid.errorMessage("You never ignored " + argv[0]);
+				this.V.errorMessage("You never ignored " + argv[0]);
 
 		}
 		else if(name.equals("syncing"))
@@ -292,13 +292,13 @@ public class ModuleGreet extends ModuleBase
 				this.syncWith = this.isPlayerOnline(argv[0]);
 			}
 			else
-				this.vapid.errorMessage("That player isn't online :^(");
+				this.V.errorMessage("That player isn't online :^(");
 		}
 		else if(name.equals("ignored"))
 		{
 			if(this.ignoredPlayers.isEmpty())	
 			{
-				this.vapid.errorMessage("Nobody ignored");
+				this.V.errorMessage("Nobody ignored");
 				return;
 			}
 			
@@ -309,58 +309,58 @@ public class ModuleGreet extends ModuleBase
 			}
 			
 			ret = ret.substring(0, ret.length() - 2);
-			this.vapid.confirmMessage(ret);
+			this.V.confirmMessage(ret);
 		}
 		else if(name.equals("unignoreall"))
 		{
 			this.ignoredPlayers.clear();
 			this.writeIgnoredPlayers();
-			this.vapid.confirmMessage("Deleted all players from ignore list");
+			this.V.confirmMessage("Deleted all players from ignore list");
 		}
 		else if(name.equals("greetadd")) {
 			this.greetings.add(argv[0]);
-			this.vapid.writeLines("greeter_greetings.vpd", this.greetings);
-			this.vapid.confirmMessage("Added greeting");
+			this.V.writeLines("greeter_greetings.vpd", this.greetings);
+			this.V.confirmMessage("Added greeting");
 		}
 		else if(name.equals("greetdel")) {
 			if(this.greetings.contains(argv[0])) {
 				this.greetings.remove(argv[0]);
-				this.vapid.writeLines("greeter_greetings.vpd", this.greetings);
-				this.vapid.confirmMessage("Removed greeting");
+				this.V.writeLines("greeter_greetings.vpd", this.greetings);
+				this.V.confirmMessage("Removed greeting");
 			} else {
-				this.vapid.errorMessage("Could not remove greeting");
+				this.V.errorMessage("Could not remove greeting");
 			}
 		}
 		else if(name.equals("byeadd")) {
 			this.goodbyes.add(argv[0]);
-			this.vapid.writeLines("greeter_goodbyes.vpd", this.goodbyes);
-			this.vapid.confirmMessage("Added goodbye");
+			this.V.writeLines("greeter_goodbyes.vpd", this.goodbyes);
+			this.V.confirmMessage("Added goodbye");
 		}
 		else if(name.equals("byedel")) {
 			if(this.goodbyes.contains(argv[0])) {
 				this.goodbyes.remove(argv[0]);
-				this.vapid.writeLines("greeter_goodbyes.vpd", this.goodbyes);
-				this.vapid.confirmMessage("Removed goodbye");
+				this.V.writeLines("greeter_goodbyes.vpd", this.goodbyes);
+				this.V.confirmMessage("Removed goodbye");
 			} else {
-				this.vapid.errorMessage("Could not remove goodbye");
+				this.V.errorMessage("Could not remove goodbye");
 			}
 		}
 		else if(name.endsWith("list")) {
 			if(name.startsWith("bye")) {
-				this.vapid.message(this.vapid.join(this.goodbyes, ", "));
+				this.V.message(this.V.join(this.goodbyes, ", "));
 			} else {
-				this.vapid.message(this.vapid.join(this.greetings, ", "));
+				this.V.message(this.V.join(this.greetings, ", "));
 			}
 		}
 		else if(name.equals("greetformat")) {
-			this.vapid.confirmMessage("Changed greeting format");
+			this.V.confirmMessage("Changed greeting format");
 			this.greetingFormat = argv[0];
-			this.vapid.write("greeter_format_greeting.vpd", this.greetingFormat);
+			this.V.write("greeter_format_greeting.vpd", this.greetingFormat);
 		}
 		else if(name.equals("byeformat")) {
-			this.vapid.confirmMessage("Changed goodbye format");
+			this.V.confirmMessage("Changed goodbye format");
 			this.goodbyeFormat = argv[0];
-			this.vapid.write("greeter_format_goodbye.vpd", this.goodbyeFormat);
+			this.V.write("greeter_format_goodbye.vpd", this.goodbyeFormat);
 		}
 	}
 	

@@ -24,7 +24,7 @@ import net.minecraft.util.AxisAlignedBB;
 import org.lwjgl.opengl.GL11;
 import org.vclient.v.Command;
 import org.vclient.v.Location;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 import org.vclient.v.annotations.EventHandler;
 import org.vclient.v.events.BlockChangedEvent;
 import org.vclient.v.events.BlockRenderedEvent;
@@ -48,9 +48,9 @@ public class ModuleMarkers extends ModuleBase
 	boolean chunk;
 	String mode;
 	
-	public ModuleMarkers(Vapid vapid, Minecraft mc) 
+	public ModuleMarkers(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 		
 		chunks = new ArrayList<Location>();
@@ -61,7 +61,7 @@ public class ModuleMarkers extends ModuleBase
 		this.needsRendererTick = true;
 		aliases.add("m");
 		
-		this.command = new Command(this.vapid, this, aliases, "Draws a marker of a given style over a given block. Replaces x-ray. All IDs are in the format id:metadata. If you do not provide metadata, it is assumed to be 0. (ex. markers new 98:1; or markers new 98) Comes preloaded with a marker for chests.");
+		this.command = new Command(this.V, this, aliases, "Draws a marker of a given style over a given block. Replaces x-ray. All IDs are in the format id:metadata. If you do not provide metadata, it is assumed to be 0. (ex. markers new 98:1; or markers new 98) Comes preloaded with a marker for chests.");
 		
 		this.command.registerArg("new", new Class[] { String.class }, "Adds a new marker of the given ID and metadata with the default style, a white star.");
 		this.command.registerArg("del", new Class[] { String.class }, "Deletes a marker of the given ID and metadata");
@@ -444,13 +444,13 @@ public class ModuleMarkers extends ModuleBase
   
     		if(this.blockDescriptors.containsKey(block))
     		{
-    			this.vapid.errorMessage("The block " + argv[0] + " has already been added");
+    			this.V.errorMessage("The block " + argv[0] + " has already been added");
     			return;
     		}
     		
     		this.blockDescriptors.put(block, this.parseDescriptor(255, 255, 255, 1));
     		
-    	    vapid.confirmMessage("Added new block " + argv[0] + " with default settings");
+    	    V.confirmMessage("Added new block " + argv[0] + " with default settings");
     		mc.renderGlobal.loadRenderers();
 
     	} 
@@ -458,53 +458,53 @@ public class ModuleMarkers extends ModuleBase
     	{
     		if(!this.blockDescriptors.containsKey(block))
     		{
-    			this.vapid.errorMessage("The block " + argv[0] + " does not exist, so you cannot delete it");
+    			this.V.errorMessage("The block " + argv[0] + " does not exist, so you cannot delete it");
     			return;
     		}
   		
     	    this.blockDescriptors.remove(block);
 
-    	    vapid.confirmMessage("Removed block " + argv[0]);
+    	    V.confirmMessage("Removed block " + argv[0]);
     	}
     	else if(name.equals("type"))
     	{
     		
     		if(!this.blockDescriptors.containsKey(block))
     		{
-    			this.vapid.errorMessage("The block " + argv[0] + " does not exist");
+    			this.V.errorMessage("The block " + argv[0] + " does not exist");
     			return;
     		}
     		
     		int desc = this.blockDescriptors.get(block);  		
     		this.blockDescriptors.put(block, (desc & ~(desc & 255)) | Integer.parseInt(argv[1]));
     		
-    		vapid.confirmMessage("Changed marker type of block " + argv[0] + " to " + argv[1]);
+    		V.confirmMessage("Changed marker type of block " + argv[0] + " to " + argv[1]);
 
     	}
     	else if(name.equals("color"))
     	{
     		if(!this.blockDescriptors.containsKey(block))
     		{
-    			this.vapid.errorMessage("The block " + argv[0] + " has not been added yet");
+    			this.V.errorMessage("The block " + argv[0] + " has not been added yet");
     			return;
     		}
     		
     		int type = this.blockDescriptors.get(block) & 255;
     		
     		this.blockDescriptors.put(block, this.parseDescriptor(Integer.parseInt(argv[1]), Integer.parseInt(argv[2]), Integer.parseInt(argv[3]), type));	      	
-    		vapid.confirmMessage("Changed color for block " + argv[0]);
+    		V.confirmMessage("Changed color for block " + argv[0]);
     	}
     	else if(name.equals("add"))
     	{
     		if(this.blockDescriptors.containsKey(block))
     		{
-    			this.vapid.errorMessage("The block " + argv[0] + " has already been added");
+    			this.V.errorMessage("The block " + argv[0] + " has already been added");
     			return;
     		}
     		
     		this.blockDescriptors.put(block, this.parseDescriptor(Integer.parseInt(argv[1]), Integer.parseInt(argv[2]), Integer.parseInt(argv[3]), Integer.parseInt(argv[4])));	
     	
-    		vapid.confirmMessage("Added marker for block " + argv[0]);
+    		V.confirmMessage("Added marker for block " + argv[0]);
     		mc.renderGlobal.loadRenderers();
 
     	} 
@@ -514,7 +514,7 @@ public class ModuleMarkers extends ModuleBase
     		
     		if(!f.exists())
     		{
-    			vapid.confirmMessage("New mode created");
+    			V.confirmMessage("New mode created");
     		}
     		else
     		{
@@ -545,7 +545,7 @@ public class ModuleMarkers extends ModuleBase
     				itemName = "Unknown";
     			}
     			
-    			this.vapid.message(Integer.toString(this.getBlockId(key)) + ":" + Integer.toString(this.getBlockMetadata(key))
+    			this.V.message(Integer.toString(this.getBlockId(key)) + ":" + Integer.toString(this.getBlockMetadata(key))
     					+ " " + itemName
     					+ " rgb(" + Integer.toString((desc >> 24) & 255)
     					+ ", " + Integer.toString((desc >> 16) & 255)

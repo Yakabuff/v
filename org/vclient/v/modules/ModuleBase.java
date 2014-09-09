@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import org.vclient.v.Command;
 import org.vclient.v.IModule;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
 public class ModuleBase implements IModule {
 
-	Vapid vapid;
+	V V;
 	public ArrayList<String> aliases;
 	public String name;
 	public String defaultArg;
@@ -26,9 +26,9 @@ public class ModuleBase implements IModule {
 	
 	Minecraft mc;
 	
-	public ModuleBase(Vapid vapid, Minecraft mc) 
+	public ModuleBase(V V, Minecraft mc) 
 	{
-		this.vapid = vapid;
+		this.V = V;
 		this.isEnabled = false;
 		this.mc = mc;
 		this.isToggleable = true;
@@ -38,14 +38,14 @@ public class ModuleBase implements IModule {
 		
 		aliases = new ArrayList<String>();
 		
-		this.command = new Command(this.vapid, this, aliases);
+		this.command = new Command(this.V, this, aliases);
 		needsTick = false;
 		showEnabled = true;
 		
 		this.name = this.getClass().getSimpleName().replaceFirst("Module", "").toLowerCase();
 		aliases.add(name);
 		
-		this.vapid.moduleCache.put(this.name, this);
+		this.V.moduleCache.put(this.name, this);
 	}
 	
 	public void onEnable()

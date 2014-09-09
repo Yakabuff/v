@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 
 import org.lwjgl.opengl.GL11;
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 import org.vclient.v.events.BlockRenderedEvent;
 
 public class WorldRenderer
@@ -222,8 +222,8 @@ public class WorldRenderer
                                     {
                                         var19 |= var16.renderBlockByRenderType(var24, var23, var21, var22);
                                         
-                                        //VAPID
-                                        StaticVapid.vapid.events.onEvent(new BlockRenderedEvent(StaticVapid.vapid.getBlockId(var24), var15.getBlockMetadata(var23, var21, var22), var23, var21, var22));
+                                        //V
+                                        StaticV.V.events.onEvent(new BlockRenderedEvent(StaticV.V.getBlockId(var24), var15.getBlockMetadata(var23, var21, var22), var23, var21, var22));
 
                                         if (var24.getRenderType() == 0 && var23 == var11 && var21 == var12 && var22 == var13)
                                         {

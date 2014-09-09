@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
@@ -12,15 +12,15 @@ public class ModuleUtil extends ModuleBase
 	int etpy;
 	int etpz;
 	
-	public ModuleUtil(Vapid vapid, Minecraft mc) 
+	public ModuleUtil(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 		aliases.add("ns");
 
 		this.isToggleable = false;
 		
-		this.command = new Command(this.vapid, this, aliases, "Pointless commands you'll never use");
+		this.command = new Command(this.V, this, aliases, "Pointless commands you'll never use");
 		this.command.registerArg("reloadrenderers", new Class[] {}, "Reloads the renderer; good to get rid of some FPS lag");
 		this.command.registerArg("suicide", new Class[] {}, "Sez /kill");
 		this.command.registerArg("lag", new Class[] {}, "Sez /lag");

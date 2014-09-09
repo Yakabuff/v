@@ -1,22 +1,22 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.potion.PotionEffect;
 
 public class ModuleNightVision extends ModuleBase 
 {
-	public ModuleNightVision(Vapid vapid, Minecraft mc) 
+	public ModuleNightVision(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 		
 		this.needsTick = true;
 		aliases.add("nv");
 		this.name = "NightVision";
-		this.command = new Command(this.vapid, this, aliases, "(Alternative to Brightness) Activate NightVision potion effect.");
+		this.command = new Command(this.V, this, aliases, "(Alternative to Brightness) Activate NightVision potion effect.");
 	}
 	
 	@Override

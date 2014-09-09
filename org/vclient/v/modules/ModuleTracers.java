@@ -42,7 +42,7 @@ import net.minecraft.entity.passive.EntityWolf;
 
 import org.lwjgl.opengl.GL11;
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 public class ModuleTracers extends ModuleBase {
 
@@ -53,12 +53,12 @@ public class ModuleTracers extends ModuleBase {
 	Map<Integer, String> colorReverseLookup;
 	boolean lineMode;
 	
-	public ModuleTracers(Vapid vapid, Minecraft mc)
+	public ModuleTracers(V V, Minecraft mc)
 	{
-		super(vapid, mc);
+		super(V, mc);
 		
 		this.lineMode = false;
-		this.command = new Command(this.vapid, this, aliases, "Draws a line from your player to an entity");
+		this.command = new Command(this.V, this, aliases, "Draws a line from your player to an entity");
 		this.command.registerArg("add", new Class[] { String.class }, "Entity class to add");
 		this.command.registerArg("valid", new Class[] { }, "Lists valid entities");
 		this.command.registerArg("list", new Class[] { }, "Lists traced entities");
@@ -157,7 +157,7 @@ public class ModuleTracers extends ModuleBase {
 	
 	public void readTraced(String filename)
 	{
-		ArrayList<String> in = this.vapid.readLines(filename);
+		ArrayList<String> in = this.V.readLines(filename);
 		String tmp[];
 		for(String s : in)
 		{
@@ -179,7 +179,7 @@ public class ModuleTracers extends ModuleBase {
 			in.add(this.validReverseLookup.get(unlikePopbob) + ":" + Integer.toString(this.traced.get(unlikePopbob)));
 		}
 		
-		this.vapid.writeLines(filename, in);
+		this.V.writeLines(filename, in);
 	}
 	
     public int parseRGB(int r, int g, int b)
@@ -196,11 +196,11 @@ public class ModuleTracers extends ModuleBase {
     		if(this.validEntities.containsKey(argv[0].toLowerCase()))
     		{
     			this.traced.put(this.validEntities.get(argv[0].toLowerCase()), this.parseRGB(255, 255, 255));
-    			this.vapid.confirmMessage("Added " + argv[0] + " to tracers");
+    			this.V.confirmMessage("Added " + argv[0] + " to tracers");
     			this.writeTraced();
     		}
     		else
-    			this.vapid.errorMessage("You can't trace that entity; check out -tracers valid");
+    			this.V.errorMessage("You can't trace that entity; check out -tracers valid");
     	}
     	else if(name.equals("del"))
     	{
@@ -209,11 +209,11 @@ public class ModuleTracers extends ModuleBase {
     		if(this.traced.containsKey(this.validEntities.get(entity)))
     		{
     			this.traced.remove(this.validEntities.get(entity));
-    			this.vapid.confirmMessage("Deleted " + entity);
+    			this.V.confirmMessage("Deleted " + entity);
     			this.writeTraced();
     		}
     		else
-    			this.vapid.errorMessage("That entity hasn't been added yet");
+    			this.V.errorMessage("That entity hasn't been added yet");
     	}
     	else if(name.equals("valid"))
     	{
@@ -223,8 +223,8 @@ public class ModuleTracers extends ModuleBase {
     			ret += s + ", ";
     		}
     		
-    		this.vapid.confirmMessage("You can select:");
-    		this.vapid.message(ret.substring(0, ret.length() - 2));
+    		this.V.confirmMessage("You can select:");
+    		this.V.message(ret.substring(0, ret.length() - 2));
     	}
     	else if(name.equals("color"))
     	{
@@ -235,23 +235,23 @@ public class ModuleTracers extends ModuleBase {
 	    			this.traced.put(this.validEntities.get(argv[0]), this.color.get(argv[1]));
 	    			System.out.print(this.color.get(argv[1]) + "\n");
 	    			this.writeTraced();
-	    			this.vapid.confirmMessage("Changed color of " + argv[0] + " to " + argv[1]);
+	    			this.V.confirmMessage("Changed color of " + argv[0] + " to " + argv[1]);
 	    		}
 	    		else
 	    		{
-	    			this.vapid.errorMessage("Not a valid color. Try one of these, or use -tracer rgb:");
+	    			this.V.errorMessage("Not a valid color. Try one of these, or use -tracer rgb:");
 	        		String ret = "";
 	        		for(String s : this.color.keySet())
 	        		{
 	        			ret += s + ", ";
 	        		}
 	
-	        		this.vapid.message(ret.substring(0, ret.length() - 2));
+	        		this.V.message(ret.substring(0, ret.length() - 2));
 	    		}
     		}
     		else
     		{
-    			this.vapid.errorMessage("Add that entity before setting it's color");
+    			this.V.errorMessage("Add that entity before setting it's color");
     		}
     	}
     	else if(name.equals("list"))
@@ -276,7 +276,7 @@ public class ModuleTracers extends ModuleBase {
     				color = "(" + r + ", " + b + ", " + g + ")";
     			}
     			
-    			this.vapid.message(type + ": " + color);
+    			this.V.message(type + ": " + color);
     				
     		}
     	}

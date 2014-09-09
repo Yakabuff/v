@@ -3,7 +3,7 @@ package org.vclient.v.modules;
 import java.util.ArrayList;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
@@ -13,12 +13,12 @@ public class ModuleXray extends ModuleBase
 	ArrayList<Integer> blocks;
 	public int opacity;
 	
-	public ModuleXray(Vapid vapid, Minecraft mc) 
+	public ModuleXray(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 							
-		this.command = new Command(this.vapid, this, aliases, "NOT WORKING YET! Lets you see through blocks to see other blocks");
+		this.command = new Command(this.V, this, aliases, "NOT WORKING YET! Lets you see through blocks to see other blocks");
 		this.command.registerArg("add", new Class[] {String.class}, "Adds a block by id:metadata");
 		this.command.registerArg("del", new Class[] {String.class}, "Deletes a block by id:metadata");
 		this.command.registerArg("list", new Class[] {}, "List blocks");
@@ -68,12 +68,12 @@ public class ModuleXray extends ModuleBase
 	
 	private void writeIds()
 	{
-		this.vapid.writeLines("xray.vpd", this.transcribeToStrings(blocks));
+		this.V.writeLines("xray.vpd", this.transcribeToStrings(blocks));
 	}
 	
 	private void readIds()
 	{
-		this.blocks = this.transcribeToInts(this.vapid.readLines("xray.vpd"));	
+		this.blocks = this.transcribeToInts(this.V.readLines("xray.vpd"));	
 	}
 	
     public int parseBlock(int id, int metadata)
@@ -119,7 +119,7 @@ public class ModuleXray extends ModuleBase
 				mc.renderGlobal.loadRenderers();
 			}
 			else
-				this.vapid.errorMessage("You have already added that block");
+				this.V.errorMessage("You have already added that block");
 				
 		}
 		else if(name.equals("del"))
@@ -131,7 +131,7 @@ public class ModuleXray extends ModuleBase
 				mc.renderGlobal.loadRenderers();
 			}
 			else
-				this.vapid.errorMessage("You never added that block!");	
+				this.V.errorMessage("You never added that block!");	
 		}
 		else if(name.equals("opacity"))
 		{
@@ -139,16 +139,16 @@ public class ModuleXray extends ModuleBase
 			if(o >= 0 && o <= 255)
 			{
 				this.opacity = o;
-				this.vapid.confirmMessage("Opacity set to " + argv[0]);
+				this.V.confirmMessage("Opacity set to " + argv[0]);
 			}
 			else
-				this.vapid.errorMessage("Opacity must be of [0, 255]");
+				this.V.errorMessage("Opacity must be of [0, 255]");
 		}
 		else if(name.equals("list"))
 		{
 			for(Integer i : this.blocks)
 			{
-				this.vapid.confirmMessage(Integer.toString(this.getBlockId(i)));
+				this.V.confirmMessage(Integer.toString(this.getBlockId(i)));
 			}
 
 		}

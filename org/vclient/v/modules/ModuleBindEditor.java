@@ -14,7 +14,7 @@ import net.minecraft.client.gui.inventory.GuiChest;
 
 import org.lwjgl.input.Keyboard;
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 public class ModuleBindEditor extends ModuleBase 
 {
@@ -24,9 +24,9 @@ public class ModuleBindEditor extends ModuleBase
 	public Map<Integer, String> binds;
 	String filename = "keybinds.vpd";
 	
-	public ModuleBindEditor(Vapid vapid, Minecraft mc) 
+	public ModuleBindEditor(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 		
 		this.needsTick = true;
@@ -34,7 +34,7 @@ public class ModuleBindEditor extends ModuleBase
 		aliases.add("bind");
 		aliases.add("binds");
 
-		this.command = new Command(this.vapid, this, aliases, "Binds command sets to keys. Separate commands with pipes, and surround the whole set with quotes if it includes spaces. (ex. markers; or fly|freecam; or \"fly 0.065|bright -0.025\"");
+		this.command = new Command(this.V, this, aliases, "Binds command sets to keys. Separate commands with pipes, and surround the whole set with quotes if it includes spaces. (ex. markers; or fly|freecam; or \"fly 0.065|bright -0.025\"");
 		this.command.registerArg("add", new Class[] { Character.class, String.class }, "(key) (command) | adds or replaces a keybind (ex. binds add j brightness)");
 		this.defaultArg = "add";
 		
@@ -162,7 +162,7 @@ public class ModuleBindEditor extends ModuleBase
 			{
 				for(String c : binds.get(i).split("\\|"))
 				{
-					vapid.events.onCommand(c);
+					V.events.onCommand(c);
 				}
 			}
 		}	
@@ -174,14 +174,14 @@ public class ModuleBindEditor extends ModuleBase
 		if(name.equals("add")) 
 		{
 			this.putBind(argv[0], argv[1]);
-			vapid.confirmMessage("Put bind for key: " + argv[0] + "; " + argv[1]);
+			V.confirmMessage("Put bind for key: " + argv[0] + "; " + argv[1]);
 			this.saveKeybinds();
 		}
 		
 		if(name.equals("del")) 
 		{
 			this.deleteBind(argv[0]);
-			vapid.confirmMessage("Deleted bind for key: " + argv[0]);
+			V.confirmMessage("Deleted bind for key: " + argv[0]);
 			this.saveKeybinds();
 
 		}

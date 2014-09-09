@@ -3,7 +3,7 @@
 
 A simple modified Minecraft client with a module and event system.
 
-The name is derived from it's initial name, Vapid. However, that name was unfitting for a client made for _Victory_.
+The name is derived from it's initial name, V. However, that name was unfitting for a client made for _Victory_.
 
 building
 =======

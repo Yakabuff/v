@@ -74,7 +74,7 @@ public class MarkovBot {
 			BufferedReader in = new BufferedReader(new FileReader(file));
 			String line, sender, message;
 			double total_lines = (double)this.count(file);
-			StaticVapid.vapid.confirmMessage("Loading " + total_lines + " lines from " + file);
+			StaticV.V.confirmMessage("Loading " + total_lines + " lines from " + file);
 			double lines = 0;
 			
 			while((line = in.readLine()) != null) {
@@ -82,7 +82,7 @@ public class MarkovBot {
 				lines++;
 				
 				if(lines % 10000 == 0)
-					StaticVapid.vapid.confirmMessage(Double.toString(Math.round((lines / total_lines) * 100.0D)) + "% loaded");
+					StaticV.V.confirmMessage(Double.toString(Math.round((lines / total_lines) * 100.0D)) + "% loaded");
 				
 				
 				if(!line.contains(">"))
@@ -98,12 +98,12 @@ public class MarkovBot {
 					this.addString(message);
 			}
 			
-			StaticVapid.vapid.confirmMessage("Loaded " + lines + " lines from " + file);
+			StaticV.V.confirmMessage("Loaded " + lines + " lines from " + file);
 			this.isLoaded = true;
 			in.close();
 			
 		} catch (FileNotFoundException e) {
-			StaticVapid.vapid.errorMessage("Could not find chat log.");
+			StaticV.V.errorMessage("Could not find chat log.");
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();

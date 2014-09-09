@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
@@ -10,16 +10,16 @@ public class ModuleChunkMarker extends ModuleBase
 	
 	public float yaw;
 	
-	public ModuleChunkMarker(Vapid vapid, Minecraft mc) 
+	public ModuleChunkMarker(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		this.needsTick = true;
 		this.aliases.add("yaw");
 		this.yaw = 0F;
 		this.name = "ChunkMarker";
-		this.command = new Command(this.vapid, this, aliases);
+		this.command = new Command(this.V, this, aliases);
 		
 
 	}

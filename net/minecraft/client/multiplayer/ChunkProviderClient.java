@@ -16,7 +16,7 @@ import net.minecraft.world.chunk.IChunkProvider;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 import org.vclient.v.events.ChunkLoadedEvent;
 
 public class ChunkProviderClient implements IChunkProvider
@@ -64,8 +64,8 @@ public class ChunkProviderClient implements IChunkProvider
      */
     public void unloadChunk(int par1, int par2)
     {
-    	//VAPID
-    	if(StaticVapid.vapid.events.onEvent(new ChunkLoadedEvent(par1, par2)));
+    	//V
+    	if(StaticV.V.events.onEvent(new ChunkLoadedEvent(par1, par2)));
     	
         Chunk var3 = this.provideChunk(par1, par2);
 
@@ -83,8 +83,8 @@ public class ChunkProviderClient implements IChunkProvider
      */
     public Chunk loadChunk(int par1, int par2)
     {
-    	//VAPID
-    	if(StaticVapid.vapid.events.onEvent(new ChunkLoadedEvent(par1, par2)));
+    	//V
+    	if(StaticV.V.events.onEvent(new ChunkLoadedEvent(par1, par2)));
     	
         Chunk var3 = new Chunk(this.worldObj, par1, par2);
         this.chunkMapping.add(ChunkCoordIntPair.chunkXZ2Int(par1, par2), var3);

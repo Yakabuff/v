@@ -7,17 +7,17 @@ import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.ArrayUtils;
 import org.vclient.v.Command;
 import org.vclient.v.Util;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 
 public class ModuleInfo extends ModuleBase 
 {	
-	public ModuleInfo(Vapid vapid, Minecraft mc) 
+	public ModuleInfo(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 							
-		this.command = new Command(this.vapid, this, aliases, "Gives info about a player; currently only their armor and it's enchantments; unless a player is designated, you will get info for the closest player to you");
+		this.command = new Command(this.V, this, aliases, "Gives info about a player; currently only their armor and it's enchantments; unless a player is designated, you will get info for the closest player to you");
 		this.command.registerArg("player", new Class[] { String.class }, "Player to get info on; not case sensitive");
 		this.defaultArg = "player";
 	}
@@ -60,7 +60,7 @@ public class ModuleInfo extends ModuleBase
         if(closest != null)
         	this.getInfo(closest.getCommandSenderName());
         else
-        	this.vapid.errorMessage("No players found!");
+        	this.V.errorMessage("No players found!");
 	}
 	
 	@Override
@@ -121,7 +121,7 @@ public class ModuleInfo extends ModuleBase
 		
 		if(this.getPlayerByName(player) != null) 
 		{
-			this.vapid.message("\247l" + p.getCommandSenderName() + "\'s Armor");
+			this.V.message("\247l" + p.getCommandSenderName() + "\'s Armor");
 			String durability = "";
 			
 			ItemStack[] armor = p.inventory.armorInventory.clone();
@@ -129,17 +129,17 @@ public class ModuleInfo extends ModuleBase
 
 			for(ItemStack i : armor)
 			{
-				this.vapid.message(this.vapid.getModule(ModuleESP.class).getItemNameAndEnchantments(i));
+				this.V.message(this.V.getModule(ModuleESP.class).getItemNameAndEnchantments(i));
 				durability += (i != null ? Util.formatArmorDurability( ( ((double)i.getMaxDamage() - (double)i.getItemDamage() ) / (double)i.getMaxDamage()) * 100.0D ) : "---") + "/";
 		    	
 			}
 			
-			this.vapid.message("\247l" + durability.substring(0, durability.length() - 1));
+			this.V.message("\247l" + durability.substring(0, durability.length() - 1));
 			
 		}
 		else
 		{
-			this.vapid.errorMessage("Player not found!");
+			this.V.errorMessage("Player not found!");
 		}
 	}
 }

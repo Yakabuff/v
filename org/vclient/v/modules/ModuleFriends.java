@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
@@ -20,14 +20,14 @@ public class ModuleFriends extends ModuleBase
 	ArrayList<String> friends;
 	final String filename = "friendslist.vpd";
 	
-	public ModuleFriends(Vapid vapid, Minecraft mc) 
+	public ModuleFriends(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		this.isToggleable = true;
 		
-		this.command = new Command(this.vapid, this, aliases, "friends list for various purposes");
+		this.command = new Command(this.V, this, aliases, "friends list for various purposes");
 		this.command.registerArg("add", new Class[] { String.class }, "add a friend (ex. friend add Pyrobyte)");
 		this.command.registerArg("del", new Class[] { String.class }, "delete a friend (ex. friend del chrisleighton)");
 		this.command.registerArg("off", new Class[] { }, "temporarily removes all entries; toggles friends (in case you get caesar'd)");
@@ -45,14 +45,14 @@ public class ModuleFriends extends ModuleBase
 	public void onEnable()
 	{
 		this.isEnabled = true;
-		this.vapid.confirmMessage("Friends enabled.");
+		this.V.confirmMessage("Friends enabled.");
 	}
 	
 	@Override
 	public void onDisable()
 	{
 		this.isEnabled = false;
-		this.vapid.notificationMessage("FRIENDS DISABLED. DON'T ACCIDENTALLY KILL ANYONE!");
+		this.V.notificationMessage("FRIENDS DISABLED. DON'T ACCIDENTALLY KILL ANYONE!");
 	}
 	
 	@Override
@@ -67,12 +67,12 @@ public class ModuleFriends extends ModuleBase
 			{
 				this.friends.add(friend);
 				this.saveFriendData(this.filename);
-				vapid.confirmMessage("Added " + argv[0] + " to friends list");
+				V.confirmMessage("Added " + argv[0] + " to friends list");
 
 			}
 			else
 			{
-				vapid.errorMessage("That friend has already been added");
+				V.errorMessage("That friend has already been added");
 			}
 		}
 		else if(name.equals("del"))
@@ -81,11 +81,11 @@ public class ModuleFriends extends ModuleBase
 			{
 				this.friends.remove(friend);
 				this.saveFriendData(this.filename);
-				vapid.confirmMessage("Removed " + argv[0] + " from friends list");
+				V.confirmMessage("Removed " + argv[0] + " from friends list");
 			}
 			else
 			{
-				vapid.errorMessage("That friend doesn't exist");
+				V.errorMessage("That friend doesn't exist");
 			}
 		}
 	}

@@ -10,24 +10,24 @@ import org.vclient.v.modules.ModuleBase;
 public class Command {
 
 	public ArrayList<String> aliases;
-	Vapid vapid;
+	V V;
 	ModuleBase module;
 	public Map<String, Argument> args;
 	String desc;
 	
-	public Command(Vapid vapid, ModuleBase module, ArrayList<String> aliases) 
+	public Command(V V, ModuleBase module, ArrayList<String> aliases) 
 	{
 		this.aliases = aliases;
-		this.vapid = vapid;
+		this.V = V;
 		this.module = module;
 		this.args = new HashMap<String, Argument>();
 		this.desc = "No description available";
 	}
 	
-	public Command(Vapid vapid, ModuleBase module, ArrayList<String> aliases, String desc) 
+	public Command(V V, ModuleBase module, ArrayList<String> aliases, String desc) 
 	{
 		this.aliases = aliases;
-		this.vapid = vapid;
+		this.V = V;
 		this.module = module;
 		this.args = new HashMap<String, Argument>();
 		this.desc = desc;
@@ -55,7 +55,7 @@ public class Command {
 		
 		if(args.size() == 0 && argv.length > 0)
 		{
-			vapid.errorMessage("This command has no arguments (clich\247 sad face)");
+			V.errorMessage("This command has no arguments (clich\247 sad face)");
 			return false;
 		}
 		
@@ -66,7 +66,7 @@ public class Command {
 				arg = (Argument)args.get(argv[i]);
 				
 				if(arg.getArgc() > argv.length - (i + 1)) {
-					vapid.errorMessage("Not enough arguments for flag: " + argv[i] + "; calls for " + arg.getArgc() + " arguments");
+					V.errorMessage("Not enough arguments for flag: " + argv[i] + "; calls for " + arg.getArgc() + " arguments");
 					return false;
 				}
 				
@@ -95,7 +95,7 @@ public class Command {
 			
 			if(this.module.defaultArg.equals(""))
 			{
-				vapid.errorMessage("Invalid argument");
+				V.errorMessage("Invalid argument");
 				return false;
 			}
 			
@@ -103,7 +103,7 @@ public class Command {
 			
 			if(arg.getArgc() > argv.length) 
 			{
-				vapid.errorMessage("Not enough arguments for flag; calls for " + arg.getArgc() + " arguments");
+				V.errorMessage("Not enough arguments for flag; calls for " + arg.getArgc() + " arguments");
 				return false;
 			}
 			
@@ -120,9 +120,9 @@ public class Command {
 			if(this.module.isToggleable)
 			{
 				this.module.toggleState();
-				vapid.saveHacks();
+				V.saveHacks();
 			} else {
-				vapid.errorMessage("You have to provide arguments for this command");
+				V.errorMessage("You have to provide arguments for this command");
 				return false;
 			}
 		}

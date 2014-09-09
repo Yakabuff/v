@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -616,8 +616,8 @@ public class Block
     public void addCollisionBoxesToList(World p_149743_1_, int p_149743_2_, int p_149743_3_, int p_149743_4_, AxisAlignedBB p_149743_5_, List p_149743_6_, Entity p_149743_7_)
     {
     	
-    	// VAPID
-	   	if(StaticVapid.vapid.getModule("freecam").isEnabled)
+    	// V
+	   	if(StaticV.V.getModule("freecam").isEnabled)
 	   		return;
     	
         AxisAlignedBB var8 = this.getCollisionBoundingBoxFromPool(p_149743_1_, p_149743_2_, p_149743_3_, p_149743_4_);

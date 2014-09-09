@@ -22,7 +22,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 import org.vclient.v.events.EntityLabelRenderedEvent;
 
 public abstract class RendererLivingEntity extends Render
@@ -464,8 +464,8 @@ public abstract class RendererLivingEntity extends Render
         if (this.func_110813_b(par1EntityLivingBase))
         {
         	
-        	//VAPID
-        	if(StaticVapid.vapid.events.onEvent(new EntityLabelRenderedEvent(par1EntityLivingBase, par2, par4, par6, this.renderManager)))
+        	//V
+        	if(StaticV.V.events.onEvent(new EntityLabelRenderedEvent(par1EntityLivingBase, par2, par4, par6, this.renderManager)))
           		return;
         	
             float var8 = 1.6F;

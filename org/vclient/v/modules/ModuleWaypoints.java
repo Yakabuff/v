@@ -3,7 +3,7 @@ package org.vclient.v.modules;
 import org.lwjgl.opengl.GL11;
 import org.vclient.v.Command;
 import org.vclient.v.Location;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
@@ -14,16 +14,16 @@ public class ModuleWaypoints extends ModuleBase
 {
 	
 	
-	public ModuleWaypoints(Vapid vapid, Minecraft mc) 
+	public ModuleWaypoints(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		this.needsRendererTick = true;
 		this.aliases.add("way");
 		this.aliases.add("w");
 
-		this.command = new Command(this.vapid, this, aliases, "TOTALLY NOT WORKING! Draws an icon in the location of coordinate sets");
+		this.command = new Command(this.V, this, aliases, "TOTALLY NOT WORKING! Draws an icon in the location of coordinate sets");
 		
 		this.defaultArg = "deg";
 

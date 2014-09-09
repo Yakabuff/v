@@ -1,19 +1,19 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
 
 public class ModuleDump extends ModuleBase 
 {	
-	public ModuleDump(Vapid vapid, Minecraft mc) 
+	public ModuleDump(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 				
-		this.command = new Command(this.vapid, this, aliases, "Removes 4 items in rapid succession");
+		this.command = new Command(this.V, this, aliases, "Removes 4 items in rapid succession");
 	}
 
 	@Override

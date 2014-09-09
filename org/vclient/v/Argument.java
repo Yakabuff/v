@@ -72,10 +72,10 @@ public class Argument {
 					}
 					
 				} catch(ClassCastException e) {
-					this.c.vapid.errorMessage("Invalid type on argument " + i + "; should be of type: " + sets[i].getSimpleName());
+					this.c.V.errorMessage("Invalid type on argument " + i + "; should be of type: " + sets[i].getSimpleName());
 					return false;
 				} catch(NumberFormatException e) {
-					this.c.vapid.errorMessage("Invalid type on argument " + i + "; should be of type: " + sets[i].getSimpleName());
+					this.c.V.errorMessage("Invalid type on argument " + i + "; should be of type: " + sets[i].getSimpleName());
 					return false;
 				}
 				

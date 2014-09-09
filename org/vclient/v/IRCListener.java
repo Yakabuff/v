@@ -18,11 +18,11 @@ public class IRCListener implements Runnable {
 	Socket socket;
 	BufferedWriter writer;
 	BufferedReader reader;
-	Vapid vapid;
+	V V;
 	
-	public IRCListener(Vapid vapid, String server, String nick, String channel, BufferedWriter writer, BufferedReader reader, String password)
+	public IRCListener(V V, String server, String nick, String channel, BufferedWriter writer, BufferedReader reader, String password)
 	{
-		this.vapid = vapid;
+		this.V = V;
 		this.server = server;
 		this.nick = nick;
 		this.channel = channel;
@@ -50,7 +50,7 @@ public class IRCListener implements Runnable {
 		{
 			
 		this.send("NICK " + user);
-		this.send("USER " + user + " 8 * : Vapid Client");
+		this.send("USER " + user + " 8 * : V Client");
 	       
 		String line = null;
 				
@@ -58,14 +58,14 @@ public class IRCListener implements Runnable {
 		{
 			if (line.indexOf("004") >= 0) 
 			{
-				vapid.italicMessage("You are now logged in.");
+				V.italicMessage("You are now logged in.");
 				this.nick = user;
-				vapid.getModule(ModuleIRC.class).nick = nick;
+				V.getModule(ModuleIRC.class).nick = nick;
 				break;
 			}
 			else if (line.indexOf("433") >= 0) 
 			{
-				vapid.italicMessage("Username is already in use! Trying with a new name...");
+				V.italicMessage("Username is already in use! Trying with a new name...");
 				join(user + "|V");
 				return;
 			}
@@ -83,22 +83,22 @@ public class IRCListener implements Runnable {
         
 		try {
 			   
-			vapid.italicMessage("Logging in with password " + password);
+			V.italicMessage("Logging in with password " + password);
 			
 			String line = null;
 			
 			join(this.nick);
 			
 			this.send("JOIN " + channel + " " + password);
-			vapid.getModule(ModuleIRC.class).connected = true;
+			V.getModule(ModuleIRC.class).connected = true;
 			
-			vapid.italicMessage("Joined channel " + channel);
+			V.italicMessage("Joined channel " + channel);
 
 			while((line = reader.readLine()) != null) 
 			{
 				if(line.indexOf("475") >= 0 && line.contains(":Cannot join channel (+k)"))
 				{
-					vapid.italicMessage("Never mind, invalid password! Try again.");
+					V.italicMessage("Never mind, invalid password! Try again.");
 					return;
 				}
 				else
@@ -117,29 +117,29 @@ public class IRCListener implements Runnable {
 						String recv = line.split(" ")[2];
 						String msg = line.split(" ", 4)[3].substring(1);
 						if(recv.equals(this.channel))	
-							vapid.message("\247e\247l<" + username + ">\247r\247e " + msg);
+							V.message("\247e\247l<" + username + ">\247r\247e " + msg);
 						else
 						{
-							vapid.message("\247e\247l" + username + " whispers\247r\247e: " + msg);
-							vapid.getModule(ModuleIRC.class).lastWhisper = username;
+							V.message("\247e\247l" + username + " whispers\247r\247e: " + msg);
+							V.getModule(ModuleIRC.class).lastWhisper = username;
 						}
 					}
 					else if(line.split(" ")[1].equals("353"))
 					{
-						vapid.message("\247lOnline:\247r " + line.split(":")[2]);
+						V.message("\247lOnline:\247r " + line.split(":")[2]);
 					}
 					else if(line.split(" ")[1].equals("332"))
 					{
-						vapid.message(line.split(":")[2].replaceAll("1", "\247"));	
+						V.message(line.split(":")[2].replaceAll("1", "\247"));	
 					}
 					else if(line.split(" ")[1].equals("432"))
 					{
-						vapid.errorMessage("Nick reserved for services");
+						V.errorMessage("Nick reserved for services");
 
 					}
 					else if(line.split(" ")[1].equals("433"))
 					{
-						vapid.errorMessage("Nick already in use");
+						V.errorMessage("Nick already in use");
 					}
 					else if((line.split(" ")[1]).equals("JOIN"))
 					{
@@ -147,14 +147,14 @@ public class IRCListener implements Runnable {
 						String message2 = line;
 						int index = message2.indexOf("!");
 						String username = line.substring(1, index);
-						vapid.message("\247e\247o" + username + " joined the channel");
+						V.message("\247e\247o" + username + " joined the channel");
 					}
 					else if((line.split(" ")[1]).equals("PART"))
 					{
 						String message2 = line;
 						int index = message2.indexOf("!");
 						String username = line.substring(1, index);
-						vapid.message("\247e\247o" + username + " left the channel");
+						V.message("\247e\247o" + username + " left the channel");
 					}
 					else if((line.split(" ")[1]).equals("NICK"))
 					{
@@ -167,15 +167,15 @@ public class IRCListener implements Runnable {
 						if(username.equals(this.nick))
 						{
 							this.nick = new_name;
-							vapid.getModule(ModuleIRC.class).nick = nick;
-							vapid.message("\247eYOU are now known as " + new_name);
+							V.getModule(ModuleIRC.class).nick = nick;
+							V.message("\247eYOU are now known as " + new_name);
 						}
 						else
-							vapid.message("\247e" + username + " is now known as " + new_name);
+							V.message("\247e" + username + " is now known as " + new_name);
 					}
 					else if((line.split(" ")[1]).equals("NOTICE"))
 					{
-						vapid.message("*** " + line.split(" ", 4)[3].substring(1));
+						V.message("*** " + line.split(" ", 4)[3].substring(1));
 					}
 
 				}

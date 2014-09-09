@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemSword;
@@ -12,14 +12,14 @@ public class ModuleBlock extends ModuleBase
 	
 	int tick = 0;
 	
-	public ModuleBlock(Vapid vapid, Minecraft mc) 
+	public ModuleBlock(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		this.needsTick = true;
 		
-		this.command = new Command(this.vapid, this, aliases, "you're always blocking");
+		this.command = new Command(this.V, this, aliases, "you're always blocking");
 		
 	}
 	

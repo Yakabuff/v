@@ -11,21 +11,21 @@ import net.minecraft.util.Vec3;
 
 import org.lwjgl.opengl.GL11;
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 public class ModuleTrajectories extends ModuleBase 
 {
 	
-	public ModuleTrajectories(Vapid vapid, Minecraft mc) 
+	public ModuleTrajectories(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		this.needsRendererTick = true;
 		//this.showEnabled = false;
 		this.aliases.add("trajectories");
 		
-		this.command = new Command(this.vapid, this, aliases, "Draws trajectories for arrows, enderpearls, eggs, potions, snowballs...");
+		this.command = new Command(this.V, this, aliases, "Draws trajectories for arrows, enderpearls, eggs, potions, snowballs...");
 		
 	}
 	

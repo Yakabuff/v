@@ -1,6 +1,6 @@
 package net.minecraft.client.multiplayer;
 
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 import org.vclient.v.modules.ModuleBreakMask;
 import org.vclient.v.modules.ModuleFastBreak;
 
@@ -271,8 +271,8 @@ public class PlayerControllerMP
             {
                 Block var5 = this.mc.theWorld.getBlock(par1, par2, par3);
                 
-                // VAPID
-                if (var5.getMaterial() == Material.air || (StaticVapid.vapid.getModule(ModuleBreakMask.class).isEnabled && !(StaticVapid.vapid.getModule(ModuleBreakMask.class).id == var5.getLightOpacity())))
+                // V
+                if (var5.getMaterial() == Material.air || (StaticV.V.getModule(ModuleBreakMask.class).isEnabled && !(StaticV.V.getModule(ModuleBreakMask.class).id == var5.getLightOpacity())))
                 {
                     this.isHittingBlock = false;
                     return;
@@ -287,9 +287,9 @@ public class PlayerControllerMP
 
                 ++this.stepSoundTickCounter;
 
-                //VAPID
-                boolean fastbreak = StaticVapid.vapid.getModule(ModuleFastBreak.class).isEnabled;
-                if ((fastbreak && this.curBlockDamageMP >= StaticVapid.vapid.getModule(ModuleFastBreak.class).tolerance)
+                //V
+                boolean fastbreak = StaticV.V.getModule(ModuleFastBreak.class).isEnabled;
+                if ((fastbreak && this.curBlockDamageMP >= StaticV.V.getModule(ModuleFastBreak.class).tolerance)
                 	|| this.curBlockDamageMP >= 1.0F)
                 {
                     this.isHittingBlock = false;
@@ -298,7 +298,7 @@ public class PlayerControllerMP
                     this.curBlockDamageMP = 0.0F;
                     this.stepSoundTickCounter = 0.0F;
 
-                    //VAPID
+                    //V
                     if(!fastbreak)
                  	   this.blockHitDelay = 5;
                 }

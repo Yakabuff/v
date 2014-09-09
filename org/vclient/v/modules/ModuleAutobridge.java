@@ -1,22 +1,22 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
 public class ModuleAutobridge extends ModuleBase 
 {
 	
-	public ModuleAutobridge(Vapid vapid, Minecraft mc) 
+	public ModuleAutobridge(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		this.needsTick = true;
 		this.aliases.add("bridge");
 		this.name = "AutoBridge";
-		this.command = new Command(this.vapid, this, aliases, "as if you were holding S, Shift, and Right Click");
+		this.command = new Command(this.V, this, aliases, "as if you were holding S, Shift, and Right Click");
 
 	}
 

@@ -5,19 +5,19 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
 public class ModuleHit extends ModuleBase 
 {
 	
-	public ModuleHit(Vapid vapid, Minecraft mc) 
+	public ModuleHit(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 							
-		this.command = new Command(this.vapid, this, aliases, "Hits you");
+		this.command = new Command(this.V, this, aliases, "Hits you");
 	}
 	
 	@Override

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -31,9 +31,9 @@ public class ModuleAura extends ModuleBase
 	long intervalMs = (long)(1000 / 8);
 	long currentMs, lastMs;
 	
-	public ModuleAura(Vapid vapid, Minecraft mc) 
+	public ModuleAura(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 		
 		lastMs = -1L;
@@ -46,7 +46,7 @@ public class ModuleAura extends ModuleBase
 		
 		this.needsTick = true;
 		
-		this.command = new Command(this.vapid, this, aliases, "Hits NPCs within a certain range; does not hit friends.");
+		this.command = new Command(this.V, this, aliases, "Hits NPCs within a certain range; does not hit friends.");
 		this.command.registerArg("target", new Class[] { String.class }, "(players/mobs/animals); toggles | -[pP][mM][aA] set all values at once, lowercase being false (ex. aura -PMa for players and mobs)");
 		this.command.registerArg("reach", new Class[] { Double.class }, "will hit NPCs that are less than or equal to this distance from the player");
 
@@ -139,7 +139,7 @@ public class ModuleAura extends ModuleBase
 						  for(int i = 0; i < mc.theWorld.getLoadedEntityList().size(); i++) {
 							  en = (Entity)mc.theWorld.getLoadedEntityList().get(i);
 							  
-							  if(this.isEntityWatched(en) && !(en instanceof EntityOtherPlayerMP && vapid.getModule(ModuleFriends.class).isFriend(((EntityOtherPlayerMP)en).getCommandSenderName())))
+							  if(this.isEntityWatched(en) && !(en instanceof EntityOtherPlayerMP && V.getModule(ModuleFriends.class).isFriend(((EntityOtherPlayerMP)en).getCommandSenderName())))
 								  entities.add(en);
 						  }
 						  
@@ -233,7 +233,7 @@ public class ModuleAura extends ModuleBase
     			
     			if(length < 1 || length > 3)
     			{
-    				vapid.errorMessage("You must provide 1-3 flags.");
+    				V.errorMessage("You must provide 1-3 flags.");
     				return;
     			}
     							
@@ -263,7 +263,7 @@ public class ModuleAura extends ModuleBase
 	    					break;
 	    					
 	    				default:
-	    					vapid.errorMessage("Invalid flag #" + Integer.toString(i) + "; ignoring");
+	    					V.errorMessage("Invalid flag #" + Integer.toString(i) + "; ignoring");
 	    					break;
     				}
     			}
@@ -275,7 +275,7 @@ public class ModuleAura extends ModuleBase
     		} else if(arg.equals("animals") || arg.equals("a")) {
      			this.animals = !this.animals;
      		} else {
-				vapid.errorMessage("Invalid argument!");
+				V.errorMessage("Invalid argument!");
      		}
     	} 
     	else if(name.equals("reach"))

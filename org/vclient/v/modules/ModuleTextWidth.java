@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 import org.vclient.v.annotations.EventHandler;
 import org.vclient.v.events.ChatSentEvent;
 
@@ -12,15 +12,15 @@ public class ModuleTextWidth extends ModuleBase
 {
 
 	int add;
-	public ModuleTextWidth(Vapid vapid, Minecraft mc) 
+	public ModuleTextWidth(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 		
 		aliases.add("width");
 		this.add = 0xFFEE0;
 		this.name = "TextWidth";
-		this.command = new Command(this.vapid, this, aliases, "Converts chats to full-width unicode");
+		this.command = new Command(this.V, this, aliases, "Converts chats to full-width unicode");
 		this.command.registerArg("val", new Class[] {Integer.class});
 		this.defaultArg = "val";
 	}

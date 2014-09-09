@@ -41,7 +41,7 @@ import net.minecraft.world.chunk.Chunk;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 
 public class GuiIngame extends Gui
 {
@@ -85,7 +85,7 @@ public class GuiIngame extends Gui
     public void renderGameOverlay(float par1, boolean par2, int par3, int par4)
     {
     	
-    	StaticVapid.vapid.events.hookGuiIngame();
+    	StaticV.V.events.hookGuiIngame();
     	
         ScaledResolution var5 = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
         int var6 = var5.getScaledWidth();
@@ -312,8 +312,8 @@ public class GuiIngame extends Gui
         int var23;
         int var22;
         
-        // VAPID
-        StaticVapid.vapid.getModule("gui").onTick();
+        // V
+        StaticV.V.getModule("gui").onTick();
 
         if (this.mc.gameSettings.showDebugInfo)
         {

@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -11,14 +11,14 @@ import net.minecraft.potion.Potion;
 public class ModuleRecover extends ModuleBase 
 {
 	
-	public ModuleRecover(Vapid vapid, Minecraft mc) 
+	public ModuleRecover(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		this.needsTick = true;
 		
-		this.command = new Command(this.vapid, this, aliases, "Puts out fire on your player and takes away all negative potion effects.");
+		this.command = new Command(this.V, this, aliases, "Puts out fire on your player and takes away all negative potion effects.");
 	}
 	
 	@Override

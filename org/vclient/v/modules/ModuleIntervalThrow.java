@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
@@ -15,15 +15,15 @@ public class ModuleIntervalThrow extends ModuleBase
 	long currentMs, lastMs;
 	int changeToSlot;
 	
-	public ModuleIntervalThrow(Vapid vapid, Minecraft mc) 
+	public ModuleIntervalThrow(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		this.needsTick = true;
 		this.aliases.add("intt");
 		this.name = "IntervalThrow";
-		this.command = new Command(this.vapid, this, aliases, "Throws the item in your hotbar every nth millisecond.");
+		this.command = new Command(this.V, this, aliases, "Throws the item in your hotbar every nth millisecond.");
 		this.command.registerArg("int", new Class[] {Long.class}, "period in milliseconds (ex. 100)");
 		this.command.registerArg("slot", new Class[] {Long.class}, "hotbar slot to change to before throwing; -1 means no change");
 

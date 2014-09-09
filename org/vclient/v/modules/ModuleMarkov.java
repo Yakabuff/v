@@ -2,7 +2,7 @@ package org.vclient.v.modules;
 
 import org.vclient.v.Command;
 import org.vclient.v.MarkovBot;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
@@ -10,14 +10,14 @@ public class ModuleMarkov extends ModuleBase
 {	
 	MarkovBot bot;
 	
-	public ModuleMarkov(Vapid vapid, Minecraft mc) 
+	public ModuleMarkov(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 			
 		bot = new MarkovBot(mc);
 		
-		this.command = new Command(this.vapid, this, aliases, "Markov chain mad bot");
+		this.command = new Command(this.V, this, aliases, "Markov chain mad bot");
 		this.command.registerArg("load", new Class[] {String.class}, "Load a file");
 		this.command.registerArg("rand", new Class[] {}, "Rand");
 		this.command.registerArg("say", new Class[] {String.class}, "Rand");

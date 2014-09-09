@@ -14,7 +14,7 @@ import net.minecraft.nbt.NBTTagList;
 
 import org.lwjgl.opengl.GL11;
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 import org.vclient.v.annotations.EventHandler;
 import org.vclient.v.events.EntityLabelRenderedEvent;
 
@@ -24,13 +24,13 @@ public class ModuleESP extends ModuleBase
 	boolean itemEsp;
 	boolean armorEsp;
 	
-	public ModuleESP(Vapid vapid, Minecraft mc) 
+	public ModuleESP(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 	
 		this.name = "ESP";
-		this.command = new Command(this.vapid, this, aliases, "Hilights a player's name and shows their held item and distance; friend's names are green.");
+		this.command = new Command(this.V, this, aliases, "Hilights a player's name and shows their held item and distance; friend's names are green.");
 		this.command.registerArg("items", new Class[] {}, "Show held items?");
 		this.command.registerArg("armor", new Class[] {}, "Show armor durability?");
 
@@ -101,7 +101,7 @@ public class ModuleESP extends ModuleBase
 		        int var17 = fr.getStringWidth(name) / 2;
 	        
 		     // ||| - Colors
-		        if(e instanceof EntityOtherPlayerMP && vapid.getModule(ModuleFriends.class).isFriend(e.getCommandSenderName()))
+		        if(e instanceof EntityOtherPlayerMP && V.getModule(ModuleFriends.class).isFriend(e.getCommandSenderName()))
 		        	var15.setColorRGBA_F(0.2F, 0.7F, 0.2F, 1.0F);
 		        else
 		        	var15.setColorRGBA_F(0.0F, 0.0F, 0.0F, 1.0F);
@@ -123,7 +123,7 @@ public class ModuleESP extends ModuleBase
 		        
 		        if(e instanceof EntityOtherPlayerMP && this.armorEsp) 
 		        {
-		        	String armor = this.vapid.getModule(ModuleInfo.class).getArmorDurability(e.getCommandSenderName());
+		        	String armor = this.V.getModule(ModuleInfo.class).getArmorDurability(e.getCommandSenderName());
 		        	int position = this.itemEsp ? -20 : -10;
 		        	
 		            fr.drawString(armor, -fr.getStringWidth(armor) / 2, position, 553648127);

@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemArmor;
@@ -10,14 +10,14 @@ import net.minecraft.item.ItemStack;
 public class ModuleAutoarmor extends ModuleBase 
 {
 	
-	public ModuleAutoarmor(Vapid vapid, Minecraft mc) 
+	public ModuleAutoarmor(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 		aliases.add("aa");
 		this.name = "AutoArmor";
 		this.needsTick = true;
-		this.command = new Command(this.vapid, this, aliases, "Equips armor if an armor slot is available and armor is found. Checks the 27 main inventory slots from top left to bottom right. Tells you when a piece is replaced.");
+		this.command = new Command(this.V, this, aliases, "Equips armor if an armor slot is available and armor is found. Checks the 27 main inventory slots from top left to bottom right. Tells you when a piece is replaced.");
 	}
 
     
@@ -55,7 +55,7 @@ public class ModuleAutoarmor extends ModuleBase
 	    						|| ( armorType == 2 && i == 1 )
 	    						|| ( armorType == 3 && i == 0 ) ) {
 	    						
-	    						this.vapid.notificationMessage("REPLACED " + this.getArmorName(armorType));
+	    						this.V.notificationMessage("REPLACED " + this.getArmorName(armorType));
 	    		    			mc.playerController.windowClick(0, k, 0, 1, mc.thePlayer);
 	    		    			break;
 	    		    			

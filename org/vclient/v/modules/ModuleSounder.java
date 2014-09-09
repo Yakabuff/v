@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 
 import org.vclient.v.Command;
 import org.vclient.v.HttpGet;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 import org.vclient.v.annotations.EventHandler;
 import org.vclient.v.events.PacketReceivedEvent;
 
@@ -25,12 +25,12 @@ public class ModuleSounder extends ModuleBase
 	String filename;
 	ExecutorService pool;
 	
-	public ModuleSounder(Vapid vapid, Minecraft mc) 
+	public ModuleSounder(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 							
-		this.command = new Command(this.vapid, this, aliases, "Logs data from sound packets and sends it to pyr0byte's server");
+		this.command = new Command(this.V, this, aliases, "Logs data from sound packets and sends it to pyr0byte's server");
 		filename = "sounder.vpd";
 		pool = Executors.newFixedThreadPool(8);
 	}
@@ -53,8 +53,8 @@ public class ModuleSounder extends ModuleBase
                  double z = globalSpawnPacket.func_149049_f() / 32D;
                  if (player.getDistance(x, y, z) > 160D) {
                 	 String str = "Detected lighting strike out of range. [x=" + x + ", y=" + y + ", z=" + z + "]";
-                     vapid.italicMessage(str);
-                     vapid.appendToFile(filename, stamp + str + "\n\r");
+                     V.italicMessage(str);
+                     V.appendToFile(filename, stamp + str + "\n\r");
                      this.sendToServer((int)x, (int)z, "sound");
                      
                  }
@@ -68,8 +68,8 @@ public class ModuleSounder extends ModuleBase
 
              if(player.getDistance(x, y, z) > 160D) {
                  String str = "Detected effect. " + "[x=" + x + ", y=" + y + ", z=" + z + "]";
-                 vapid.italicMessage(str);
-                 vapid.appendToFile(filename, stamp + str + "\n");
+                 V.italicMessage(str);
+                 V.appendToFile(filename, stamp + str + "\n");
                  this.sendToServer((int)x, (int)z, "effect");
 
              }
@@ -82,8 +82,8 @@ public class ModuleSounder extends ModuleBase
 
              if(player.getDistance(x, y, z) > 160D) {
                  String str = "Detected sound effect out of range. [x=" + x + ", y=" + y + ", z=" + z + ", name=" + name + "]";
-                 vapid.italicMessage(str);
-                 vapid.appendToFile(filename, stamp + str + "\n");
+                 V.italicMessage(str);
+                 V.appendToFile(filename, stamp + str + "\n");
                  this.sendToServer((int)x, (int)z, name);
              }
          }	

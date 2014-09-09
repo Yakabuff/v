@@ -9,7 +9,7 @@ import java.net.Socket;
 
 import org.vclient.v.Command;
 import org.vclient.v.IRCListener;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 import org.vclient.v.annotations.EventHandler;
 import org.vclient.v.events.ChatSentEvent;
 
@@ -25,9 +25,9 @@ public class ModuleIRC extends ModuleBase
 	boolean flagToMakeYouMad;
 	public String lastWhisper;
 	
-	public ModuleIRC(Vapid vapid, Minecraft mc) 
+	public ModuleIRC(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 		
 		this.isToggleable = true;
@@ -36,7 +36,7 @@ public class ModuleIRC extends ModuleBase
 		this.name = "IRC";
 		this.lastWhisper = "";
 		
-		this.command = new Command(this.vapid, this, aliases, "IRC");
+		this.command = new Command(this.V, this, aliases, "IRC");
 		this.command.registerArg("connect", new Class[] { String.class, String.class, String.class }, "Server, channel, password");
 		this.command.registerArg("default", new Class[] { String.class, String.class, String.class }, "Server, channel, password; starts on login");
 
@@ -58,7 +58,7 @@ public class ModuleIRC extends ModuleBase
 			File f = new File(filename);
 			if(f.exists())
 			{
-				String str[] = vapid.read(filename).split(" ");
+				String str[] = V.read(filename).split(" ");
 				this.setup(str[0], str[1], str[2]);
 			}
 			flagToMakeYouMad = true;
@@ -90,7 +90,7 @@ public class ModuleIRC extends ModuleBase
 			e.printStackTrace();
 		}
 		
-	    listener = new Thread(new IRCListener(vapid, server, nick, channel, writer, reader, password));
+	    listener = new Thread(new IRCListener(V, server, nick, channel, writer, reader, password));
 	    listener.start();
 	    //this.connected = true;
 	    
@@ -104,7 +104,7 @@ public class ModuleIRC extends ModuleBase
 		
 		if(!this.connected && ( (m.startsWith("/msg ") || m.startsWith("/re ") || (m.startsWith("/s ") || (this.isEnabled && !m.startsWith("/"))) || m.startsWith("/c ") || m.startsWith("/names"))))
 		{
-			vapid.errorMessage("You have to connect to a channel first. -irc server #channel");
+			V.errorMessage("You have to connect to a channel first. -irc server #channel");
 			return false;
 		}
 		
@@ -113,7 +113,7 @@ public class ModuleIRC extends ModuleBase
 		{
 			if(m.substring(6).equals(this.nick))
 			{
-				vapid.errorMessage("That's already your nick");
+				V.errorMessage("That's already your nick");
 				return false;
 			}
 			
@@ -130,7 +130,7 @@ public class ModuleIRC extends ModuleBase
 			String[] parts = m.split(" ", 3);
 			if(parts.length < 3)
 			{
-				vapid.errorMessage("/msg to_user your_message");
+				V.errorMessage("/msg to_user your_message");
 				return false;
 			}
 			
@@ -139,7 +139,7 @@ public class ModuleIRC extends ModuleBase
 			
 			
 			this.command("PRIVMSG " + to + " :" + msg);	
-			vapid.message("\247e\247lto " + to + "\247r\247e: " + msg);
+			V.message("\247e\247lto " + to + "\247r\247e: " + msg);
 			return false;
 				
 		}
@@ -147,7 +147,7 @@ public class ModuleIRC extends ModuleBase
 		{
 			if(this.lastWhisper.equals(""))
 			{
-				vapid.errorMessage("Nobody to reply to!");
+				V.errorMessage("Nobody to reply to!");
 				return false;
 			}
 			
@@ -155,13 +155,13 @@ public class ModuleIRC extends ModuleBase
 			String msg = m.substring(4);
 			
 			this.command("PRIVMSG " + to + " :" + msg);	
-			vapid.message("\247e\247lto " + to + "\247r\247e: " + msg);
+			V.message("\247e\247lto " + to + "\247r\247e: " + msg);
 			return false;
 		}
 		else if(m.startsWith("/s ") || (this.isEnabled && !m.startsWith("/")))
 		{
 			this.send(this.isEnabled ? m : m.substring(3));
-			vapid.message("\247e\247l<" + this.nick + ">\247r\247e " + (this.isEnabled ? m : m.substring(3)));
+			V.message("\247e\247l<" + this.nick + ">\247r\247e " + (this.isEnabled ? m : m.substring(3)));
 			return false;
 
 		}
@@ -193,8 +193,8 @@ public class ModuleIRC extends ModuleBase
 		else
 		if(name.equals("default"))
 		{
-			vapid.write(filename, argv[0] + " " + argv[1] + " " + argv[2]);
-			vapid.confirmMessage("Default server set to: " + argv[0] + " " + argv[1] + " " + argv[2]);
+			V.write(filename, argv[0] + " " + argv[1] + " " + argv[2]);
+			V.confirmMessage("Default server set to: " + argv[0] + " " + argv[1] + " " + argv[2]);
 			
 			if(this.connected)
 			{

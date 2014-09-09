@@ -1,7 +1,7 @@
 package org.vclient.v.modules;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
@@ -10,14 +10,14 @@ public class ModuleTimer extends ModuleBase
 	
 	float speed;
 	
-	public ModuleTimer(Vapid vapid, Minecraft mc) 
+	public ModuleTimer(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 					
 		this.needsTick = false;
 		
-		this.command = new Command(this.vapid, this, aliases, "Broken by update; changes tick speed");
+		this.command = new Command(this.V, this, aliases, "Broken by update; changes tick speed");
 		this.command.registerArg("interval", new Class[] { Float.class }, "Tick speed");
 		this.defaultArg = "interval";
 		this.isToggleable = false;
@@ -34,7 +34,7 @@ public class ModuleTimer extends ModuleBase
 		}
 		catch (NumberFormatException e)
 		{
-			vapid.errorMessage("That isn't a number, you imbecile.");
+			V.errorMessage("That isn't a number, you imbecile.");
 		}
 
 		mc.timer.timerSpeed = speed;

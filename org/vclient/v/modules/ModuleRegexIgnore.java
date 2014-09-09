@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 import org.vclient.v.annotations.EventHandler;
 import org.vclient.v.events.ChatReceivedEvent;
 
@@ -15,12 +15,12 @@ public class ModuleRegexIgnore extends ModuleBase
 {
 	Map<String, String> regex;
 	
-	public ModuleRegexIgnore(Vapid vapid, Minecraft mc) 
+	public ModuleRegexIgnore(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 						
-		this.command = new Command(this.vapid, this, aliases, "Ignores messages by regular expression; not done");
+		this.command = new Command(this.V, this, aliases, "Ignores messages by regular expression; not done");
 		this.command.registerArg("add", new Class[] { String.class, String.class });
 		this.command.registerArg("del", new Class[] { String.class });
 
@@ -44,12 +44,12 @@ public class ModuleRegexIgnore extends ModuleBase
 			out.add(s + " " + this.regex.get(s));
 		}
 		
-		this.vapid.writeLines("regexignore.vpd", out);
+		this.V.writeLines("regexignore.vpd", out);
 	}
 	
 	public void read()
 	{
-		ArrayList<String> in = this.vapid.readLines("regexignore.vpd");
+		ArrayList<String> in = this.V.readLines("regexignore.vpd");
 		String tmp[];
 		for(String s : in)
 		{
@@ -64,7 +64,7 @@ public class ModuleRegexIgnore extends ModuleBase
 		if(name.equals("add"))
 		{
 			this.regex.put(argv[0].toLowerCase(), argv[1]);
-			this.vapid.confirmMessage("Added regex: " + argv[1] + " for key: " + argv[0]);
+			this.V.confirmMessage("Added regex: " + argv[1] + " for key: " + argv[0]);
 			this.write();
 			
 		}
@@ -72,14 +72,14 @@ public class ModuleRegexIgnore extends ModuleBase
 		{
 			for(String key : this.regex.keySet())
 			{
-				this.vapid.confirmMessage("ID: " + key + " REGEX: " + this.regex.get(key));
+				this.V.confirmMessage("ID: " + key + " REGEX: " + this.regex.get(key));
 				
 			}
 		}
 		else if(name.equals("del"))
 		{
 			this.regex.remove(argv[0].toLowerCase());
-			this.vapid.confirmMessage("Removed by key: " + argv[0].toLowerCase());
+			this.V.confirmMessage("Removed by key: " + argv[0].toLowerCase());
 			this.write();
 		}
 	}

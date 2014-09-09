@@ -52,7 +52,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 
 public class EntityRenderer implements IResourceManagerReloadListener
 {
@@ -565,8 +565,8 @@ public class EntityRenderer implements IResourceManagerReloadListener
      */
     private void setupViewBobbing(float par1)
     {
-    	//VAPID
-        if (this.mc.renderViewEntity instanceof EntityPlayer && !StaticVapid.vapid.getModule("tracers").isEnabled)
+    	//V
+        if (this.mc.renderViewEntity instanceof EntityPlayer && !StaticV.V.getModule("tracers").isEnabled)
         {
             EntityPlayer var2 = (EntityPlayer)this.mc.renderViewEntity;
             float var3 = var2.distanceWalkedModified - var2.prevDistanceWalkedModified;
@@ -1319,8 +1319,8 @@ public class EntityRenderer implements IResourceManagerReloadListener
             GL11.glShadeModel(GL11.GL_FLAT);
             EntityPlayer var17;
             
-            //VAPID
-            StaticVapid.vapid.events.hookEntityRenderer();
+            //V
+            StaticV.V.events.hookEntityRenderer();
 
             if (this.debugViewDirection == 0)
             {
@@ -1929,7 +1929,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
             var4 = ((EntityPlayer)var3).capabilities.isCreativeMode;
         }
         
-        //VAPID
+        //V
         var4 = true;
 
         if (par1 == 999)

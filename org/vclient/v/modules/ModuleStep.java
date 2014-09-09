@@ -2,20 +2,20 @@ package org.vclient.v.modules;
 
 import org.lwjgl.input.Keyboard;
 import org.vclient.v.Command;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 
 public class ModuleStep extends ModuleBase 
 {
 	
-	public ModuleStep(Vapid vapid, Minecraft mc) 
+	public ModuleStep(V V, Minecraft mc) 
 	{
-		super(vapid, mc);
+		super(V, mc);
 		// TODO Auto-generated constructor stub		
 		
 		this.needsTick = true;
-		this.command = new Command(this.vapid, this, aliases, "Automatically steps up blocks.");
+		this.command = new Command(this.V, this, aliases, "Automatically steps up blocks.");
 	}
 	
 	@Override

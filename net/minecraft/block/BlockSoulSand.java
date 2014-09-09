@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -30,8 +30,8 @@ public class BlockSoulSand extends Block
 
     public void onEntityCollidedWithBlock(World p_149670_1_, int p_149670_2_, int p_149670_3_, int p_149670_4_, Entity p_149670_5_)
     {
-    	// VAPID
-      	if(!StaticVapid.vapid.getModule("noslow").isEnabled)
+    	// V
+      	if(!StaticV.V.getModule("noslow").isEnabled)
       	{
       		p_149670_5_.motionX *= 0.4D;
             p_149670_5_.motionZ *= 0.4D;

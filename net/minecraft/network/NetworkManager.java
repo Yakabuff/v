@@ -38,7 +38,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 import org.vclient.v.events.PacketReceivedEvent;
 
 public class NetworkManager extends SimpleChannelInboundHandler
@@ -241,8 +241,8 @@ public class NetworkManager extends SimpleChannelInboundHandler
             {
                 Packet var3 = (Packet)this.receivedPacketsQueue.poll();
                 
-                //VAPID
-                if(StaticVapid.vapid.events.onEvent(new PacketReceivedEvent(var3)))
+                //V
+                if(StaticV.V.events.onEvent(new PacketReceivedEvent(var3)))
             		return;
                 
                 var3.processPacket(this.netHandler);

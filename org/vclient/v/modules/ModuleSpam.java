@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.vclient.v.Command;
 import org.vclient.v.Util;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiPlayerInfo;
@@ -30,11 +30,11 @@ public class ModuleSpam extends ModuleBase {
 	 * By iTristan
 	 */
 	
-	public ModuleSpam(Vapid vapid, Minecraft mc) {
-		super(vapid, mc);
+	public ModuleSpam(V V, Minecraft mc) {
+		super(V, mc);
 		// TODO Auto-generated constructor stub
 		
-		this.command = new Command(this.vapid, this, aliases, "By iTristan. Lets you spam chat using a predefined text file.");
+		this.command = new Command(this.V, this, aliases, "By iTristan. Lets you spam chat using a predefined text file.");
 		this.command.registerArg("load", new Class[] {String.class}, "Loads a text file in your mc directory.");
 		this.command.registerArg("list", new Class[] {}, "Lists the currently loaded text file.");
 		this.command.registerArg("interval", new Class[] {Long.class}, "Set the interval between sent messages.");
@@ -64,28 +64,28 @@ public class ModuleSpam extends ModuleBase {
 			File f = new File(argv[0]);
 			if (f.exists()) {
 				this.file = argv[0];
-				vapid.notificationMessage("Loaded spam file " + file);
+				V.notificationMessage("Loaded spam file " + file);
 				fileLoaded = true;
 			} else {
-				vapid.errorMessage("Failed to load file " + argv[0]);
+				V.errorMessage("Failed to load file " + argv[0]);
 				fileLoaded = false;
 			}
 			
 		}
 		else if(name.equals("list"))
 		{
-			vapid.notificationMessage("Currently loaded spam file: " + file); 
+			V.notificationMessage("Currently loaded spam file: " + file); 
 		}
 		else if(name.equals("resetindex"))
 		{
 			index = 0;
-			vapid.notificationMessage("Index reset."); 
+			V.notificationMessage("Index reset."); 
 		}
 		else if(name.equals("whisper"))
 		{
 			this.whisperMode = !this.whisperMode;
 			
-			this.vapid.confirmMessage(this.whisperMode ? "Whisper mode ON" : "Whisper mode OFF");
+			this.V.confirmMessage(this.whisperMode ? "Whisper mode ON" : "Whisper mode OFF");
 		}
 		else if(name.equals("wadd"))
 		{
@@ -93,9 +93,9 @@ public class ModuleSpam extends ModuleBase {
 			if(player != null)
 			{
 				this.whisperRecipients.add(player.toLowerCase());
-				this.vapid.confirmMessage("Added " + player);
+				this.V.confirmMessage("Added " + player);
 			} else
-				this.vapid.errorMessage(argv[0] + " is not online");
+				this.V.errorMessage(argv[0] + " is not online");
 		}
 		else if(name.equals("wdel"))
 		{
@@ -103,10 +103,10 @@ public class ModuleSpam extends ModuleBase {
 			if(this.whisperRecipients.contains(player.toLowerCase()))
 			{
 				this.whisperRecipients.remove(player.toLowerCase());
-				this.vapid.confirmMessage(player + " was removed");
+				this.V.confirmMessage(player + " was removed");
 			}
 			else
-				this.vapid.errorMessage("That player is not on the list");
+				this.V.errorMessage("That player is not on the list");
 
 		}
 		else if(name.equals("wlist"))
@@ -116,12 +116,12 @@ public class ModuleSpam extends ModuleBase {
 			{
 				list += s + ", ";
 			}
-			this.vapid.message(list.substring(0, list.length() - 2));
+			this.V.message(list.substring(0, list.length() - 2));
 		}
 		else if(name.equals("wdelall"))
 		{
 			this.whisperRecipients.clear();
-			this.vapid.confirmMessage("Cleared!");
+			this.V.confirmMessage("Cleared!");
 		}
 	}
 	
@@ -164,7 +164,7 @@ public class ModuleSpam extends ModuleBase {
     					else
       					{
       						this.whisperRecipients.remove(this.whisperRecipients.get(this.whisperIndex));
-      						this.vapid.confirmMessage("Removed " + this.whisperRecipients.get(this.whisperIndex) + " from whisper list because they are not online");
+      						this.V.confirmMessage("Removed " + this.whisperRecipients.get(this.whisperIndex) + " from whisper list because they are not online");
       					}
     						
   			  } else
@@ -185,7 +185,7 @@ public class ModuleSpam extends ModuleBase {
   					else
   					{
   						this.whisperRecipients.remove(this.whisperRecipients.get(this.whisperIndex));
-  						this.vapid.confirmMessage("Removed " + this.whisperRecipients.get(this.whisperIndex) + " from whisper list because they are not online");
+  						this.V.confirmMessage("Removed " + this.whisperRecipients.get(this.whisperIndex) + " from whisper list because they are not online");
   					}
   				
   			  }
@@ -222,11 +222,11 @@ public class ModuleSpam extends ModuleBase {
 		
 		
 		if (file == "") {
-			vapid.errorMessage("You must load a file first, silly!");
+			V.errorMessage("You must load a file first, silly!");
 			return;
 		} else {
 			this.isEnabled = true;
-			messages = this.vapid.readUTF8Lines(file);
+			messages = this.V.readUTF8Lines(file);
 		}
 		
 		

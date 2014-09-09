@@ -10,7 +10,7 @@ import java.util.Iterator;
 import org.lwjgl.Sys;
 import org.vclient.v.Command;
 import org.vclient.v.Util;
-import org.vclient.v.Vapid;
+import org.vclient.v.V;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -36,9 +36,9 @@ public class ModuleGui extends ModuleBase {
 	boolean showArmor;
 	String fps = "";
 	
-	public ModuleGui(Vapid vapid, Minecraft mc)
+	public ModuleGui(V V, Minecraft mc)
 	{
-		super(vapid, mc);
+		super(V, mc);
 		
 		this.fr = this.mc.fontRenderer;
 		this.isHidden = false;
@@ -49,7 +49,7 @@ public class ModuleGui extends ModuleBase {
 		this.notificationTimeout = 256;
 		this.ticks = 0;
 		this.showArmor = true;
-		this.command = new Command(this.vapid, this, aliases, "Toggles the GUI");
+		this.command = new Command(this.V, this, aliases, "Toggles the GUI");
 		this.command.registerArg("format", new Class[] {String.class}, "Wrap your argument in quotes! Changes format of the coord/info text; {x} parses to the x-coord, {z}, {y} do the same; {d} is your direction, {D} is it's single character representation; {v} is your velocity in km/h, {fps}, & is the formatting char");
 		this.command.registerArg("armor", new Class[] {}, "Toggles armor display");
 
@@ -58,13 +58,13 @@ public class ModuleGui extends ModuleBase {
 			File file = new File("gui_format.vpd");
 			if(file.exists())
 			{
-				this.infoFormat = vapid.read("gui_format.vpd");				
+				this.infoFormat = V.read("gui_format.vpd");				
 			}
 			else
 			{
 				file.createNewFile();
 				this.infoFormat = "[{x}, {z}] {v}km/h";
-				vapid.write("gui_format.vpd", this.infoFormat);
+				V.write("gui_format.vpd", this.infoFormat);
 			}
 			
 		} catch(Exception e)
@@ -118,7 +118,7 @@ public class ModuleGui extends ModuleBase {
 	private void drawModuleData()
 	{
 		int position = 12;
-		for(ModuleBase m : vapid.modules) {
+		for(ModuleBase m : V.modules) {
 			
 			if(m.isEnabled && m.showEnabled) {
 				fr.drawStringWithShadow("> " + Util.capitalize(m.name) + " " + m.getMetadata(), 2, position, this.guiColor);
@@ -239,7 +239,7 @@ public class ModuleGui extends ModuleBase {
 		if(name.equals("format"))
 		{
 			this.infoFormat = argv[0];
-			vapid.write("gui_format.vpd", this.infoFormat);
+			V.write("gui_format.vpd", this.infoFormat);
 		}
 		else if(name.equals("armor"))
 		{

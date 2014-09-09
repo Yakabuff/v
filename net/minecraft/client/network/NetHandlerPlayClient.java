@@ -193,7 +193,7 @@ import net.minecraft.world.storage.MapStorage;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.vclient.v.StaticVapid;
+import org.vclient.v.StaticV;
 import org.vclient.v.events.ChatReceivedEvent;
 import org.vclient.v.events.PacketReceivedEvent;
 import org.vclient.v.events.PacketSendEvent;
@@ -799,7 +799,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
     public void addToSendQueue(Packet p_147297_1_)
     {
     	final PacketSendEvent eps = new PacketSendEvent(p_147297_1_);
-    	StaticVapid.vapid.events.onEvent(eps);
+    	StaticV.V.events.onEvent(eps);
     		if (eps.getCancelled()) {
     			return;
     		}
@@ -839,9 +839,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
     public void handleChat(S02PacketChat p_147251_1_)
     {
     	
-    	//VAPID
+    	//V
     	String str = p_147251_1_.func_148915_c().getUnformattedText();
-    	if(StaticVapid.vapid.events.onEvent(new ChatReceivedEvent(str)))
+    	if(StaticV.V.events.onEvent(new ChatReceivedEvent(str)))
     		return;
     	
         /* WDL >>> */
@@ -1582,8 +1582,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             this.playerInfoMap.put(p_147256_1_.func_149122_c(), var2);
             this.playerInfoList.add(var2);
             
-            //VAPID
-            StaticVapid.vapid.events.onEvent(new PlayerLogOnEvent(p_147256_1_.func_149122_c()));
+            //V
+            StaticV.V.events.onEvent(new PlayerLogOnEvent(p_147256_1_.func_149122_c()));
         }
 
         if (var2 != null && !p_147256_1_.func_149121_d())
@@ -1591,8 +1591,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             this.playerInfoMap.remove(p_147256_1_.func_149122_c());
             this.playerInfoList.remove(var2);
             
-            //VAPID
-            StaticVapid.vapid.events.onEvent(new PlayerLogOffEvent(p_147256_1_.func_149122_c()));
+            //V
+            StaticV.V.events.onEvent(new PlayerLogOffEvent(p_147256_1_.func_149122_c()));
         }
 
         if (var2 != null && p_147256_1_.func_149121_d())

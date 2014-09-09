@@ -16,12 +16,12 @@ import net.minecraft.client.Minecraft;
 public class Events {
 
 	Minecraft mc;
-	Vapid vapid;
+	V V;
 	Map<Class, ArrayList<MethodHolder>> handlers;
 	
-	public Events(Minecraft mc, Vapid vapid) {
+	public Events(Minecraft mc, V V) {
 		this.mc = mc;
-		this.vapid = vapid;
+		this.V = V;
 		
 		handlers = new HashMap<Class, ArrayList<MethodHolder>>();
 		this.getEventHandlers();
@@ -32,7 +32,7 @@ public class Events {
 		
 		ArrayList<MethodHolder> tmp;
 
-		for(ModuleBase module : vapid.modules)
+		for(ModuleBase module : V.modules)
 		{
 						
 			for(Method m : module.getClass().getDeclaredMethods())
@@ -116,7 +116,7 @@ public class Events {
 
 
 		
-		for(ModuleBase m : vapid.modules) {
+		for(ModuleBase m : V.modules) {
 			if(m.aliases.contains(argv.get(0))) {
 				m.command.parseArgs(argv.subList(1, argv.size()).toArray(new String[argv.size() - 1]));
 				return true;
@@ -127,23 +127,23 @@ public class Events {
 	}
 	public void hookRunTick()
 	{
-		this.vapid.onTick();
+		this.V.onTick();
 	}
 	
 	public void hookBotTick() {
 	
-		this.vapid.onBotTick();
+		this.V.onBotTick();
 		
 	}
 	
 	public void hookGuiIngame()
 	{
-		//this.vapid.vg.update();
+		//this.V.vg.update();
 	}
 	
 	public void hookEntityRenderer()
 	{
-		this.vapid.onRendererTick();
+		this.V.onRendererTick();
 	}
 	
 	public void onSendChat(String str)

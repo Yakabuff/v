@@ -592,7 +592,7 @@ public final class ItemStack
     public List getTooltip(EntityPlayer par1EntityPlayer, boolean par2)
     {
         ArrayList var3 = new ArrayList();
-        //VAPID
+        //V
         String var4 = this.getDisplayName() +  " (" + Integer.toString(this.stackSize) + "/" + Integer.toString(this.getMaxStackSize()) + ")";
 
 
