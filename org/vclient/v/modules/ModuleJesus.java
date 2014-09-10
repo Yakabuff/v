@@ -45,11 +45,6 @@ public class ModuleJesus extends ModuleBase
 	public void onTick()
 	{
 		if(this.isEnabled) {
-			if (mc.gameSettings.keyBindJump.pressed) {
-				mc.thePlayer.onGround = false;
-				return;
-			}
-			
 			if (isInLiquid()) {
 				mc.thePlayer.motionY = 0.085;
 			}else{
@@ -92,7 +87,7 @@ public class ModuleJesus extends ModuleBase
 	}
 	
 	private boolean isInLiquid() {
-		AxisAlignedBB par1AxisAlignedBB = Minecraft.getMinecraft().thePlayer.boundingBox.contract(0.001D, 0.001D, 0.001D);
+		AxisAlignedBB par1AxisAlignedBB = mc.thePlayer.boundingBox.contract(0.001D, 0.001D, 0.001D);
 		int var4 = MathHelper.floor_double(par1AxisAlignedBB.minX);
 		int var5 = MathHelper.floor_double(par1AxisAlignedBB.maxX + 1.0D);
 		int var6 = MathHelper.floor_double(par1AxisAlignedBB.minY);
@@ -100,14 +95,14 @@ public class ModuleJesus extends ModuleBase
 		int var8 = MathHelper.floor_double(par1AxisAlignedBB.minZ);
 		int var9 = MathHelper.floor_double(par1AxisAlignedBB.maxZ + 1.0D);
 		
-		if (!Minecraft.getMinecraft().theWorld.checkChunksExist(var4, var6, var8, var5, var7, var9)) {
+		if (!mc.theWorld.checkChunksExist(var4, var6, var8, var5, var7, var9)) {
 			return false;
 		} else {
-			Vec3 var11 = Minecraft.getMinecraft().theWorld.getWorldVec3Pool().getVecFromPool(0.0D, 0.0D, 0.0D);
+			Vec3 var11 = mc.theWorld.getWorldVec3Pool().getVecFromPool(0.0D, 0.0D, 0.0D);
 			for (int var12 = var4; var12 < var5; ++var12) {
 				for (int var13 = var6; var13 < var7; ++var13) {
 					for (int var14 = var8; var14 < var9; ++var14) {
-						Block var15 = Minecraft.getMinecraft().theWorld.getBlock(var12, var13, var14);
+						Block var15 = mc.theWorld.getBlock(var12, var13, var14);
 						if (var15 instanceof BlockLiquid) {
 							return true;
 						}
