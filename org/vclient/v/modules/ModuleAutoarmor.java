@@ -26,33 +26,50 @@ public class ModuleAutoarmor extends ModuleBase
 	{
 		if(this.isEnabled)
 		{
-			// 3 is head, 2 is chest, 1 is leg, 0 is boot
 			
-			ItemStack[] armor = mc.thePlayer.inventory.armorInventory;
-			for (int i = 0; i < armor.length; i++) {
-				if (armor[i] == null)
-				{
-					ItemStack[] inv = mc.thePlayer.inventory.mainInventory;
-					for (int k = 0; k < inv.length; k++) {
-						//Do the entire inventory including hotbar
-						if (k >= 9) {
-							if ((inv[k] != null) && ((inv[k].getItem() instanceof ItemArmor)))
-							{
-								int armorType = ((ItemArmor)inv[k].getItem()).armorType;
-								if (((armorType == 0) && (i == 3)) || 
-										((armorType == 1) && (i == 2)) || 
-										((armorType == 2) && (i == 1)) || 
-										((armorType == 3) && (i == 0)))
-								{
-									this.V.notificationMessage("REPLACED " + getArmorName(armorType));
-									mc.playerController.windowClick(0, k, 0, 1, mc.thePlayer);
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
+	    	// 3 is head, 2 is chest, 1 is leg, 0 is boot
+	    	
+	    	ItemStack inv[];
+	    	ItemStack armor[] = mc.thePlayer.inventory.armorInventory;
+	    	
+	    	int i, k;
+	    	
+	    	for(i = 0; i < armor.length; i++) {
+	    		
+	    		if(armor[i] == null) {
+	    			
+	    			inv = mc.thePlayer.inventory.mainInventory;
+	    			
+	    			for(k = 0; k < inv.length; k++) {
+	    				
+	    				// Only do the main 27 slots.
+	    				if(k < 9)
+	    					continue;
+	    				
+	    				if(inv[k] != null && inv[k].getItem() instanceof ItemArmor) {
+	    					
+	    					int armorType = ((ItemArmor)inv[k].getItem()).armorType;
+	    					// Fuck Notch
+	    					if(    ( armorType == 0 && i == 3 )
+	    						|| ( armorType == 1 && i == 2 )
+	    						|| ( armorType == 2 && i == 1 )
+	    						|| ( armorType == 3 && i == 0 ) ) {
+	    						
+	    						this.V.notificationMessage("REPLACED " + this.getArmorName(armorType));
+	    		    			mc.playerController.windowClick(0, k, 0, 1, mc.thePlayer);
+	    		    			break;
+	    		    			
+	    					}
+	    					
+	    				}
+	    				
+	    			}
+	    			
+	    			
+	    		}
+	    		
+	    	}
+	    	
 		}
 	}
 	
