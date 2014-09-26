@@ -312,7 +312,7 @@ public class ModuleEncryption extends ModuleBase
 	      try
 	      {
 	        String str3 = DecryptData(DecodeBase64(str1));
-	        str3 = "\247l" + username + ": \247r" + str3 + "\247r";
+	        str3 = "\247b\247l" + username + ": \247r" + str3 + "\247r";
 	        a.put(username, "");
 	        
 	        V.message(str3);
